@@ -131,7 +131,7 @@ def main():
     g.write('\n')
     with open(os.path.join(indir,'nodes_test.txt'),'r') as f:
         process_nodes(g, f, 'pnSeed6_test', 19999)
-    g.write('#endif // DASH_CHAINPARAMSSEEDS_H\n')
+    g.write('#endif // DMS_CHAINPARAMSSEEDS_H\n')
             
 if __name__ == '__main__':
     main()

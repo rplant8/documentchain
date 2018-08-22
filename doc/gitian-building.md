@@ -356,7 +356,7 @@ Building Dash Core
 ----------------
 
 To build Dash Core (for Linux, OS X and Windows) just follow the steps under 'perform
-Gitian builds' in [doc/release-process.md](release-process.md#perform-gitian-builds) in the Dash Core repository.
+Gitian builds' in [doc/release-process.md](release-process.md#perform-gitian-builds) in the DMS Core repository.
 
 This may take some time as it will build all the dependencies needed for each descriptor.
 These dependencies will be cached after a successful build to avoid rebuilding them when possible.
@@ -371,12 +371,12 @@ tail -f var/build.log
 Output from `gbuild` will look something like
 
 ```bash
-    Initialized empty Git repository in /home/debian/gitian-builder/inputs/dash/.git/
+    Initialized empty Git repository in /home/debian/gitian-builder/inputs/dms/.git/
     remote: Counting objects: 57959, done.
     remote: Total 57959 (delta 0), reused 0 (delta 0), pack-reused 57958
     Receiving objects: 100% (57959/57959), 53.76 MiB | 484.00 KiB/s, done.
     Resolving deltas: 100% (41590/41590), done.
-    From https://github.com/dashpay/dash
+    From https://github.com/Krekeler/documentchain
     ... (new tags, new branch etc)
     --- Building for trusty amd64 ---
     Stopping target if it is up
@@ -402,11 +402,11 @@ and inputs.
 
 For example:
 ```bash
-URL=https://github.com/crowning-/dash.git
+URL=https://github.com/crowning-/documentchain.git
 COMMIT=b616fb8ef0d49a919b72b0388b091aaec5849b96
-./bin/gbuild --commit dash=${COMMIT} --url dash=${URL} ../dash/contrib/gitian-descriptors/gitian-linux.yml
-./bin/gbuild --commit dash=${COMMIT} --url dash=${URL} ../dash/contrib/gitian-descriptors/gitian-win.yml
-./bin/gbuild --commit dash=${COMMIT} --url dash=${URL} ../dash/contrib/gitian-descriptors/gitian-osx.yml
+./bin/gbuild --commit dms=${COMMIT} --url dms=${URL} ../documentchain/contrib/gitian-descriptors/gitian-linux.yml
+./bin/gbuild --commit dms=${COMMIT} --url dms=${URL} ../documentchain/contrib/gitian-descriptors/gitian-win.yml
+./bin/gbuild --commit dms=${COMMIT} --url dms=${URL} ../documentchain/contrib/gitian-descriptors/gitian-osx.yml
 ```
 
 Building fully offline
@@ -432,7 +432,7 @@ cd /path/to/gitian-builder
 LXC_ARCH=amd64 LXC_SUITE=trusty on-target -u root apt-get update
 LXC_ARCH=amd64 LXC_SUITE=trusty on-target -u root \
   -e DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends -y install \
-  $( sed -ne '/^packages:/,/[^-] .*/ {/^- .*/{s/"//g;s/- //;p}}' ../dash/contrib/gitian-descriptors/*|sort|uniq )
+  $( sed -ne '/^packages:/,/[^-] .*/ {/^- .*/{s/"//g;s/- //;p}}' ../documentchain/contrib/gitian-descriptors/*|sort|uniq )
 LXC_ARCH=amd64 LXC_SUITE=trusty on-target -u root apt-get -q -y purge grub
 LXC_ARCH=amd64 LXC_SUITE=trusty on-target -u root -e DEBIAN_FRONTEND=noninteractive apt-get -y dist-upgrade
 ```
@@ -457,7 +457,7 @@ git clone https://github.com/dashpay/dash-detached-sigs.git
 BTCPATH=/some/root/path/dash
 SIGPATH=/some/root/path/dash-detached-sigs
 
-./bin/gbuild --url dash=${BTCPATH},signature=${SIGPATH} ../dash/contrib/gitian-descriptors/gitian-win-signer.yml
+./bin/gbuild --url dash=${BTCPATH},signature=${SIGPATH} ../documentchain/contrib/gitian-descriptors/gitian-win-signer.yml
 ```
 
 Signing externally

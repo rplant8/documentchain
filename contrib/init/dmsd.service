@@ -1,0 +1,22 @@
+[Unit]
+Description=DMS's distributed currency daemon
+After=network.target
+
+[Service]
+User=dmscore
+Group=dmscore
+
+Type=forking
+PIDFile=/var/lib/dmsd/dmsd.pid
+ExecStart=/usr/bin/dmsd -daemon -pid=/var/lib/dmsd/dmsd.pid \
+-conf=/etc/dmscore/dms.conf -datadir=/var/lib/dmsd -disablewallet
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

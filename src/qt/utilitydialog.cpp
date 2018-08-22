@@ -1,10 +1,12 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2018 The Document Chain developers
+
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/dash-config.h"
+#include "config/dms-config.h"
 #endif
 
 #include "utilitydialog.h"
@@ -72,7 +74,7 @@ HelpMessageDialog::HelpMessageDialog(QWidget *parent, HelpMode helpMode) :
     } else if (helpMode == cmdline) {
         setWindowTitle(tr("Command-line options"));
         QString header = tr("Usage:") + "\n" +
-            "  dash-qt [" + tr("command-line options") + "]                     " + "\n";
+            "  dms-qt [" + tr("command-line options") + "]                     " + "\n";
         QTextCursor cursor(ui->helpMessage->document());
         cursor.insertText(version);
         cursor.insertBlock();
@@ -145,7 +147,7 @@ You retain control of your money at all times.<hr> \
 <b>The PrivateSend process works like this:</b>\
 <ol type=\"1\"> \
 <li>PrivateSend begins by breaking your transaction inputs down into standard denominations. \
-These denominations are 0.01 DASH, 0.1 DASH, 1 DASH and 10 DASH -- sort of like the paper money you use every day.</li> \
+These denominations are 0.01 DMS, 0.1 DMS, 1 DMS and 10 DMS -- sort of like the paper money you use every day.</li> \
 <li>Your wallet then sends requests to specially configured software nodes on the network, called \"masternodes.\" \
 These masternodes are informed then that you are interested in mixing a certain denomination. \
 No identifiable information is sent to the masternodes, so they never know \"who\" you are.</li> \
@@ -161,7 +163,7 @@ your funds will already be anonymized. No additional waiting is required.</li> \
 This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. \
 It can only do this, however, if you have automatic backups enabled.<br> \
 Consequently, users who have backups disabled will also have PrivateSend disabled. <hr>\
-For more info see <a href=\"https://dashpay.atlassian.net/wiki/display/DOC/PrivateSend\">https://dashpay.atlassian.net/wiki/display/DOC/PrivateSend</a> \
+For more info see <a href=\"https://dmspay.atlassian.net/wiki/display/DOC/PrivateSend\">https://dmspay.atlassian.net/wiki/display/DOC/PrivateSend</a> \
         "));
         ui->aboutMessage->setWordWrap(true);
         ui->helpMessage->setVisible(false);

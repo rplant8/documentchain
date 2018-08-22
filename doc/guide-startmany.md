@@ -53,7 +53,7 @@ Issue the following:
 Make note of the hash (which is your collateral_output) and index.
 
 ### Enter your Masternode details into your masternode.conf file
-[From the dash github repo](https://github.com/dashpay/dash/blob/master/doc/masternode_conf.md)
+[From the dash github repo](https://github.com/Krekeler/documentchain/blob/master/doc/masternode_conf.md)
 
 `masternode.conf` format is a space seperated text file. Each line consisting of an alias, IP address followed by port, masternode private key, collateral output transaction id and collateral output index.
 
@@ -74,7 +74,7 @@ If you generated a new masternode private key, you will need to update the remot
 
 Shut down the daemon and then edit the file.
 
-```nano .dashcore/dash.conf```
+```nano .dmscore/dms.conf```
 
 ### Edit the masternodeprivkey
 If you generated a new masternode private key, you will need to update the `masternodeprivkey` value in your remote `dash.conf` file.

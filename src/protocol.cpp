@@ -1,5 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
+// Copyright (c) 2018 The Document Chain developers
+
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -39,7 +41,7 @@ const char *SENDCMPCT="sendcmpct";
 const char *CMPCTBLOCK="cmpctblock";
 const char *GETBLOCKTXN="getblocktxn";
 const char *BLOCKTXN="blocktxn";
-// Dash message types
+// DMS message types
 const char *TXLOCKREQUEST="ix";
 const char *TXLOCKVOTE="txlvote";
 const char *SPORK="spork";
@@ -77,7 +79,7 @@ static const char* ppszTypeName[] =
     NetMsgType::TX,
     NetMsgType::BLOCK,
     "filtered block", // Should never occur
-    // Dash message types
+    // DMS message types
     // NOTE: include non-implmented here, we must keep this list in sync with enum in protocol.h
     NetMsgType::TXLOCKREQUEST,
     NetMsgType::TXLOCKVOTE,
@@ -128,7 +130,7 @@ const static std::string allNetMessageTypes[] = {
     NetMsgType::CMPCTBLOCK,
     NetMsgType::GETBLOCKTXN,
     NetMsgType::BLOCKTXN,
-    // Dash message types
+    // DMS message types
     // NOTE: do NOT include non-implmented here, we want them to be "Unknown command" in ProcessMessage()
     NetMsgType::TXLOCKREQUEST,
     NetMsgType::TXLOCKVOTE,

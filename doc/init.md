@@ -13,7 +13,7 @@ can be found in the contrib/init folder.
 1. Service User
 ---------------------------------
 
-All three Linux startup configurations assume the existence of a "dashcore" user
+All three Linux startup configurations assume the existence of a "dmscore" user
 and group.  They must be created before attempting to use these scripts.
 The OS X configuration assumes dashd will be set up for the current user.
 
@@ -53,24 +53,24 @@ see `contrib/debian/examples/dash.conf`.
 
 All three configurations assume several paths that might need to be adjusted.
 
-Binary:              `/usr/bin/dashd`  
-Configuration file:  `/etc/dashcore/dash.conf`  
-Data directory:      `/var/lib/dashd`  
-PID file:            `/var/run/dashd/dashd.pid` (OpenRC and Upstart) or `/var/lib/dashd/dashd.pid` (systemd)  
-Lock file:           `/var/lock/subsys/dashd` (CentOS)  
+Binary:              `/usr/bin/dmsd`  
+Configuration file:  `/etc/dmscore/dms.conf`  
+Data directory:      `/var/lib/dmsd`  
+PID file:            `/var/run/dmsd/dmsd.pid` (OpenRC and Upstart) or `/var/lib/dmsd/dmsd.pid` (systemd)  
+Lock file:           `/var/lock/subsys/dmsd` (CentOS)  
 
 The configuration file, PID directory (if applicable) and data directory
-should all be owned by the dashcore user and group.  It is advised for security
+should all be owned by the dmscore user and group.  It is advised for security
 reasons to make the configuration file and data directory only readable by the
-dashcore user and group.  Access to dash-cli and other dashd rpc clients
+dmscore user and group.  Access to dash-cli and other dashd rpc clients
 can then be controlled by group membership.
 
 3b) Mac OS X
 
-Binary:              `/usr/local/bin/dashd`  
-Configuration file:  `~/Library/Application Support/DashCore/dash.conf`  
-Data directory:      `~/Library/Application Support/DashCore`
-Lock file:           `~/Library/Application Support/DashCore/.lock`
+Binary:              `/usr/local/bin/dmsd`  
+Configuration file:  `~/Library/Application Support/DMSCore/dms.conf`  
+Data directory:      `~/Library/Application Support/DMSCore`
+Lock file:           `~/Library/Application Support/DMSCore/.lock`
 
 4. Installing Service Configuration
 -----------------------------------
@@ -116,7 +116,7 @@ This Launch Agent will cause dashd to start whenever the user logs in.
 
 NOTE: This approach is intended for those wanting to run dashd as the current user.
 You will need to modify org.dash.dashd.plist if you intend to use it as a
-Launch Daemon with a dedicated dashcore user.
+Launch Daemon with a dedicated dmscore user.
 
 5. Auto-respawn
 -----------------------------------

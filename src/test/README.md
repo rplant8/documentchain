@@ -5,29 +5,29 @@ and tests weren't explicitly disabled.
 
 After configuring, they can be run with `make check`.
 
-To run the dashd tests manually, launch `src/test/test_dash`.
+To run the dmsd tests manually, launch `src/test/test_dms`.
 
-To add more dashd tests, add `BOOST_AUTO_TEST_CASE` functions to the existing
+To add more dmsd tests, add `BOOST_AUTO_TEST_CASE` functions to the existing
 .cpp files in the `test/` directory or add new .cpp files that
 implement new BOOST_AUTO_TEST_SUITE sections.
 
-To run the dash-qt tests manually, launch `src/qt/test/test_dash-qt`
+To run the dms-qt tests manually, launch `src/qt/test/test_dms-qt`
 
-To add more dash-qt tests, add them to the `src/qt/test/` directory and
+To add more dms-qt tests, add them to the `src/qt/test/` directory and
 the `src/qt/test/test_main.cpp` file.
 
 ### Running individual tests
 
-test_dash has some built-in command-line arguments; for
+test_dms has some built-in command-line arguments; for
 example, to run just the getarg_tests verbosely:
 
-    test_dash --log_level=all --run_test=getarg_tests
+    test_dms --log_level=all --run_test=getarg_tests
 
-... or to run just the doubledash test:
+... or to run just the doubledms test:
 
-    test_dash --run_test=getarg_tests/doubledash
+    test_dms --run_test=getarg_tests/doubledms
 
-Run `test_dash --help` for the full list.
+Run `test_dms --help` for the full list.
 
 ### Note on adding test cases
 
@@ -37,9 +37,9 @@ sense to simply use this framework rather than require developers to
 configure some other framework (we want as few impediments to creating
 unit tests as possible).
 
-The build system is setup to compile an executable called `test_dash`
+The build system is setup to compile an executable called `test_dms`
 that runs all of the unit tests.  The main source file is called
-test_dash.cpp. To add a new unit test file to our test suite you need 
+test_dms.cpp. To add a new unit test file to our test suite you need 
 to add the file to `src/Makefile.test.include`. The pattern is to create 
 one test file for each class or source file for which you want to create 
 unit tests.  The file naming convention is `<source_filename>_tests.cpp` 
@@ -53,7 +53,7 @@ explaining how the boost unit test framework works:
 
 ### bitcoin-util-test.py
 
-The test directory also contains the bitcoin-util-test.py tool, which tests bitcoin utils (currently just dash-tx). This test gets run automatically during the `make check` build process. It is also possible to run the test manually from the src directory:
+The test directory also contains the bitcoin-util-test.py tool, which tests bitcoin utils (currently just dms-tx). This test gets run automatically during the `make check` build process. It is also possible to run the test manually from the src directory:
 
 ```
 test/bitcoin-util-test.py --srcdir=[current directory]

@@ -1,0 +1,6 @@
+usr/local/bin/dms-qt usr/bin
+share/pixmaps/dms32.xpm usr/share/pixmaps
+share/pixmaps/dms16.xpm usr/share/pixmaps
+share/pixmaps/dms128.png usr/share/pixmaps
+debian/dms-qt.desktop usr/share/applications
+debian/dms-qt.protocol usr/share/kde4/services/

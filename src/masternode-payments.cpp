@@ -1,4 +1,6 @@
 // Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2018 The Document Chain developers
+
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -621,7 +623,7 @@ bool CMasternodeBlockPayees::IsTransactionValid(const CTransaction& txNew) const
         }
     }
 
-    LogPrintf("CMasternodeBlockPayees::IsTransactionValid -- ERROR: Missing required payment, possible payees: '%s', amount: %f DASH\n", strPayeesPossible, (float)nMasternodePayment/COIN);
+    LogPrintf("CMasternodeBlockPayees::IsTransactionValid -- ERROR: Missing required payment, possible payees: '%s', amount: %f DMS\n", strPayeesPossible, (float)nMasternodePayment/COIN);
     return false;
 }
 

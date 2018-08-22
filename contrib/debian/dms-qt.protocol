@@ -1,0 +1,11 @@
+[Protocol]
+exec=dms-qt '%u'
+protocol=dms
+input=none
+output=none
+helper=true
+listing=
+reading=false
+writing=false
+makedir=false
+deleting=false

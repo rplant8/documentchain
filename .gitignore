@@ -2,17 +2,18 @@
 *.sublime-workspace
 todo.txt
 reset-files.bash
+Thumbs.db
 
 *.tar.gz
 
 *.exe
-src/dash
-src/dashd
-src/dash-cli
-src/dash-tx
-src/test/test_dash
-src/qt/test/test_dash-qt
-src/bench/bench_dash
+src/dms
+src/dmsd
+src/dms-cli
+src/dms-tx
+src/test/test_dms
+src/qt/test/test_dms-qt
+src/bench/bench_dms
 
 # autoreconf
 Makefile.in
@@ -35,8 +36,8 @@ config.log
 config.status
 configure
 libtool
-src/config/dash-config.h
-src/config/dash-config.h.in
+src/config/dms-config.h
+src/config/dms-config.h.in
 src/config/stamp-h1
 share/setup.nsi
 share/qt/Info.plist
@@ -80,12 +81,12 @@ libconftest.dylib*
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-dash-qt
-Dash-Qt.app
+dms-qt
+DMS-Qt.app
 
 # Unit-tests
 Makefile.test
-dash-qt_test
+dms-qt_test
 src/test/buildenv.py
 
 # Resources cpp
@@ -99,7 +100,7 @@ build
 *.gcno
 *.gcda
 /*.info
-test_dash.coverage/
+test_dms.coverage/
 total.coverage/
 coverage_percent.txt
 
@@ -117,15 +118,15 @@ qa/cache/*
 .autotools
 /doc/doxygen/
 
-libdashconsensus.pc
+libdmsconsensus.pc
 contrib/devtools/split-debug.sh
-src/qt/dash-qt.bash
+src/qt/dms-qt.bash
 qa/pull-tester/tests-config.sh
 
 #development symlinks
-dash-cli
-dashd
-dash-qt
+dms-cli
+dmsd
+dms-qt
 make
 
 /docker/bin

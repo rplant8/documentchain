@@ -57,15 +57,15 @@ Dash Core is now available at `./src/dashd`
 
 Before running, it's recommended you create an RPC configuration file.
 
-    echo -e "rpcuser=dashrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/DashCore/dash.conf"
+    echo -e "rpcuser=dashrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/DMSCore/dash.conf"
 
-    chmod 600 "/Users/${USER}/Library/Application Support/DashCore/dash.conf"
+    chmod 600 "/Users/${USER}/Library/Application Support/DMSCore/dash.conf"
 
 The first time you run dashd, it will start downloading the blockchain. This process could take several hours.
 
 You can monitor the download process by looking at the debug.log file:
 
-    tail -f $HOME/Library/Application\ Support/DashCore/debug.log
+    tail -f $HOME/Library/Application\ Support/DMSCore/debug.log
 
 Other commands:
 -------

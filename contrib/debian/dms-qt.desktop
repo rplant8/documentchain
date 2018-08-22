@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=DMS Core
+Comment=P2P Document Chain and Cryptocurrency
+Comment[de]=Verbinde mit dem DMS peer-to-peer Netzwerk
+Comment[fr]=DMS, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=DMS, eşten eşe kriptografik sanal para birimi
+Exec=dms-qt %u
+Terminal=false
+Type=Application
+Icon=dms128
+MimeType=x-scheme-handler/dms;
+Categories=Office;Finance;

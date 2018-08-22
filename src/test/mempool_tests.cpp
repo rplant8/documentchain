@@ -1,11 +1,13 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
+// Copyright (c) 2018 The Document Chain developers
+
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "txmempool.h"
 #include "util.h"
 
-#include "test/test_dash.h"
+#include "test/test_dms.h"
 
 #include <boost/test/unit_test.hpp>
 #include <list>

@@ -1,4 +1,6 @@
 // Copyright (c) 2011-2014 The Bitcoin Core developers
+// Copyright (c) 2018 The Document Chain developers
+
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -11,7 +13,7 @@
 #include "script/sign.h"
 #include "script/ismine.h"
 #include "uint256.h"
-#include "test/test_dash.h"
+#include "test/test_dms.h"
 
 
 #include <boost/foreach.hpp>

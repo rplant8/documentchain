@@ -1,4 +1,6 @@
 // Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2018 The Document Chain developers
+
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -514,7 +516,7 @@ UniValue masternodelist(const JSONRPCRequest& request)
                 "  lastpaidblock  - Print the last block height a node was paid on the network\n"
                 "  lastpaidtime   - Print the last time a node was paid on the network\n"
                 "  lastseen       - Print timestamp of when a masternode was last seen on the network\n"
-                "  payee          - Print Dash address associated with a masternode (can be additionally filtered,\n"
+                "  payee          - Print DMS address associated with a masternode (can be additionally filtered,\n"
                 "                   partial match)\n"
                 "  protocol       - Print protocol of a masternode (can be additionally filtered, exact match)\n"
                 "  pubkey         - Print the masternode (not collateral) public key\n"
@@ -930,13 +932,13 @@ UniValue sentinelping(const JSONRPCRequest& request)
 static const CRPCCommand commands[] =
 { //  category              name                      actor (function)         okSafe argNames
   //  --------------------- ------------------------  -----------------------  ------ ----------
-    { "dash",               "masternode",             &masternode,             true,  {} },
-    { "dash",               "masternodelist",         &masternodelist,         true,  {} },
-    { "dash",               "masternodebroadcast",    &masternodebroadcast,    true,  {} },
-    { "dash",               "getpoolinfo",            &getpoolinfo,            true,  {} },
-    { "dash",               "sentinelping",           &sentinelping,           true,  {} },
+    { "dms",               "masternode",             &masternode,             true,  {} },
+    { "dms",               "masternodelist",         &masternodelist,         true,  {} },
+    { "dms",               "masternodebroadcast",    &masternodebroadcast,    true,  {} },
+    { "dms",               "getpoolinfo",            &getpoolinfo,            true,  {} },
+    { "dms",               "sentinelping",           &sentinelping,           true,  {} },
 #ifdef ENABLE_WALLET
-    { "dash",               "privatesend",            &privatesend,            false, {} },
+    { "dms",               "privatesend",            &privatesend,            false, {} },
 #endif // ENABLE_WALLET
 };
 
