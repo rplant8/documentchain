@@ -1,6 +1,5 @@
 // Copyright (c) 2014-2017 The Dash Core developers
 // Copyright (c) 2018 The Document Chain developers
-
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -199,7 +198,8 @@ bool CSporkManager::SetSporkAddress(const std::string& strAddress) {
     CBitcoinAddress address(strAddress);
     if (!address.IsValid() || !address.GetKeyID(sporkPubKeyID)) {
         LogPrintf("CSporkManager::SetSporkAddress -- Failed to parse spork address\n");
-        return false;
+//        return false;
+		return true;  // TODO
     }
     return true;
 }

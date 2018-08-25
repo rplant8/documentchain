@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
+// Copyright (c) 2018 The Document Chain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -12,7 +13,9 @@
 
 uint256 CBlockHeader::GetHash() const
 {
-    return HashX11(BEGIN(nVersion), END(nNonce));
+	// return SerializeHash(*this);  // Bitcoin
+	// return HashX11(BEGIN(nVersion), END(nNonce));  // Dash
+	return SerializeHashYescrypt(*this);  // Yescrypt test
 }
 
 std::string CBlock::ToString() const

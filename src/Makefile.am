@@ -1,7 +1,6 @@
 # Copyright (c) 2013-2016 The Bitcoin Core developers
 # Copyright (c) 2014-2018 The Dash Core developers
 # Copyright (c) 2018 The Document Chain developers
-
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -315,7 +314,19 @@ crypto_libdms_crypto_a_SOURCES = \
   crypto/sha256.cpp \
   crypto/sha256.h \
   crypto/sha512.cpp \
-  crypto/sha512.h
+  crypto/sha512.h \
+  crypto/yescrypt/yescrypt.c
+
+# YescryptR32
+noinst_HEADERS = \
+  crypto/yescrypt/sha256.h \
+  crypto/yescrypt/sha256_c.h \
+  crypto/yescrypt/sysendian.h \
+  crypto/yescrypt/yescrypt.h \
+  crypto/yescrypt/yescrypt-best_c.h \
+  crypto/yescrypt/yescrypt-opt_c.h \
+  crypto/yescrypt/yescrypt-platform_c.h \
+  crypto/yescrypt/yescrypt-simd_c.h
 
 # x11
 crypto_libdms_crypto_a_SOURCES += \

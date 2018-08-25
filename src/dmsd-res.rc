@@ -16,7 +16,7 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "Softwarebüro Krekeler"
+            VALUE "CompanyName",        "Krekeler"
             VALUE "FileDescription",    "dmsd (Document Chain node with a JSON-RPC server)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "dmsd"
