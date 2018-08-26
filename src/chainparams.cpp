@@ -141,13 +141,13 @@ public:
         consensus.nGovernanceFilterElements = 20000;
         consensus.nMasternodeMinimumConfirmations = 15;
         consensus.BIP34Height = 0; // 0=genesis block  // Bitcoin: 227931, Dash: 951;       
-        consensus.BIP34Hash = uint256S("0x00000053d79378f1402482f9124d0a525785f618a91bf02df4e5c9e58ee2140e");
+        consensus.BIP34Hash = uint256S("0x00000af4a21d6e8daa4026a5eafc7132089a7dbb9d3921b12c4fa39b78c9a010");
         consensus.BIP65Height = 619382; // TODO    // 00000000000076d8fcea02ec0963de4abfd01e771fec0863f960c2c64fe6f357
         consensus.BIP66Height = 245817; // TODO    // 00000000000b1fa2dfa312863570e13fae9ca7b5566cb27e55422620b469aefa
         consensus.DIP0001Height = 782208; // TODO    
-        consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");  //uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20 
+        consensus.powLimit = uint256S("0000ffffff000000000000000000000000000000000000000000000000000000");  //uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20 
         consensus.nPowTargetTimespan = 24 * 60 * 60; // PoW calculation ? DMS 5 min   // Dash: 24 * 60 * 60;  1 day
-        consensus.nPowTargetSpacing = 3 * 60; // DMS 3 minutes, Dash: 2.5 minutes
+        consensus.nPowTargetSpacing = 4 * 60; // DMS 4 minutes, Dash: 2.5 minutes
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
         consensus.nPowKGWHeight = 0; // 15200;   TODO
@@ -196,12 +196,12 @@ public:
         nDefaultPort = 41319; // Ascii ^D ^M ^S = 4 13 19
         nPruneAfterHeight = 100000;
                                                  
-        genesis = CreateGenesisBlock(1535270400, 0, 0x1e0ffff0, 1, 10 * COIN);
+        genesis = CreateGenesisBlock(1535270400, 675612, 0x1e0ffff0, 1, 10 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();       
 
-        //assert(consensus.hashGenesisBlock == uint256S("0x00000053d79378f1402482f9124d0a525785f618a91bf02df4e5c9e58ee2140e"));
-        //assert(genesis.hashMerkleRoot == uint256S("0x8fea3903bdd0cd052888315ef25d8f060c586747369dcf9eecc2c0ed7b4a9319"));
-		// temp: create genesis with dmsd.exe
+        assert(consensus.hashGenesisBlock == uint256S("0x00000af4a21d6e8daa4026a5eafc7132089a7dbb9d3921b12c4fa39b78c9a010"));
+        assert(genesis.hashMerkleRoot == uint256S("0xa500729aa7e2874bdb829c2e1ea99ef3542b7c43d426bca2f6720b9a9688308a"));
+		/* temp: create genesis with dmsd.exe
             printf("(CMainParams)\n");
             printf("hashMerkleRoot %s\n", genesis.hashMerkleRoot.ToString().c_str());
             printf("genesis.nBits 0x%x\n", genesis.nBits);
@@ -213,8 +213,7 @@ public:
             printf("hashGenesisBlock %s\n", consensus.hashGenesisBlock.ToString().c_str());
             printf("genesis.nNonce %d\n", genesis.nNonce);
             printf("genesis.nTime %d\n", genesis.nTime);
-			printf("raw: consensus.hashGenesisBlock %d, consensus.powLimit %d\n", consensus.hashGenesisBlock, consensus.powLimit);
-		//
+		*/
 		
 /*      vSeeds.push_back(CDNSSeedData("dash.org", "dnsseed.dash.org"));
         vSeeds.push_back(CDNSSeedData("dashdot.io", "dnsseed.dashdot.io"));
@@ -252,7 +251,7 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (     0, uint256S("0x00000053d79378f1402482f9124d0a525785f618a91bf02df4e5c9e58ee2140e"))
+            (     0, uint256S("0x00000af4a21d6e8daa4026a5eafc7132089a7dbb9d3921b12c4fa39b78c9a010"))
 /*          (  4991, uint256S("0x000000003b01809551952460744d5dbb8fcbd6cbae3c220267bf7fa43f837367"))
             (  9918, uint256S("0x00000000213e229f332c0ffbe34defdaa9e74de87f2d8d1f01af8d121c3c170b"))
             ( 16912, uint256S("0x00000000075c0d10371d55a60634da70f197548dbbfa4123e12abfcbc5738af9"))
@@ -277,7 +276,7 @@ public:
         };
 
         chainTxData = ChainTxData{
-            1535184000, // * UNIX timestamp of last known number of transactions
+            1535270400, // * UNIX timestamp of last known number of transactions
             0,    // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
             500       // 0.1 TODO    // * estimated number of transactions per second after that timestamp        https://github.com/dashpay/dash/commit/658479355e298307e7d087893c4fd545ab61a0cc#diff-64cbe1ad5465e13bc59ee8bb6f3de2e7
@@ -315,7 +314,7 @@ public:
         consensus.DIP0001Height = 5500;
         consensus.powLimit = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Dash: 1 day
-        consensus.nPowTargetSpacing = 3 * 60;
+        consensus.nPowTargetSpacing = 4 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
         consensus.nPowKGWHeight = 4001; // nPowKGWHeight >= nPowDGWHeight means "no KGW"
@@ -359,12 +358,12 @@ public:
         nDefaultPort = 41419;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1535270401, 0, 0x1e0ffff0, 1, 10 * COIN);
+        genesis = CreateGenesisBlock(1535270401, 16455, 0x1e0ffff0, 1, 10 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
 		
-        //assert(consensus.hashGenesisBlock == uint256S("0x0000a4c8cc6a10390a5f077c97cd019f968b967100cdb0cd5e4d213fb66ad05c"));
-        //assert(genesis.hashMerkleRoot == uint256S("0x8fea3903bdd0cd052888315ef25d8f060c586747369dcf9eecc2c0ed7b4a9319"));
-		// temp: create genesis
+        assert(consensus.hashGenesisBlock == uint256S("0x0000d60378258bfbaca7c6735644db9327b899047705f42181e70af24967b37d"));
+        assert(genesis.hashMerkleRoot == uint256S("0xa500729aa7e2874bdb829c2e1ea99ef3542b7c43d426bca2f6720b9a9688308a"));
+		/* temp: create genesis
             printf("(CTestNetParams)\n");
             printf("hashMerkleRoot %s\n", genesis.hashMerkleRoot.ToString().c_str());
             printf("genesis.nBits 0x%x\n", genesis.nBits);
@@ -376,7 +375,7 @@ public:
             printf("hashGenesisBlock %s\n", consensus.hashGenesisBlock.ToString().c_str());
             printf("genesis.nNonce %d\n", genesis.nNonce);
             printf("genesis.nTime %d\n", genesis.nTime);
-		//
+		*/
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -410,14 +409,14 @@ public:
         strSporkAddress = "DJ7YjNsc8TYHetDbwsxeNZTzyQzQPKCaxW"; // TODO is Dummy only
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (    0, uint256S("0x0000a4c8cc6a10390a5f077c97cd019f968b967100cdb0cd5e4d213fb66ad05c"))
+            (    0, uint256S("0x0000d60378258bfbaca7c6735644db9327b899047705f42181e70af24967b37d"))
 /*            (   1999, uint256S("0x00000052e538d27fa53693efe6fb6892a0c1d26c0235f599171c48a3cce553b1"))
             (   2999, uint256S("0x0000024bc3f4f4cb30d29827c13d921ad77d2c6072e586c7f60d83c2722cdcc5"))
             ( 100000, uint256S("0x0000000003aa53e24b6e60ef97642e4193611f2bcb75ea1fa8105f0b5ffd5242"))
             ( 143200, uint256S("0x0000000004a7878409189b7a8f75b3815d9b8c45ee8f79955a6c727d83bddb04")) */
         };
         chainTxData = ChainTxData{        
-            1535184001, // * UNIX timestamp of last known number of transactions
+            1535270401, // * UNIX timestamp of last known number of transactions
             0,    // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
             0.01        // * estimated number of transactions per second after that timestamp
@@ -454,7 +453,7 @@ public:
         consensus.DIP0001Height = 2; // DIP0001 activated immediately on devnet
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 1
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Dash: 1 day
-        consensus.nPowTargetSpacing = 3 * 60;
+        consensus.nPowTargetSpacing = 4 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
         consensus.nPowKGWHeight = 4001; // nPowKGWHeight >= nPowDGWHeight means "no KGW"
@@ -498,15 +497,15 @@ public:
 
         genesis = CreateGenesisBlock(1535270402, 0, 0x207fffff, 1, 10 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        //assert(consensus.hashGenesisBlock == uint256S("0xbe4047fcc48e6b8fb57c8979f613cea944e8f4753f09ce1dc5e1ca88437126a5"));
-        //assert(genesis.hashMerkleRoot == uint256S("0x8fea3903bdd0cd052888315ef25d8f060c586747369dcf9eecc2c0ed7b4a9319"));
-		// temp: create genesis
+        assert(consensus.hashGenesisBlock == uint256S("0x500f24a842f7b81dfa1d11d46f37b819812ae1f745b45c86f28249c1c669d5dc"));
+        assert(genesis.hashMerkleRoot == uint256S("0xa500729aa7e2874bdb829c2e1ea99ef3542b7c43d426bca2f6720b9a9688308a"));
+		/* temp: create genesis
             printf("(CDevNetParams)\n");
             printf("hashMerkleRoot %s\n", genesis.hashMerkleRoot.ToString().c_str());
             printf("genesis.nBits 0x%x\n", genesis.nBits);
             printf("hashGenesisBlock %s\n", consensus.hashGenesisBlock.ToString().c_str());
             printf("genesis.nNonce %d\n", genesis.nNonce);
-		//
+		*/
         devnetGenesis = FindDevNetGenesisBlock(consensus, genesis, 50 * COIN);
         consensus.hashDevnetGenesisBlock = devnetGenesis.GetHash();
 
@@ -542,7 +541,7 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (      0, uint256S("0xbe4047fcc48e6b8fb57c8979f613cea944e8f4753f09ce1dc5e1ca88437126a5"))
+            (      0, uint256S("0x500f24a842f7b81dfa1d11d46f37b819812ae1f745b45c86f28249c1c669d5dc"))
             (      1, devnetGenesis.GetHash())
         };
 
@@ -585,7 +584,7 @@ public:
         consensus.DIP0001Height = 2000;
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 1
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Dash: 1 day
-        consensus.nPowTargetSpacing = 3 * 60;
+        consensus.nPowTargetSpacing = 4 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = true;
         consensus.nPowKGWHeight = 15200; // same as mainnet
@@ -618,15 +617,15 @@ public:
         nPruneAfterHeight = 1000;
         genesis = CreateGenesisBlock(1535270402, 0, 0x207fffff, 1, 10 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        //assert(consensus.hashGenesisBlock == uint256S("0xbe4047fcc48e6b8fb57c8979f613cea944e8f4753f09ce1dc5e1ca88437126a5"));
-        //assert(genesis.hashMerkleRoot == uint256S("0x8fea3903bdd0cd052888315ef25d8f060c586747369dcf9eecc2c0ed7b4a9319"));
-		// temp: create genesis
+        assert(consensus.hashGenesisBlock == uint256S("0x500f24a842f7b81dfa1d11d46f37b819812ae1f745b45c86f28249c1c669d5dc"));
+        assert(genesis.hashMerkleRoot == uint256S("0xa500729aa7e2874bdb829c2e1ea99ef3542b7c43d426bca2f6720b9a9688308a"));
+		/* temp: create genesis
             printf("(CRegTestParams)\n");
             printf("hashMerkleRoot %s\n", genesis.hashMerkleRoot.ToString().c_str());
             printf("genesis.nBits 0x%x\n", genesis.nBits);
             printf("hashGenesisBlock %s\n", consensus.hashGenesisBlock.ToString().c_str());
             printf("genesis.nNonce %d\n", genesis.nNonce);
-		//
+		*/
 
         vFixedSeeds.clear(); //!< Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();      //!< Regtest mode doesn't have any DNS seeds.
@@ -643,7 +642,7 @@ public:
         strSporkAddress = "DJ7YjNsc8TYHetDbwsxeNZTzyQzQPKCaxW"; // TODO is Dummy only  
         checkpointData = (CCheckpointData){
             boost::assign::map_list_of
-            ( 0, uint256S("0xbe4047fcc48e6b8fb57c8979f613cea944e8f4753f09ce1dc5e1ca88437126a5"))
+            ( 0, uint256S("0x500f24a842f7b81dfa1d11d46f37b819812ae1f745b45c86f28249c1c669d5dc"))
         };
 
         chainTxData = ChainTxData{
