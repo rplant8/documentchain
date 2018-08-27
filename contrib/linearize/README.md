@@ -1,3 +1,4 @@
+TODO
 # Linearize
 Construct a linear, no-fork, best version of the Document Chain. The scripts
 run using Python 3 but are compatible with Python 2.
