@@ -2614,7 +2614,7 @@ void CWallet::AvailableCoins(std::vector<COutput>& vCoins, bool fOnlyConfirmed, 
                     if (CPrivateSend::IsCollateralAmount(pcoin->tx->vout[i].nValue)) continue; // do not use collateral amounts
                     found = !CPrivateSend::IsDenominatedAmount(pcoin->tx->vout[i].nValue);
                 } else if(nCoinType == ONLY_1000) {
-                    found = pcoin->tx->vout[i].nValue == 1000*COIN;
+                    found = pcoin->tx->vout[i].nValue == 5000*COIN;  // Dash: 1000
                 } else if(nCoinType == ONLY_PRIVATESEND_COLLATERAL) {
                     found = CPrivateSend::IsCollateralAmount(pcoin->tx->vout[i].nValue);
                 } else {
@@ -3025,7 +3025,7 @@ bool CWallet::SelectCoinsByDenominations(int nDenom, CAmount nValueMin, CAmount 
     for (const auto& out : vCoins)
     {
         // masternode-like input should not be selected by AvailableCoins now anyway
-        //if(out.tx->vout[out.i].nValue == 1000*COIN) continue;
+        //if(out.tx->vout[out.i].nValue == 5000*COIN) continue;
         if(nValueRet + out.tx->tx->vout[out.i].nValue <= nValueMax){
 
             CTxIn txin = CTxIn(out.tx->GetHash(), out.i);

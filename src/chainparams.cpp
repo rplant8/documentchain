@@ -247,13 +247,13 @@ public:
         nPoolMaxTransactions = 3;
         nFulfilledRequestExpireTime = 60*60; // fulfilled requests expire in 1 hour
 
-        strSporkAddress = "DN8GxA2zrozDSDQYedkTznf4jFC4Ujgddr"; // TODO  https://github.com/dashpay/dash/commit/611879aa6d973ab995088647d701a4747d0716d3#diff-64cbe1ad5465e13bc59ee8bb6f3de2e7
+        strSporkAddress = "DCUBrqf5C1aYHARTGqBDcaexQ7h6V4W988"; // TODO  https://github.com/dashpay/dash/commit/611879aa6d973ab995088647d701a4747d0716d3#diff-64cbe1ad5465e13bc59ee8bb6f3de2e7
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
             (     0, uint256S("0x00000af4a21d6e8daa4026a5eafc7132089a7dbb9d3921b12c4fa39b78c9a010"))
-/*          (  4991, uint256S("0x000000003b01809551952460744d5dbb8fcbd6cbae3c220267bf7fa43f837367"))
-            (  9918, uint256S("0x00000000213e229f332c0ffbe34defdaa9e74de87f2d8d1f01af8d121c3c170b"))
+            (   133, uint256S("0x00003c1aa0d920b6a665b71fb8ebde8dff0426ed02483a1f3165a1b9533f339f"))
+/*          (  9918, uint256S("0x00000000213e229f332c0ffbe34defdaa9e74de87f2d8d1f01af8d121c3c170b"))
             ( 16912, uint256S("0x00000000075c0d10371d55a60634da70f197548dbbfa4123e12abfcbc5738af9"))
             ( 23912, uint256S("0x0000000000335eac6703f3b1732ec8b2f89c3ba3a7889e5767b090556bb9a276"))
             ( 35457, uint256S("0x0000000000b0ae211be59b048df14820475ad0dd53b9ff83b010f71a77342d9f"))
