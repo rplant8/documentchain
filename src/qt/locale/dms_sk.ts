@@ -172,8 +172,8 @@
         <translation>Potvrďte zašifrovanie peňaženky</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DASH&lt;/b&gt;!</source>
-        <translation>Upozornenie: Ak zašifrujete vašu peňaženku a stratíte prístupové heslo, potom &lt;b&gt;prídete o všetky svoje DASH-y&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DMS&lt;/b&gt;!</source>
+        <translation>Upozornenie: Ak zašifrujete vašu peňaženku a stratíte prístupové heslo, potom &lt;b&gt;prídete o všetky svoje DMS-y&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -857,28 +857,28 @@
         <translation>Prosím vyberte úroveň súkromia.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 1000 DASH</source>
-        <translation>Použiť 2 rozdielne masternode pre fixovanie prostriedkov až do 1000 DASH</translation>
+        <source>Use 2 separate masternodes to mix funds up to 1000 DMS</source>
+        <translation>Použiť 2 rozdielne masternode pre fixovanie prostriedkov až do 1000 DMS</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 1000 DASH</source>
-        <translation>Použiť 8 rozdielnych masternode pre fixovanie prostriedkov až do 1000 DASH</translation>
+        <source>Use 8 separate masternodes to mix funds up to 1000 DMS</source>
+        <translation>Použiť 8 rozdielnych masternode pre fixovanie prostriedkov až do 1000 DMS</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Použiť 16 rozdielnych masternode</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 DASH to anonymize 1000 DASH</source>
-        <translation>Táto možnosť je najrýchlejšia a bude stáť približne 0.025 DASH pre anonimizáciu 1000 DASH</translation>
+        <source>This option is the quickest and will cost about ~0.025 DMS to anonymize 1000 DMS</source>
+        <translation>Táto možnosť je najrýchlejšia a bude stáť približne 0.025 DMS pre anonimizáciu 1000 DMS</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 DASH to anonymize 1000 DASH</source>
-        <translation>Táto možnosť je stredne rýchla bude stáť približne 0.05 DASH pre anonimizáciu 1000 DASH</translation>
+        <source>This option is moderately fast and will cost about 0.05 DMS to anonymize 1000 DMS</source>
+        <translation>Táto možnosť je stredne rýchla bude stáť približne 0.05 DMS pre anonimizáciu 1000 DMS</translation>
     </message>
     <message>
-        <source>0.1 DASH per 1000 DASH you anonymize.</source>
-        <translation>0.1 DASH za 1000 DASH ktoré spravíte anonymnými.</translation>
+        <source>0.1 DMS per 1000 DMS you anonymize.</source>
+        <translation>0.1 DMS za 1000 DMS ktoré spravíte anonymnými.</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
@@ -1038,8 +1038,8 @@
         <translation>Informácie o PrivateSend</translation>
     </message>
     <message>
-        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Dash in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.01 DASH, 0.1 DASH, 1 DASH and 10 DASH -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more info see &lt;a href="https://dashpay.atlassian.net/wiki/display/DOC/PrivateSend"&gt;https://dashpay.atlassian.net/wiki/display/DOC/PrivateSend&lt;/a&gt;         </source>
-        <translation>&lt;h3&gt;Základy PrivateSend&lt;/h3&gt; PrivateSend Vám poskytuje skutočné finančné súkromie skrývaním pôvodu Vašich zdrojov. Všetky Dash vo vašej peňaženke pozostávajú z rôznych "vstupov", ktoré si môžete predstaviť ako rozdelené, which you can think of as separate, diskrétne mince.&lt;br&gt; PrivateSend používa zdokonalený proces pre miešanie Vašich vstupov so vstupmi iných ľudí bez toho. aby Vaše mince museli opustiť Vašu peňaženku. Počas cele doby máte kontrolu nad Vašimi peniazmi.&lt;hr&gt; &lt;b&gt;Proces PrivateSend funguje nasledovne:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend začne rozdelením Vašich transakčných vstupov na štandardné časti, takzvané denominácie. Tieto denominácie sú 0.01 DASH, 0.1 DASH, 1 DASH a 10 DASH -- v podstate niečo ako papierové peniaze, ktoré používate každý deň.&lt;/li&gt; &lt;li&gt;Vaša peňaženka potom pošle požiadavok špeciálne nastavenému softvérovému uzlu nazvaného "Masternode". Tieto Masternode sú potom informované, že máte záujem miešať určité denominácie. Masternode neobdrží žiadne informácie ktoré by Vás identifikovali, takže niekdy nevedia kto ste.&lt;/li&gt; &lt;li&gt;Keď ďalší dvaja ľudia pošlú podobnú správu hovoriacu o tom že chcú miešať rovnakú denomináciu, začne sa samotné miešanie. Masternode zamieša vstupy a povie peňaženkám všetkých troch používateľov, aby zaplatili teraz už zmiešané vstupy sami sebe. Vaša peňaženka zaplatí tieto denominácie priamo sebe, ale už na inú adresu (nazývanú "meniaca adresa").&lt;/li&gt; &lt;li&gt;Aby boli Vaše zdroje plne zakryté, Vaša peňaženka musí zopakovať tento proces niekoľko krát s každou denomináciou.  Vždy keď je tento proces dokončený, je nazvaný "kolo". Každé kolo PrivateSend exponenciálne sťažuje určiť odkiaľ pochádzajú Vaše zdroje.&lt;/li&gt; &lt;li&gt;Toto miešanie sa deje na pozadí bez nutnosti zásahov z Vašej strany. Keď si prajete uskutočniť transakciu, Vaše zdroje budú už anonýmne. Nie je nutné na nič čakať.&lt;/li&gt; &lt;/ol&gt; DÔLEŽITÉ:&lt;/b&gt; Vaša peňaženka obsahuje iba 1000 týchto "meniacich adries". Vždy keď prebehne miešanie, použije sa maximálne až 9 Vašich adries. To znamená, že týchto 1000 adries vystačí zhruba na 100 miešaní. Keď sa použije 900 adries, Vaša peňaženka musí vytvoriť viac adries. Toto je však možné iba vtedy, keď máte zapnuté automatické zálohovanie.&lt;br&gt; V dôsledku toho, používatelia ktorí majú zálohovanie vypnuté, budú mať vypnutý aj PrivateSend. &lt;hr&gt;Viac informácií nájdete na &lt;a href="https://dashpay.atlassian.net/wiki/display/DOC/PrivateSend"&gt;https://dashpay.atlassian.net/wiki/display/DOC/PrivateSend&lt;/a&gt;         </translation>
+        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Dash in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.01 DMS, 0.1 DMS, 1 DMS and 10 DMS -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more info see &lt;a href="https://dashpay.atlassian.net/wiki/display/DOC/PrivateSend"&gt;https://dashpay.atlassian.net/wiki/display/DOC/PrivateSend&lt;/a&gt;         </source>
+        <translation>&lt;h3&gt;Základy PrivateSend&lt;/h3&gt; PrivateSend Vám poskytuje skutočné finančné súkromie skrývaním pôvodu Vašich zdrojov. Všetky Dash vo vašej peňaženke pozostávajú z rôznych "vstupov", ktoré si môžete predstaviť ako rozdelené, which you can think of as separate, diskrétne mince.&lt;br&gt; PrivateSend používa zdokonalený proces pre miešanie Vašich vstupov so vstupmi iných ľudí bez toho. aby Vaše mince museli opustiť Vašu peňaženku. Počas cele doby máte kontrolu nad Vašimi peniazmi.&lt;hr&gt; &lt;b&gt;Proces PrivateSend funguje nasledovne:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend začne rozdelením Vašich transakčných vstupov na štandardné časti, takzvané denominácie. Tieto denominácie sú 0.01 DMS, 0.1 DMS, 1 DMS a 10 DMS -- v podstate niečo ako papierové peniaze, ktoré používate každý deň.&lt;/li&gt; &lt;li&gt;Vaša peňaženka potom pošle požiadavok špeciálne nastavenému softvérovému uzlu nazvaného "Masternode". Tieto Masternode sú potom informované, že máte záujem miešať určité denominácie. Masternode neobdrží žiadne informácie ktoré by Vás identifikovali, takže niekdy nevedia kto ste.&lt;/li&gt; &lt;li&gt;Keď ďalší dvaja ľudia pošlú podobnú správu hovoriacu o tom že chcú miešať rovnakú denomináciu, začne sa samotné miešanie. Masternode zamieša vstupy a povie peňaženkám všetkých troch používateľov, aby zaplatili teraz už zmiešané vstupy sami sebe. Vaša peňaženka zaplatí tieto denominácie priamo sebe, ale už na inú adresu (nazývanú "meniaca adresa").&lt;/li&gt; &lt;li&gt;Aby boli Vaše zdroje plne zakryté, Vaša peňaženka musí zopakovať tento proces niekoľko krát s každou denomináciou.  Vždy keď je tento proces dokončený, je nazvaný "kolo". Každé kolo PrivateSend exponenciálne sťažuje určiť odkiaľ pochádzajú Vaše zdroje.&lt;/li&gt; &lt;li&gt;Toto miešanie sa deje na pozadí bez nutnosti zásahov z Vašej strany. Keď si prajete uskutočniť transakciu, Vaše zdroje budú už anonýmne. Nie je nutné na nič čakať.&lt;/li&gt; &lt;/ol&gt; DÔLEŽITÉ:&lt;/b&gt; Vaša peňaženka obsahuje iba 1000 týchto "meniacich adries". Vždy keď prebehne miešanie, použije sa maximálne až 9 Vašich adries. To znamená, že týchto 1000 adries vystačí zhruba na 100 miešaní. Keď sa použije 900 adries, Vaša peňaženka musí vytvoriť viac adries. Toto je však možné iba vtedy, keď máte zapnuté automatické zálohovanie.&lt;br&gt; V dôsledku toho, používatelia ktorí majú zálohovanie vypnuté, budú mať vypnutý aj PrivateSend. &lt;hr&gt;Viac informácií nájdete na &lt;a href="https://dashpay.atlassian.net/wiki/display/DOC/PrivateSend"&gt;https://dashpay.atlassian.net/wiki/display/DOC/PrivateSend&lt;/a&gt;         </translation>
     </message>
 </context>
 <context>
@@ -1722,8 +1722,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Čiastka a kolá:</translation>
     </message>
     <message>
-        <source>0 DASH / 0 Rounds</source>
-        <translation>0 DASH / 0 Kôl</translation>
+        <source>0 DMS / 0 Rounds</source>
+        <translation>0 DMS / 0 Kôl</translation>
     </message>
     <message>
         <source>Submitted Denom:</source>
@@ -3816,8 +3816,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Poslať Mince</translation>
     </message>
     <message>
-        <source>InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 DASH.</source>
-        <translation>InstantSend zatiaľ nepodporuje posielanie takto vysokých čiastok. Transakcie sú limitované na %1 DASH.</translation>
+        <source>InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 DMS.</source>
+        <translation>InstantSend zatiaľ nepodporuje posielanie takto vysokých čiastok. Transakcie sú limitované na %1 DMS.</translation>
     </message>
     <message>
         <source>Used way too many inputs (&gt;%1) for this InstantSend transaction, fees could be huge.</source>
@@ -4522,8 +4522,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Pokiaľ &lt;category&gt; nie je nastavená, alebo &lt;category&gt; = 1, vypíš všetky informácie pre ladenie.</translation>
     </message>
     <message>
-        <source>InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 DASH.</source>
-        <translation>InstantSend zatiaľ nepodporuje posielanie takto vysokých čiastok. Transakcie sú limitované na %1 DASH.</translation>
+        <source>InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 DMS.</source>
+        <translation>InstantSend zatiaľ nepodporuje posielanie takto vysokých čiastok. Transakcie sú limitované na %1 DMS.</translation>
     </message>
     <message>
         <source>InstantSend requires inputs with at least %d confirmations, you might need to wait a few minutes and try again.</source>
@@ -5150,8 +5150,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Neplatná spork adresa určená pomocou -sporkaddr</translation>
     </message>
     <message>
-        <source>Keep N DASH anonymized (%u-%u, default: %u)</source>
-        <translation>Udržujte N DASH anonymizovaných (%u-%u, predvolené: %u)</translation>
+        <source>Keep N DMS anonymized (%u-%u, default: %u)</source>
+        <translation>Udržujte N DMS anonymizovaných (%u-%u, predvolené: %u)</translation>
     </message>
     <message>
         <source>Print this help message and exit</source>
