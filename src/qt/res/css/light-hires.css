@@ -104,6 +104,10 @@ background-color:#fcfcfc;
 font-size:9pt;
 }
 
+.QValidatedLineEdit:hover, .QLineEdit:hover {
+border: 1px solid #cc0000;
+}
+
 .QValidatedLineEdit:disabled, .QLineEdit:disabled {
 background-color:#f2f2f2;
 }
@@ -138,15 +142,18 @@ border:1px solid #333;
 }
 
 QComboBox { /* Dropdown Menus */
-border:1px solid #b30000;
+border:1px solid #990000;
 padding: 3px 5px 3px 5px;
 background:#fcfcfc;
 min-height:25px;
-color:#818181;
+color:#333;
 }
 
+QComboBox:hover,
 QComboBox:checked {
-background:#f2f2f2;
+border:1px solid #cc0000;
+background:#cc0000;
+color:#fff;
 }
 
 QComboBox:editable {
@@ -251,7 +258,7 @@ image:url(':/images/light/unchecked');
 }
 
 QCheckBox::indicator:unchecked:hover {
-image:url(':/images/light/unchecked');
+image:url(':/images/light/unchecked_hover');
 }
 
 QCheckBox::indicator:unchecked:pressed {
@@ -263,7 +270,7 @@ image:url(':/images/light/checked');
 }
 
 QCheckBox::indicator:checked:hover {
-image:url(':/images/light/checked');
+image:url(':/images/light/checked_hover');
 }
 
 QCheckBox::indicator:checked:pressed {
@@ -271,7 +278,7 @@ image:url(':/images/light/unchecked');
 }
 
 QCheckBox::indicator:indeterminate:hover {
-image:url(':/images/light/unchecked');
+image:url(':/images/light/unchecked_hover');
 }
 
 QCheckBox::indicator:indeterminate:pressed {

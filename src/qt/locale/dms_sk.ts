@@ -62,12 +62,12 @@
         <translation>Adresa prijatia</translation>
     </message>
     <message>
-        <source>These are your Dash addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Toto sú Vaše Dash adresy pre posielanie platieb. Pred poslaním mincí vždy overte sumu a doručovaciu adresu.</translation>
+        <source>These are your DMS addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Toto sú Vaše DMS adresy pre posielanie platieb. Pred poslaním mincí vždy overte sumu a doručovaciu adresu.</translation>
     </message>
     <message>
-        <source>These are your Dash addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Toto sú Vaše Dash adresy pre posielanie platieb. Pre každú transakciu sa doporučuje použiť novú doručovaciu adresu.</translation>
+        <source>These are your DMS addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Toto sú Vaše DMS adresy pre posielanie platieb. Pre každú transakciu sa doporučuje použiť novú doručovaciu adresu.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -242,12 +242,12 @@
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <source>A fatal error occurred. Dash Core can no longer continue safely and will quit.</source>
-        <translation>Došlo k závažnej chybe. Dash Core už nemôže bezpečne pokračovať a bude ukončený.</translation>
+        <source>A fatal error occurred. DMS Core can no longer continue safely and will quit.</source>
+        <translation>Došlo k závažnej chybe. DMS Core už nemôže bezpečne pokračovať a bude ukončený.</translation>
     </message>
     <message>
-        <source>Dash Core</source>
-        <translation>Dash Core</translation>
+        <source>DMS Core</source>
+        <translation>DMS Core</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -270,8 +270,8 @@
         <translation>&amp;Odoslať</translation>
     </message>
     <message>
-        <source>Send coins to a Dash address</source>
-        <translation>Poslať mince na Dash adresu</translation>
+        <source>Send coins to a DMS address</source>
+        <translation>Poslať mince na DMS adresu</translation>
     </message>
     <message>
         <source>&amp;Receive</source>
@@ -279,7 +279,7 @@
     </message>
     <message>
         <source>Request payments (generates QR codes and dash: URIs)</source>
-        <translation>Vyžiadať platby (vygeneruje QR kódy a Dash: URI)</translation>
+        <translation>Vyžiadať platby (vygeneruje QR kódy a DMS: URI)</translation>
     </message>
     <message>
         <source>&amp;Transactions</source>
@@ -306,8 +306,8 @@
         <translation>Ukončiť program</translation>
     </message>
     <message>
-        <source>Show information about Dash Core</source>
-        <translation>Zobraziť informácie o Dash Core</translation>
+        <source>Show information about DMS Core</source>
+        <translation>Zobraziť informácie o DMS Core</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -378,16 +378,16 @@
         <translation>Podpísať &amp;správu...</translation>
     </message>
     <message>
-        <source>Sign messages with your Dash addresses to prove you own them</source>
-        <translation>Podpísať správy s Vašimi Dash adresami ako dôkaz že ich vlastníte</translation>
+        <source>Sign messages with your DMS addresses to prove you own them</source>
+        <translation>Podpísať správy s Vašimi DMS adresami ako dôkaz že ich vlastníte</translation>
     </message>
     <message>
         <source>&amp;Verify message...</source>
         <translation>&amp;Overiť správu...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified Dash addresses</source>
-        <translation>Overiť správy pre uistenie, že boli podpísané zadanými Dash adresami</translation>
+        <source>Verify messages to ensure they were signed with specified DMS addresses</source>
+        <translation>Overiť správy pre uistenie, že boli podpísané zadanými DMS adresami</translation>
     </message>
     <message>
         <source>&amp;Information</source>
@@ -482,8 +482,8 @@
         <translation>&amp;Možnosti príkazového riadku</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible Dash command-line options</source>
-        <translation>Ukázať %1 zoznam možných nastavení Dash pomocou príkazového riadku</translation>
+        <source>Show the %1 help message to get a list with possible DMS command-line options</source>
+        <translation>Ukázať %1 zoznam možných nastavení DMS pomocou príkazového riadku</translation>
     </message>
     <message>
         <source>%1 client</source>
@@ -518,8 +518,8 @@
         <translation>Lišta záložiek</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to Dash network</source>
-        <translation><numerusform>%n aktívne spojenie so sieťou Dash</numerusform><numerusform>%n aktívne spojenia so sieťou Dash</numerusform><numerusform>%n aktívnych spojení so sieťou Dash</numerusform></translation>
+        <source>%n active connection(s) to DMS network</source>
+        <translation><numerusform>%n aktívne spojenie so sieťou DMS</numerusform><numerusform>%n aktívne spojenia so sieťou DMS</numerusform><numerusform>%n aktívnych spojení so sieťou DMS</numerusform></translation>
     </message>
     <message>
         <source>Network activity disabled</source>
@@ -889,16 +889,16 @@
         <translation>Nastavenie PrivateSend</translation>
     </message>
     <message>
-        <source>PrivateSend was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening Dash's configuration screen.</source>
-        <translation>Darksend bol úspešne nastavený na základnú hodnotu (%1 a 2 kolá). Toto nastavenie môžete kedykoľvek zmeniť otvorením konfiguračnej obrazovky Dash.</translation>
+        <source>PrivateSend was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening DMS's configuration screen.</source>
+        <translation>Darksend bol úspešne nastavený na základnú hodnotu (%1 a 2 kolá). Toto nastavenie môžete kedykoľvek zmeniť otvorením konfiguračnej obrazovky DMS.</translation>
     </message>
     <message>
-        <source>PrivateSend was successfully set to high (%1 and 8 rounds). You can change this at any time by opening Dash's configuration screen.</source>
-        <translation>PrivateSend bol úspešne nastavený na základnú hodnotu (%1 a 8 kôl). Toto nastavenie môžete kedykoľvek zmeniť otvorením konfiguračnej obrazovky Dash.</translation>
+        <source>PrivateSend was successfully set to high (%1 and 8 rounds). You can change this at any time by opening DMS's configuration screen.</source>
+        <translation>PrivateSend bol úspešne nastavený na základnú hodnotu (%1 a 8 kôl). Toto nastavenie môžete kedykoľvek zmeniť otvorením konfiguračnej obrazovky DMS.</translation>
     </message>
     <message>
-        <source>PrivateSend was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening Dash's configuration screen.</source>
-        <translation>PrivateSend bol úspešne nastavený na maximálnu hodnotu (%1 a 16 kôl). Toto nastavenie môžete kedykoľvek zmeniť otvorením konfiguračnej obrazovky Dash.</translation>
+        <source>PrivateSend was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening DMS's configuration screen.</source>
+        <translation>PrivateSend bol úspešne nastavený na maximálnu hodnotu (%1 a 16 kôl). Toto nastavenie môžete kedykoľvek zmeniť otvorením konfiguračnej obrazovky DMS.</translation>
     </message>
 </context>
 <context>
@@ -940,8 +940,8 @@
         <translation>Upraviť adresu pre odoslanie</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid Dash address.</source>
-        <translation>Zadaná adresa "%1" nie je platná Dash adresa.</translation>
+        <source>The entered address "%1" is not a valid DMS address.</source>
+        <translation>Zadaná adresa "%1" nie je platná DMS adresa.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -1038,8 +1038,8 @@
         <translation>Informácie o PrivateSend</translation>
     </message>
     <message>
-        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Dash in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.01 DMS, 0.1 DMS, 1 DMS and 10 DMS -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more info see &lt;a href="https://dashpay.atlassian.net/wiki/display/DOC/PrivateSend"&gt;https://dashpay.atlassian.net/wiki/display/DOC/PrivateSend&lt;/a&gt;         </source>
-        <translation>&lt;h3&gt;Základy PrivateSend&lt;/h3&gt; PrivateSend Vám poskytuje skutočné finančné súkromie skrývaním pôvodu Vašich zdrojov. Všetky Dash vo vašej peňaženke pozostávajú z rôznych "vstupov", ktoré si môžete predstaviť ako rozdelené, which you can think of as separate, diskrétne mince.&lt;br&gt; PrivateSend používa zdokonalený proces pre miešanie Vašich vstupov so vstupmi iných ľudí bez toho. aby Vaše mince museli opustiť Vašu peňaženku. Počas cele doby máte kontrolu nad Vašimi peniazmi.&lt;hr&gt; &lt;b&gt;Proces PrivateSend funguje nasledovne:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend začne rozdelením Vašich transakčných vstupov na štandardné časti, takzvané denominácie. Tieto denominácie sú 0.01 DMS, 0.1 DMS, 1 DMS a 10 DMS -- v podstate niečo ako papierové peniaze, ktoré používate každý deň.&lt;/li&gt; &lt;li&gt;Vaša peňaženka potom pošle požiadavok špeciálne nastavenému softvérovému uzlu nazvaného "Masternode". Tieto Masternode sú potom informované, že máte záujem miešať určité denominácie. Masternode neobdrží žiadne informácie ktoré by Vás identifikovali, takže niekdy nevedia kto ste.&lt;/li&gt; &lt;li&gt;Keď ďalší dvaja ľudia pošlú podobnú správu hovoriacu o tom že chcú miešať rovnakú denomináciu, začne sa samotné miešanie. Masternode zamieša vstupy a povie peňaženkám všetkých troch používateľov, aby zaplatili teraz už zmiešané vstupy sami sebe. Vaša peňaženka zaplatí tieto denominácie priamo sebe, ale už na inú adresu (nazývanú "meniaca adresa").&lt;/li&gt; &lt;li&gt;Aby boli Vaše zdroje plne zakryté, Vaša peňaženka musí zopakovať tento proces niekoľko krát s každou denomináciou.  Vždy keď je tento proces dokončený, je nazvaný "kolo". Každé kolo PrivateSend exponenciálne sťažuje určiť odkiaľ pochádzajú Vaše zdroje.&lt;/li&gt; &lt;li&gt;Toto miešanie sa deje na pozadí bez nutnosti zásahov z Vašej strany. Keď si prajete uskutočniť transakciu, Vaše zdroje budú už anonýmne. Nie je nutné na nič čakať.&lt;/li&gt; &lt;/ol&gt; DÔLEŽITÉ:&lt;/b&gt; Vaša peňaženka obsahuje iba 1000 týchto "meniacich adries". Vždy keď prebehne miešanie, použije sa maximálne až 9 Vašich adries. To znamená, že týchto 1000 adries vystačí zhruba na 100 miešaní. Keď sa použije 900 adries, Vaša peňaženka musí vytvoriť viac adries. Toto je však možné iba vtedy, keď máte zapnuté automatické zálohovanie.&lt;br&gt; V dôsledku toho, používatelia ktorí majú zálohovanie vypnuté, budú mať vypnutý aj PrivateSend. &lt;hr&gt;Viac informácií nájdete na &lt;a href="https://dashpay.atlassian.net/wiki/display/DOC/PrivateSend"&gt;https://dashpay.atlassian.net/wiki/display/DOC/PrivateSend&lt;/a&gt;         </translation>
+        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the DMS in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.01 DMS, 0.1 DMS, 1 DMS and 10 DMS -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more info see &lt;a href="https://dashpay.atlassian.net/wiki/display/DOC/PrivateSend"&gt;https://dashpay.atlassian.net/wiki/display/DOC/PrivateSend&lt;/a&gt;         </source>
+        <translation>&lt;h3&gt;Základy PrivateSend&lt;/h3&gt; PrivateSend Vám poskytuje skutočné finančné súkromie skrývaním pôvodu Vašich zdrojov. Všetky DMS vo vašej peňaženke pozostávajú z rôznych "vstupov", ktoré si môžete predstaviť ako rozdelené, which you can think of as separate, diskrétne mince.&lt;br&gt; PrivateSend používa zdokonalený proces pre miešanie Vašich vstupov so vstupmi iných ľudí bez toho. aby Vaše mince museli opustiť Vašu peňaženku. Počas cele doby máte kontrolu nad Vašimi peniazmi.&lt;hr&gt; &lt;b&gt;Proces PrivateSend funguje nasledovne:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend začne rozdelením Vašich transakčných vstupov na štandardné časti, takzvané denominácie. Tieto denominácie sú 0.01 DMS, 0.1 DMS, 1 DMS a 10 DMS -- v podstate niečo ako papierové peniaze, ktoré používate každý deň.&lt;/li&gt; &lt;li&gt;Vaša peňaženka potom pošle požiadavok špeciálne nastavenému softvérovému uzlu nazvaného "Masternode". Tieto Masternode sú potom informované, že máte záujem miešať určité denominácie. Masternode neobdrží žiadne informácie ktoré by Vás identifikovali, takže niekdy nevedia kto ste.&lt;/li&gt; &lt;li&gt;Keď ďalší dvaja ľudia pošlú podobnú správu hovoriacu o tom že chcú miešať rovnakú denomináciu, začne sa samotné miešanie. Masternode zamieša vstupy a povie peňaženkám všetkých troch používateľov, aby zaplatili teraz už zmiešané vstupy sami sebe. Vaša peňaženka zaplatí tieto denominácie priamo sebe, ale už na inú adresu (nazývanú "meniaca adresa").&lt;/li&gt; &lt;li&gt;Aby boli Vaše zdroje plne zakryté, Vaša peňaženka musí zopakovať tento proces niekoľko krát s každou denomináciou.  Vždy keď je tento proces dokončený, je nazvaný "kolo". Každé kolo PrivateSend exponenciálne sťažuje určiť odkiaľ pochádzajú Vaše zdroje.&lt;/li&gt; &lt;li&gt;Toto miešanie sa deje na pozadí bez nutnosti zásahov z Vašej strany. Keď si prajete uskutočniť transakciu, Vaše zdroje budú už anonýmne. Nie je nutné na nič čakať.&lt;/li&gt; &lt;/ol&gt; DÔLEŽITÉ:&lt;/b&gt; Vaša peňaženka obsahuje iba 1000 týchto "meniacich adries". Vždy keď prebehne miešanie, použije sa maximálne až 9 Vašich adries. To znamená, že týchto 1000 adries vystačí zhruba na 100 miešaní. Keď sa použije 900 adries, Vaša peňaženka musí vytvoriť viac adries. Toto je však možné iba vtedy, keď máte zapnuté automatické zálohovanie.&lt;br&gt; V dôsledku toho, používatelia ktorí majú zálohovanie vypnuté, budú mať vypnutý aj PrivateSend. &lt;hr&gt;Viac informácií nájdete na &lt;a href="https://dashpay.atlassian.net/wiki/display/DOC/PrivateSend"&gt;https://dashpay.atlassian.net/wiki/display/DOC/PrivateSend&lt;/a&gt;         </translation>
     </message>
 </context>
 <context>
@@ -1057,8 +1057,8 @@
         <translation>Keďže toto je prvé spustenie programu, môžete si vybrať, kam %1 bude ukladať vaše údaje.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Dash block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>%1 stiahne a uloží kópiu reťazca blokov Dash. V tomto adresári bude uložené aspoň %2GB dát a bude časom rásť. Peňaženka bude tiež uložená v tomto adresári.</translation>
+        <source>%1 will download and store a copy of the DMS block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>%1 stiahne a uloží kópiu reťazca blokov DMS. V tomto adresári bude uložené aspoň %2GB dát a bude časom rásť. Peňaženka bude tiež uložená v tomto adresári.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1251,12 +1251,12 @@
         <translation>Forma</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the Dash network, as detailed below.</source>
-        <translation>Nedávne transakcie ešte nemusia byť viditeľné, a preto stav Vašej peňaženky nože byť nesprávny. Informácia bude správna hneď ako Vaša peňaženka dokončí synchronizáciu so sieťou Dash. Viac detailov nájdete nižšie.</translation>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the DMS network, as detailed below.</source>
+        <translation>Nedávne transakcie ešte nemusia byť viditeľné, a preto stav Vašej peňaženky nože byť nesprávny. Informácia bude správna hneď ako Vaša peňaženka dokončí synchronizáciu so sieťou DMS. Viac detailov nájdete nižšie.</translation>
     </message>
     <message>
-        <source>Attempting to spend Dash that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
-        <translation>Pokúsiť sa minút Dash, ktoré sú ovplyvnené "ešte nezobrazenými" transakciami, nebudú akceptované sieťou.</translation>
+        <source>Attempting to spend DMS that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
+        <translation>Pokúsiť sa minút DMS, ktoré sú ovplyvnené "ešte nezobrazenými" transakciami, nebudú akceptované sieťou.</translation>
     </message>
     <message>
         <source>Number of blocks left</source>
@@ -1345,8 +1345,8 @@
         <translation>(0 = auto, &lt;0 = nechať toľkoto voľných jadier)</translation>
     </message>
     <message>
-        <source>Amount of Dash to keep anonymized</source>
-        <translation>Suma Dash ktorú držať anonymne </translation>
+        <source>Amount of DMS to keep anonymized</source>
+        <translation>Suma DMS ktorú držať anonymne </translation>
     </message>
     <message>
         <source>W&amp;allet</source>
@@ -1397,8 +1397,8 @@
         <translation>Táto suma slúži ako hranica pre vypnutie PrivateSend akonáhle je dosiahnutá.</translation>
     </message>
     <message>
-        <source>Automatically open the Dash Core client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automaticky otvoriť na smerovači port pre Dash Core klient. Toto funguje iba ak Váš smerovač  podporuje UPnP a je povolené</translation>
+        <source>Automatically open the DMS Core client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Automaticky otvoriť na smerovači port pre DMS Core klient. Toto funguje iba ak Váš smerovač  podporuje UPnP a je povolené</translation>
     </message>
     <message>
         <source>Accept connections from outside</source>
@@ -1409,8 +1409,8 @@
         <translation>Povoliť prichádzajúce spojenia</translation>
     </message>
     <message>
-        <source>Connect to the Dash network through a SOCKS5 proxy.</source>
-        <translation>Pripojiť sa do siete Dash cez proxy SOCKS5.</translation>
+        <source>Connect to the DMS network through a SOCKS5 proxy.</source>
+        <translation>Pripojiť sa do siete DMS cez proxy SOCKS5.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1497,8 +1497,8 @@
         <translation>Tor</translation>
     </message>
     <message>
-        <source>Connect to the Dash network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Pripojiť sa do siete Dash cez oddelené SOCKS5 proxy pre skryté služby Tor.</translation>
+        <source>Connect to the DMS network through a separate SOCKS5 proxy for Tor hidden services.</source>
+        <translation>Pripojiť sa do siete DMS cez oddelené SOCKS5 proxy pre skryté služby Tor.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services:</source>
@@ -1622,8 +1622,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Forma</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Dash network after a connection is established, but this process has not completed yet.</source>
-        <translation>Zobrazené informácie môžu byť zastaralé. Vaša peňaženka sa automaticky zosynchronizuje so sieťou Dash akonáhle nadviaže spojenie, avšak tento proces ešte nebol dokončený.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DMS network after a connection is established, but this process has not completed yet.</source>
+        <translation>Zobrazené informácie môžu byť zastaralé. Vaša peňaženka sa automaticky zosynchronizuje so sieťou DMS akonáhle nadviaže spojenie, avšak tento proces ešte nebol dokončený.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1893,7 +1893,7 @@ https://www.transifex.com/projects/p/dash/</translation>
     </message>
     <message>
         <source>Cannot start dash: click-to-pay handler</source>
-        <translation>Dash sa nedá spustiť: click-to-pay handler</translation>
+        <translation>DMS sa nedá spustiť: click-to-pay handler</translation>
     </message>
     <message>
         <source>URI handling</source>
@@ -1908,8 +1908,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Neplatná adresa platby %1</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid Dash address or malformed URI parameters.</source>
-        <translation>URI sa nedá analyzovať! Toto môže byť spôsobené neplatnou Dash adresou, alebo nesprávnym tvarom URI parametrov.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid DMS address or malformed URI parameters.</source>
+        <translation>URI sa nedá analyzovať! Toto môže byť spôsobené neplatnou DMS adresou, alebo nesprávnym tvarom URI parametrov.</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -1998,8 +1998,8 @@ https://www.transifex.com/projects/p/dash/</translation>
 <context>
     <name>QObject</name>
     <message>
-        <source>Dash Core</source>
-        <translation>Dash Core</translation>
+        <source>DMS Core</source>
+        <translation>DMS Core</translation>
     </message>
     <message>
         <source>%1 didn't yet exit safely...</source>
@@ -2014,8 +2014,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Suma</translation>
     </message>
     <message>
-        <source>Enter a Dash address (e.g. %1)</source>
-        <translation>Zadajte Dash adresu (e.g. %1)</translation>
+        <source>Enter a DMS address (e.g. %1)</source>
+        <translation>Zadajte DMS adresu (e.g. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -2532,8 +2532,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Z&amp;novu použiť jestvujúcu prijímaciu adresu (neodporúča sa)</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Dash network.</source>
-        <translation>Pripojiť ku vyžiadanej platbe voliteľnú správu, ktorá sa zobrazí, keď bude žiadosť otvorená. Poznámka: Správa nebude poslaná spolu s platbou cez sieť Dash.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the DMS network.</source>
+        <translation>Pripojiť ku vyžiadanej platbe voliteľnú správu, ktorá sa zobrazí, keď bude žiadosť otvorená. Poznámka: Správa nebude poslaná spolu s platbou cez sieť DMS.</translation>
     </message>
     <message>
         <source>&amp;Message:</source>
@@ -2544,8 +2544,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Voliteľný popis ktorý sa pridá k tejto novej prijímajúcej adrese.</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Dash network.</source>
-        <translation>Pripojiť ku vyžiadanej platbe voliteľnú správu, ktorá sa zobrazí, keď bude žiadosť otvorená. &lt;br&gt;Poznámka: Správa nebude poslaná spolu s platbou cez sieť Dash.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the DMS network.</source>
+        <translation>Pripojiť ku vyžiadanej platbe voliteľnú správu, ktorá sa zobrazí, keď bude žiadosť otvorená. &lt;br&gt;Poznámka: Správa nebude poslaná spolu s platbou cez sieť DMS.</translation>
     </message>
     <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
@@ -2814,7 +2814,7 @@ https://www.transifex.com/projects/p/dash/</translation>
     </message>
     <message>
         <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for dash transactions than the network can process.</source>
-        <translation>Platenie minimálneho poplatku je v poriadku pokiaľ je objem transakcií menší ako je miesto v bloku. &lt;br /&gt;Buďte opatrný pretože to môže skončiť s nikdy nepotvrdenými transakciami, akonáhle je dopyt po Dash transakciách väčší ako dokáže sieť Dash spracovať.</translation>
+        <translation>Platenie minimálneho poplatku je v poriadku pokiaľ je objem transakcií menší ako je miesto v bloku. &lt;br /&gt;Buďte opatrný pretože to môže skončiť s nikdy nepotvrdenými transakciami, akonáhle je dopyt po DMS transakciách väčší ako dokáže sieť DMS spracovať.</translation>
     </message>
     <message>
         <source>per kilobyte</source>
@@ -3001,8 +3001,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation><numerusform>Odhad pre začiatok potvrdzovania je %n blok.</numerusform><numerusform>Odhad pre začiatok potvrdzovania sú %n bloky.</numerusform><numerusform>Odhad pre začiatok potvrdzovania je %n blokov.</numerusform></translation>
     </message>
     <message>
-        <source>Warning: Invalid Dash address</source>
-        <translation>Upozornenie: Neplatná Dash adresa</translation>
+        <source>Warning: Invalid DMS address</source>
+        <translation>Upozornenie: Neplatná DMS adresa</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -3032,8 +3032,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Zapla&amp;tiť:</translation>
     </message>
     <message>
-        <source>The Dash address to send the payment to</source>
-        <translation>Dash adresa pre poslanie platby</translation>
+        <source>The DMS address to send the payment to</source>
+        <translation>DMS adresa pre poslanie platby</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3068,8 +3068,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Su&amp;ma:</translation>
     </message>
     <message>
-        <source>The fee will be deducted from the amount being sent. The recipient will receive a lower amount of Dash than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
-        <translation>Poplatok sa odpočíta od čiastky, ktorú odosielate. Príjemca dostane menej Dash ako zadáte. Ak je vybraných viacero príjemcov, poplatok je rozdelený rovnakým dielom.</translation>
+        <source>The fee will be deducted from the amount being sent. The recipient will receive a lower amount of DMS than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
+        <translation>Poplatok sa odpočíta od čiastky, ktorú odosielate. Príjemca dostane menej DMS ako zadáte. Ak je vybraných viacero príjemcov, poplatok je rozdelený rovnakým dielom.</translation>
     </message>
     <message>
         <source>S&amp;ubtract fee from amount</source>
@@ -3080,8 +3080,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Správa:</translation>
     </message>
     <message>
-        <source>A message that was attached to the dash: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Dash network.</source>
-        <translation>Správa ktorá bola pripojená ku dash: URI ktorá sa uchová spolu s transakciou pre Vašu referenciu. Poznámka: Táto správa nebude poslaná cez sieť Dash.</translation>
+        <source>A message that was attached to the dash: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DMS network.</source>
+        <translation>Správa ktorá bola pripojená ku dash: URI ktorá sa uchová spolu s transakciou pre Vašu referenciu. Poznámka: Táto správa nebude poslaná cez sieť DMS.</translation>
     </message>
     <message>
         <source>This is an unauthenticated payment request.</source>
@@ -3133,12 +3133,12 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>&amp;Podpísať Správu</translation>
     </message>
     <message>
-        <source>You can sign messages/agreements with your addresses to prove you can receive Dash sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
-        <translation>Môžete podpísať správy/dohody svojou adresou aby ste dokázali, že na ňu prijať Dash. Buďte opatrní a nepodpisuje nič vágne alebo náhodné, nakoľko útoky typu "phishing" Vás môžu lákať k ich podpísaniu Vašej identity. Podpisujte iba vyhlásenia s úplnými detailami s ktorými súhlasíte.</translation>
+        <source>You can sign messages/agreements with your addresses to prove you can receive DMS sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
+        <translation>Môžete podpísať správy/dohody svojou adresou aby ste dokázali, že na ňu prijať DMS. Buďte opatrní a nepodpisuje nič vágne alebo náhodné, nakoľko útoky typu "phishing" Vás môžu lákať k ich podpísaniu Vašej identity. Podpisujte iba vyhlásenia s úplnými detailami s ktorými súhlasíte.</translation>
     </message>
     <message>
-        <source>The Dash address to sign the message with</source>
-        <translation>Dash adresa na podpísanie správy</translation>
+        <source>The DMS address to sign the message with</source>
+        <translation>DMS adresa na podpísanie správy</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3169,8 +3169,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Kopírovať práve zvolenú adresu do systémovej schránky</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this Dash address</source>
-        <translation>Podpísať spravu aby ste dokázali, že vlastníte túto Dash adresu</translation>
+        <source>Sign the message to prove you own this DMS address</source>
+        <translation>Podpísať spravu aby ste dokázali, že vlastníte túto DMS adresu</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -3193,12 +3193,12 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Vložte adresu príjemcu, správu (uistite sa, že presne kopírujete ukončenia riadkov, medzery, odrážky, atď.) a podpis pre potvrdenie správy. Buďte opatrní a nedomýšľajte si viac než je uvedené v samotnej podpísanej správe a môžete sa tak vyhnúť podvodu MITM útokom. Toto len potvrdzuje, že podpisujúca strana môže prijímať na tejto adrese, nepotvrdzuje to vlastníctvo žiadnej transakcie!</translation>
     </message>
     <message>
-        <source>The Dash address the message was signed with</source>
-        <translation>Adresa Dash s ktorou bola podpísaná správa</translation>
+        <source>The DMS address the message was signed with</source>
+        <translation>Adresa DMS s ktorou bola podpísaná správa</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified Dash address</source>
-        <translation>Overiť správu pre uistenie, že bola podpísaná zadanou Dash adresou</translation>
+        <source>Verify the message to ensure it was signed with the specified DMS address</source>
+        <translation>Overiť správu pre uistenie, že bola podpísaná zadanou DMS adresou</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -3864,7 +3864,7 @@ https://www.transifex.com/projects/p/dash/</translation>
     </message>
 </context>
 <context>
-    <name>dash-core</name>
+    <name>dms-core</name>
     <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>Spojiť s danou adresou a vždy na nej počúvať. Použite zápis [host]:port pre IPv6</translation>
@@ -4478,8 +4478,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>V pamäti udržiavať najviac &lt;n&gt; nepotvrdených transakcií (predvolené: %u)</translation>
     </message>
     <message>
-        <source>Disable all Dash specific functionality (Masternodes, PrivateSend, InstantSend, Governance) (0-1, default: %u)</source>
-        <translation>Vypnúť všetky funkcie špecifické pre Dash (Masternodes, PrivateSend, InstantSend, Vláda) (0-1, predvolené: %u)</translation>
+        <source>Disable all DMS specific functionality (Masternodes, PrivateSend, InstantSend, Governance) (0-1, default: %u)</source>
+        <translation>Vypnúť všetky funkcie špecifické pre DMS (Masternodes, PrivateSend, InstantSend, Vláda) (0-1, predvolené: %u)</translation>
     </message>
     <message>
         <source>Discover own IP addresses (default: 1 when listening and no -externalip or -proxy)</source>
@@ -4942,8 +4942,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Možnosti servra RPC:</translation>
     </message>
     <message>
-        <source>Dash Core</source>
-        <translation>Dash Core</translation>
+        <source>DMS Core</source>
+        <translation>DMS Core</translation>
     </message>
     <message>
         <source>The %s developers</source>

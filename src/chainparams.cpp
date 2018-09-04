@@ -235,8 +235,8 @@ public:
         // Dash BIP44 coin type is '5'
         nExtCoinType = 5;
 
-		// fixed seed node, use contrib/seeds/generate-seeds.py to edit pnSeed6_main and pnSeed6_test
-		vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main)); // vFixedSeeds.clear();
+        // fixed seed node, use contrib/seeds/generate-seeds.py to edit pnSeed6_main and pnSeed6_test
+        vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main)); // vFixedSeeds.clear();
 
         fMiningRequiresPeers = true;
         fDefaultConsistencyChecks = false;
@@ -360,7 +360,7 @@ public:
             printf("genesis.nTime %d\n", genesis.nTime);
 		*/
 
-		vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_test, pnSeed6_test + ARRAYLEN(pnSeed6_test));
+        vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_test, pnSeed6_test + ARRAYLEN(pnSeed6_test));
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
         vSeeds.push_back(CDNSSeedData("dashdot.io",  "testnet-seed.dashdot.io"));

@@ -26,7 +26,7 @@ class TxnMallTest(BitcoinTestFramework):
         return super(TxnMallTest, self).setup_network(True)
 
     def run_test(self):
-        # All nodes should start with 12,500 DASH:
+        # All nodes should start with 12,500 DMS:
         starting_balance = 12500
         for i in range(4):
             assert_equal(self.nodes[i].getbalance(), starting_balance)
@@ -63,7 +63,7 @@ class TxnMallTest(BitcoinTestFramework):
 
         # createrawtransaction randomizes the order of its outputs, so swap them if necessary.
         # output 0 is at version+#inputs+input+sigstub+sequence+#outputs
-        # 400 DASH serialized is 00902f5009000000
+        # 400 DMS serialized is 00902f5009000000
         pos0 = 2*(4+1+36+1+4+1)
         hex400 = "00902f5009000000"
         output_len = 16 + 2 + 2 * int("0x" + clone_raw[pos0 + 16 : pos0 + 16 + 2], 0)

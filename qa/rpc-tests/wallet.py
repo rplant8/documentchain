@@ -56,7 +56,7 @@ class WalletTest (BitcoinTestFramework):
         assert_equal(len(self.nodes[1].listunspent()), 1)
         assert_equal(len(self.nodes[2].listunspent()), 0)
 
-        # Send 210 DASH from 0 to 2 using sendtoaddress call.
+        # Send 210 DMS from 0 to 2 using sendtoaddress call.
         # Second transaction will be child of first, and will require a fee
         self.nodes[0].sendtoaddress(self.nodes[2].getnewaddress(), 110)
         self.nodes[0].sendtoaddress(self.nodes[2].getnewaddress(), 100)

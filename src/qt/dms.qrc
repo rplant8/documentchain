@@ -68,7 +68,9 @@
         <file alias="about">res/images/light/about.png</file>
         <file alias="dms_logo_horizontal">res/images/light/dms_logo_horizontal.png</file>
         <file alias="unchecked">res/images/light/unchecked.png</file>
+        <file alias="unchecked_hover">res/images/light/unchecked_hover.png</file>
         <file alias="checked">res/images/light/checked.png</file>
+        <file alias="checked_hover">res/images/light/checked_hover.png</file>
         <file alias="drkblue_downArrow">res/images/light/drkblue_downArrow.png</file>
         <file alias="drkblue_downArrow_small">res/images/light/drkblue_downArrow_small.png</file>
         <file alias="drkblue_upArrow_small">res/images/light/drkblue_upArrow_small.png</file>

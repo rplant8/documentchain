@@ -312,7 +312,9 @@ RES_IMAGES = \
   qt/res/images/light/splash_testnet.png \
   qt/res/images/light/dms_logo_horizontal.png \
   qt/res/images/light/unchecked.png \
+  qt/res/images/light/unchecked_hover.png \
   qt/res/images/light/checked.png \
+  qt/res/images/light/checked_hover.png \
   qt/res/images/light/drkblue_downArrow.png \
   qt/res/images/light/drkblue_downArrow_small.png \
   qt/res/images/light/drkblue_upArrow_small.png \
