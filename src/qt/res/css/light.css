@@ -26,12 +26,12 @@ background-color:#fff;
 }
 
 QMenuBar::item:selected {
-background-color:#cc0000; /*#f8f6f6;*/
+background-color:#cc0000;
 color:#fff;
 }
 
 QMenu {    /* main menu popup */
-background-color:#fff; /*#f8f6f6;*/
+background-color:#fff;
 }
 
 QMenu::item {
@@ -56,17 +56,16 @@ border:0px solid #333;
 min-height:2.5em;
 min-width: 8em;
 padding: 0em 1em;
-/*font-weight:bold;*/
 color:#333;
 }
 
 QToolBar > QToolButton:hover {
 background-color:#cc0000; /* #b30000; */
-color:#333;  /*#fff;*/
+color:#fff;
 }
 
 QToolBar > QToolButton:checked {
-background-color:#990000; /*#1c75bc;*/
+background-color:#990000;
 color:#fff;
 font-weight:bold;
 }
@@ -92,7 +91,7 @@ background-color:transparent;
 }
 
 .QValidatedLineEdit, .QLineEdit { /* Text Entry Fields */
-border: 1px solid #990000; /*#82C3E6;*/
+border: 1px solid #990000;
 font-size:11px;
 min-height:25px;
 outline:0;
@@ -155,6 +154,7 @@ border:1px solid #cc0000;
 background:#cc0000;
 color:#fff;
 }
+
 QComboBox:editable {
 background:#990000; /*#1c75bc;*/
 color:#616161;
@@ -331,7 +331,6 @@ color:#333;
 }
 
 QScrollBar { /* Scroll Bar */
-
 }
 
 QScrollBar:vertical { /* Vertical Scroll Bar Attributes */
@@ -415,13 +414,12 @@ QScrollBar:right-arrow {
 background-image: url(':/images/light/drkblue_rightArrow_small');
 }
 
-
 /*******************************************************/
 
 /* DIALOG BOXES */
 
 QDialog .QTabWidget {
-border-bottom:1px solid #333;
+/*border-bottom:1px solid #333;*/
 }
 
 QDialog .QTabWidget::pane {
@@ -435,20 +433,25 @@ padding-left:10px;
 padding-right:10px;
 padding-top:5px;
 padding-bottom:5px;
-border-top: 1px solid #d7d7d7;
+/*border-top: 1px solid #d7d7d7;*/
 }
 
 QDialog .QTabWidget QTabBar::tab:first {
-border-left: 1px solid #d7d7d7;
+/*border-left: 1px solid #d7d7d7;*/
 }
 
 QDialog .QTabWidget QTabBar::tab:last {
-border-right: 1px solid #d7d7d7;
+/*border-right: 1px solid #d7d7d7;*/
 }
 
-QDialog .QTabWidget QTabBar::tab:selected, QDialog .QTabWidget QTabBar::tab:hover {
-background-color:#ffffff;
-color:#333;
+QDialog .QTabWidget QTabBar::tab:selected {
+background-color:#990000;
+color:#fff;
+}
+
+QDialog .QTabWidget QTabBar::tab:hover {
+background-color:#cc0000;
+color:#fff;
 }
 
 QDialog .QTabWidget .QWidget {

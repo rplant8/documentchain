@@ -56,13 +56,12 @@ border:0px solid #333;
 min-height:2.5em;
 min-width: 8em;
 padding: 0em 1em;
-/*font-weight:bold;*/
 color:#333;
 }
 
 QToolBar > QToolButton:hover {
 background-color:#cc0000; /* #b30000; */
-color:#333;  /*#fff;*/
+color:#fff;
 }
 
 QToolBar > QToolButton:checked {
@@ -332,7 +331,6 @@ color:#333;
 }
 
 QScrollBar { /* Scroll Bar */
-
 }
 
 QScrollBar:vertical { /* Vertical Scroll Bar Attributes */
@@ -416,13 +414,12 @@ QScrollBar:right-arrow {
 background-image: url(':/images/light/drkblue_rightArrow_small');
 }
 
-
 /*******************************************************/
 
 /* DIALOG BOXES */
 
 QDialog .QTabWidget {
-border-bottom:1px solid #333;
+/*border-bottom:1px solid #333;*/
 }
 
 QDialog .QTabWidget::pane {
@@ -436,20 +433,25 @@ padding-left:10px;
 padding-right:10px;
 padding-top:5px;
 padding-bottom:5px;
-border-top: 1px solid #d7d7d7;
+/*border-top: 1px solid #d7d7d7;*/
 }
 
 QDialog .QTabWidget QTabBar::tab:first {
-border-left: 1px solid #d7d7d7;
+/*border-left: 1px solid #d7d7d7;*/
 }
 
 QDialog .QTabWidget QTabBar::tab:last {
-border-right: 1px solid #d7d7d7;
+/*border-right: 1px solid #d7d7d7;*/
 }
 
-QDialog .QTabWidget QTabBar::tab:selected, QDialog .QTabWidget QTabBar::tab:hover {
-background-color:#ffffff;
-color:#333;
+QDialog .QTabWidget QTabBar::tab:selected {
+background-color:#990000;
+color:#fff;
+}
+
+QDialog .QTabWidget QTabBar::tab:hover {
+background-color:#cc0000;
+color:#fff;
 }
 
 QDialog .QTabWidget .QWidget {
