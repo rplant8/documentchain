@@ -1,7 +1,7 @@
 DMS Core 0.12.9
 =====================
 
-This is the official reference wallet for DMS digital currency and comprises the backbone of the Document Chain peer-to-peer network. You can [download DMS Core](https://github.com/Krekeler/documentchain/releases) or [build it yourself](#building) using the guides below.
+This is the official reference wallet for DMS digital currency and comprises the backbone of the Documentchain peer-to-peer network. You can [download DMS Core](https://github.com/Krekeler/documentchain/releases) or [build it yourself](#building) using the guides below.
 
 Running
 ---------------------

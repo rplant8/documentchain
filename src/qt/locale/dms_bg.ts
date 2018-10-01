@@ -3079,8 +3079,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Съобщение:</translation>
     </message>
     <message>
-        <source>A message that was attached to the DMS: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DMS network.</source>
-        <translation>Съобщението което беше прикрепено към DMS: URI ще бъде запазено с транзакцията за ваше сведение. Забележка: Това съобщение няма да бъде изпратено през DMS мрежата.</translation>
+        <source>A message that was attached to the dms: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the network.</source>
+        <translation>Съобщението което беше прикрепено към DMS: URI ще бъде запазено с транзакцията за ваше сведение. Забележка: Това съобщение няма да бъде изпратено през мрежата.</translation>
     </message>
     <message>
         <source>This is an unauthenticated payment request.</source>

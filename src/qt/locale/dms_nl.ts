@@ -271,14 +271,14 @@
     </message>
     <message>
         <source>Send coins to a DMS address</source>
-        <translation>Verstuur DMS naar een Dashadres</translation>
+        <translation>Verstuur DMS naar een Dmsadres</translation>
     </message>
     <message>
         <source>&amp;Receive</source>
         <translation>&amp;Ontvangen</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and dash: URIs)</source>
+        <source>Request payments (generates QR codes and dms: URIs)</source>
         <translation>Vraag betaling aan (genereert QR-codes en DMS: URI's)</translation>
     </message>
     <message>
@@ -379,7 +379,7 @@
     </message>
     <message>
         <source>Sign messages with your DMS addresses to prove you own them</source>
-        <translation>Onderteken berichten met uw Dashadressen om te bewijzen dat u deze adressen bezit.</translation>
+        <translation>Onderteken berichten met uw Dmsadressen om te bewijzen dat u deze adressen bezit.</translation>
     </message>
     <message>
         <source>&amp;Verify message...</source>
@@ -387,7 +387,7 @@
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified DMS addresses</source>
-        <translation>Verifieer handtekeningen om zeker te zijn dat de berichten zijn ondertekend met de gespecificeerde Dashadressen.</translation>
+        <translation>Verifieer handtekeningen om zeker te zijn dat de berichten zijn ondertekend met de gespecificeerde Dmsadressen.</translation>
     </message>
     <message>
         <source>&amp;Information</source>
@@ -474,8 +474,8 @@
         <translation>Open &amp;URI</translation>
     </message>
     <message>
-        <source>Open a dash: URI or payment request</source>
-        <translation>Open een dash: URI of betalingsaanvraag</translation>
+        <source>Open a dms: URI or payment request</source>
+        <translation>Open een dms: URI of betalingsaanvraag</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -1894,7 +1894,7 @@ Om te mixen moeten andere gebruikers exact dezelfde denominaties inbrengen.</tra
         <translation>Fout bij betalingsverzoek</translation>
     </message>
     <message>
-        <source>Cannot start dash: click-to-pay handler</source>
+        <source>Cannot start dms: click-to-pay handler</source>
         <translation>Kan DMS niet starten: click-to-pay handler</translation>
     </message>
     <message>
@@ -2017,7 +2017,7 @@ Om te mixen moeten andere gebruikers exact dezelfde denominaties inbrengen.</tra
     </message>
     <message>
         <source>Enter a DMS address (e.g. %1)</source>
-        <translation>Voer een Dashadres in (bijv. %1)</translation>
+        <translation>Voer een Dmsadres in (bijv. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -2818,7 +2818,7 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het DMS netwerk
         <translation>Als de aangepaste toeslag is ingesteld op 1000 duffs en de transactie is maar 250 bytes, dan wordt bij "per kilobyte" 250 duffs aan toeslag berekend, &lt;br /&gt;terwijl er bij "totaal tenminste" 1000 duffs worden berekend. Voor transacties die groter zijn dan een kilobyte, wordt in beide gevallen per kilobyte de toeslag berekend.</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for dash transactions than the network can process.</source>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for dms transactions than the network can process.</source>
         <translation>Het betalen van de minimale vergoeding is prima zo lang er minder transactie volume is dan ruimte in de blokken. &lt;br /&gt;Maar houd er rekening mee dat dit kan eindigen in een nooit bevestigde transactie zodra er meer vraag is voor DMS transacties fdan het netwerk kan verwerken.</translation>
     </message>
     <message>
@@ -3038,7 +3038,7 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het DMS netwerk
     </message>
     <message>
         <source>The DMS address to send the payment to</source>
-        <translation>Het Dashadres om betaling aan te versturen</translation>
+        <translation>Het Dmsadres om betaling aan te versturen</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3085,8 +3085,8 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het DMS netwerk
         <translation>Bericht:</translation>
     </message>
     <message>
-        <source>A message that was attached to the dash: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DMS network.</source>
-        <translation>Een boodschap die was bijgevoegd aan de dash: URI die met de transactie voor uw referentie wordt opgeslagen. Opmerking: Dit bericht zal niet over het DMS netwerk worden verzonden.</translation>
+        <source>A message that was attached to the dms: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the network.</source>
+        <translation>Een boodschap die was bijgevoegd aan de dms: URI die met de transactie voor uw referentie wordt opgeslagen. Opmerking: Dit bericht zal niet over het netwerk worden verzonden.</translation>
     </message>
     <message>
         <source>This is an unauthenticated payment request.</source>
@@ -3143,7 +3143,7 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het DMS netwerk
     </message>
     <message>
         <source>The DMS address to sign the message with</source>
-        <translation>Het Dashadres om bericht mee te ondertekenen</translation>
+        <translation>Het Dmsadres om bericht mee te ondertekenen</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3199,7 +3199,7 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het DMS netwerk
     </message>
     <message>
         <source>The DMS address the message was signed with</source>
-        <translation>Het Dashadres waarmee het bericht ondertekend is</translation>
+        <translation>Het Dmsadres waarmee het bericht ondertekend is</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified DMS address</source>

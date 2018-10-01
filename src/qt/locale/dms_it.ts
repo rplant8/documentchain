@@ -43,11 +43,11 @@
     </message>
     <message>
         <source>Choose the address to send coins to</source>
-        <translation>Scegli l'indirizzo a cui inviare i dash</translation>
+        <translation>Scegli l'indirizzo a cui inviare i DMS</translation>
     </message>
     <message>
         <source>Choose the address to receive coins with</source>
-        <translation>Scegli l'indirizzo con cui ricevere dash</translation>
+        <translation>Scegli l'indirizzo con cui ricevere DMS</translation>
     </message>
     <message>
         <source>C&amp;hoose</source>
@@ -63,7 +63,7 @@
     </message>
     <message>
         <source>These are your DMS addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Questi sono i tuoi indirizzi DMS per inviare i pagamenti. Controlla sempre l'ammontare e l'indirizzo di destinazione prima di inviare i dash.</translation>
+        <translation>Questi sono i tuoi indirizzi DMS per inviare i pagamenti. Controlla sempre l'ammontare e l'indirizzo di destinazione prima di inviare i DMS.</translation>
     </message>
     <message>
         <source>These are your DMS addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
@@ -271,15 +271,15 @@
     </message>
     <message>
         <source>Send coins to a DMS address</source>
-        <translation>Spedire dash ad un indirizzo DMS</translation>
+        <translation>Spedire dms ad un indirizzo DMS</translation>
     </message>
     <message>
         <source>&amp;Receive</source>
         <translation>&amp;Ricevi</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and dash: URIs)</source>
-        <translation>Richieste di pagamenti (genera codici QR e dash: URLs)</translation>
+        <source>Request payments (generates QR codes and dms: URIs)</source>
+        <translation>Richieste di pagamenti (genera codici QR e dms: URLs)</translation>
     </message>
     <message>
         <source>&amp;Transactions</source>
@@ -474,8 +474,8 @@
         <translation>Apri &amp;URI...</translation>
     </message>
     <message>
-        <source>Open a dash: URI or payment request</source>
-        <translation>Apri un dash: URI o una richiesta di pagamento</translation>
+        <source>Open a dms: URI or payment request</source>
+        <translation>Apri un dms: URI o una richiesta di pagamento</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -870,11 +870,11 @@
     </message>
     <message>
         <source>This option is the quickest and will cost about ~0.025 DMS to anonymize 1000 DMS</source>
-        <translation>Questa opzione è la più veloce e ti costerà ~0.025DASH circa per anonimizzare 1000DASH</translation>
+        <translation>Questa opzione è la più veloce e ti costerà ~0.025 DMS circa per anonimizzare 1000 DMS</translation>
     </message>
     <message>
         <source>This option is moderately fast and will cost about 0.05 DMS to anonymize 1000 DMS</source>
-        <translation>Questa opzione è moderatamente veloce e costerà 0.05DASH circa per anonimizzare 1000DASH</translation>
+        <translation>Questa opzione è moderatamente veloce e costerà 0.05 DMS circa per anonimizzare 1000 DMS</translation>
     </message>
     <message>
         <source>0.1 DMS per 1000 DMS you anonymize.</source>
@@ -1891,8 +1891,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Errore di richiesta di pagamento</translation>
     </message>
     <message>
-        <source>Cannot start dash: click-to-pay handler</source>
-        <translation>Impossibile avviare dash: gestore click-to-pay</translation>
+        <source>Cannot start dms: click-to-pay handler</source>
+        <translation>Impossibile avviare dms: gestore click-to-pay</translation>
     </message>
     <message>
         <source>URI handling</source>
@@ -2717,7 +2717,7 @@ https://www.transifex.com/projects/p/dash/</translation>
     <name>SendCoinsDialog</name>
     <message>
         <source>Send Coins</source>
-        <translation>Invia dash</translation>
+        <translation>Invia DMS</translation>
     </message>
     <message>
         <source>Coin Control Features</source>
@@ -2812,7 +2812,7 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Se la tariffa personalizzata è impostata su 1000 duff e la transazione è di soli 250 byte, paga solo 250 duff "per kilobyte" di Fee, &lt;br /&gt;mentre paga "in totale almeno" 1000 duff. Per le transazioni più grandi di un kilobyte pagate entrambi per kilobyte.</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for dash transactions than the network can process.</source>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for dms transactions than the network can process.</source>
         <translation>Pagare solo la commissione minima va bene finché il volume di transazioni è minore rispetto allo spazio nei blocchi. &lt;br /&gt;Ma sii consapevole che questo potrebbe risultare in una transazione non confermata, una volta che ci fosse più richiesta di transazioni di DMS di quanto la rete possa elaborare.</translation>
     </message>
     <message>
@@ -2949,7 +2949,7 @@ https://www.transifex.com/projects/p/dash/</translation>
     </message>
     <message>
         <source>Confirm send coins</source>
-        <translation>Conferma l'invio di dash</translation>
+        <translation>Conferma l'invio di DMS</translation>
     </message>
     <message>
         <source>The recipient address is not valid. Please recheck.</source>
@@ -3079,8 +3079,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Messaggio:</translation>
     </message>
     <message>
-        <source>A message that was attached to the dash: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DMS network.</source>
-        <translation>Un messaggio allegato con l'URI dash che verrà memorizzato nella transazione per il tuo referente. Nota: questo messaggio non verrà inviato attraverso il network DMS.</translation>
+        <source>A message that was attached to the dms: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the network.</source>
+        <translation>Un messaggio allegato con l'URI dms che verrà memorizzato nella transazione per il tuo referente. Nota: questo messaggio non verrà inviato attraverso il network.</translation>
     </message>
     <message>
         <source>This is an unauthenticated payment request.</source>

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2014-2017 Wladimir J. van der Laan
-# Copyright (c) 2018 The Document Chain developers
+# Copyright (c) 2018 The Documentchain developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 '''

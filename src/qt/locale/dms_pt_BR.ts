@@ -278,7 +278,7 @@
         <translation>&amp;Receber</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and dash: URIs)</source>
+        <source>Request payments (generates QR codes and dms: URIs)</source>
         <translation>Solicitações de pagamentos (gera códigos QR e DMS: URIs)</translation>
     </message>
     <message>
@@ -474,8 +474,8 @@
         <translation>Abrir &amp;URI...</translation>
     </message>
     <message>
-        <source>Open a dash: URI or payment request</source>
-        <translation>Abrir um DMS: URI ou cobrança</translation>
+        <source>Open a dms: URI or payment request</source>
+        <translation>Abrir um dms: URI ou cobrança</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -1342,7 +1342,7 @@
     </message>
     <message>
         <source>Amount of DMS to keep anonymized</source>
-        <translation>Quantidade de dashs para manter anonimizado</translation>
+        <translation>Quantidade de DMS para manter anonimizado</translation>
     </message>
     <message>
         <source>W&amp;allet</source>
@@ -1887,7 +1887,7 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Erro no pedido de pagamento</translation>
     </message>
     <message>
-        <source>Cannot start dash: click-to-pay handler</source>
+        <source>Cannot start dms: click-to-pay handler</source>
         <translation>Não foi possível iniciar DMS: manipulador click-to-pay</translation>
     </message>
     <message>
@@ -3063,8 +3063,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Mensagem:</translation>
     </message>
     <message>
-        <source>A message that was attached to the dash: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DMS network.</source>
-        <translation>A mensagem que foi anexada ao DMS: URI na qual será gravada na transação para sua referência. Nota: Essa mensagem não será gravada publicamente na rede DMS.</translation>
+        <source>A message that was attached to the dms: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the network.</source>
+        <translation>A mensagem que foi anexada ao dms: URI na qual será gravada na transação para sua referência. Nota: Essa mensagem não será gravada publicamente na rede.</translation>
     </message>
     <message>
         <source>This is an unauthenticated payment request.</source>

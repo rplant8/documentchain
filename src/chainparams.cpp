@@ -1,7 +1,7 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Document Chain developers
+// Copyright (c) 2018 The Documentchain developers
 
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -78,9 +78,9 @@ static CBlock CreateDevNetGenesisBlock(const uint256 &prevBlockHash, const std::
  *   vMerkleTree: e0028e
  */
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
-{
+{                            // DO NOT MODIFY GENESIS TEXT
     const char* pszTimestamp = "26 Aug 2018. Document Chain - The Blockchain for your Document Management System";
-
+                             // DO NOT MODIFY GENESIS TEXT
     const CScript genesisOutputScript = CScript() << ParseHex("045de9ebe4e50d9b595ac6ba52d79836c9d5b3fba54c0cd1078221df2d94866e40a1cb5939dc4c465b96fa759fec6ce0f6a70bf76b6bd517c068d0cca0819f71ca") << OP_CHECKSIG;
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
@@ -248,7 +248,7 @@ public:
         nPoolMaxTransactions = 3;
         nFulfilledRequestExpireTime = 60*60; // fulfilled requests expire in 1 hour
 
-        strSporkAddress = "DCUBrqf5C1aYHARTGqBDcaexQ7h6V4W988"; // TODO  https://github.com/dashpay/dash/commit/611879aa6d973ab995088647d701a4747d0716d3#diff-64cbe1ad5465e13bc59ee8bb6f3de2e7
+        strSporkAddress = "D6JKVPFgRhYHPDvuQ1ocwDBsk2bDrx8CXo"; // TODO  https://github.com/dashpay/dash/commit/611879aa6d973ab995088647d701a4747d0716d3#diff-64cbe1ad5465e13bc59ee8bb6f3de2e7
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of

@@ -1,6 +1,6 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Document Chain developers
+// Copyright (c) 2018 The Documentchain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -53,7 +53,7 @@ static const int MAX_URI_LENGTH = 255;
 #define QAPP_ORG_NAME "Krekeler"
 #define QAPP_ORG_DOMAIN "dms.cash"
 #define QAPP_APP_NAME_DEFAULT "DMS-Qt"
-#define QAPP_APP_NAME_TESTNET "DMS-qt-testnet"
-#define QAPP_APP_NAME_DEVNET "DMS-qt-%s"
+#define QAPP_APP_NAME_TESTNET "DMS-Qt-testnet"
+#define QAPP_APP_NAME_DEVNET "DMS-Qt-%s"
 
 #endif // BITCOIN_QT_GUICONSTANTS_H
