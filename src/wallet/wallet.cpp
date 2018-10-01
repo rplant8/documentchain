@@ -5118,8 +5118,8 @@ bool CWallet::ParameterInteraction()
     bSpendZeroConfChange = GetBoolArg("-spendzeroconfchange", DEFAULT_SPEND_ZEROCONF_CHANGE);
     fSendFreeTransactions = GetBoolArg("-sendfreetransactions", DEFAULT_SEND_FREE_TRANSACTIONS);
 
-    if (fSendFreeTransactions && GetArg("-limitfreerelay", DEFAULT_LIMITFREERELAY) <= 0)
-        return InitError("Creation of free transactions with their relay disabled is not supported.");
+//  if (fSendFreeTransactions && GetArg("-limitfreerelay", DEFAULT_LIMITFREERELAY) <= 0)     01.10.2018 Harald: limitfreerelay removed
+//      return InitError("Creation of free transactions with their relay disabled is not supported.");
 
     if (IsArgSet("-walletbackupsdir")) {
         if (!boost::filesystem::is_directory(GetArg("-walletbackupsdir", ""))) {
