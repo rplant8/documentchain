@@ -24,7 +24,7 @@ QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
     unitlist.append(DMS);
     unitlist.append(mDMS);
     unitlist.append(uDMS);
-    unitlist.append(duffs);
+    unitlist.append(docz); // Bitcoin=Satoshi, Dash=Duff, DMS=docz
     return unitlist;
 }
 
@@ -35,7 +35,7 @@ bool BitcoinUnits::valid(int unit)
     case DMS:
     case mDMS:
     case uDMS:
-    case duffs:
+    case docz:
         return true;
     default:
         return false;
@@ -51,7 +51,7 @@ QString BitcoinUnits::name(int unit)
             case DMS: return QString("DMS");
             case mDMS: return QString("mDMS");
             case uDMS: return QString::fromUtf8("μDMS");
-            case duffs: return QString("duffs");
+            case docz: return QString("docz");
             default: return QString("???");
         }
     }
@@ -62,7 +62,7 @@ QString BitcoinUnits::name(int unit)
             case DMS: return QString("tDMS");
             case mDMS: return QString("mtDMS");
             case uDMS: return QString::fromUtf8("μtDMS");
-            case duffs: return QString("tduffs");
+            case ddocs: return QString("tdocz");
             default: return QString("???");
         }
     }
@@ -77,7 +77,7 @@ QString BitcoinUnits::description(int unit)
             case DMS: return QString("DMS");
             case mDMS: return QString("Milli-DMS (1 / 1" THIN_SP_UTF8 "000)");
             case uDMS: return QString("Micro-DMS (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-            case duffs: return QString("Ten Nano-DMS (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case docz: return QString("Ten Nano-DMS (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
             default: return QString("???");
         }
     }
@@ -88,7 +88,7 @@ QString BitcoinUnits::description(int unit)
             case DMS: return QString("TestDMSs");
             case mDMS: return QString("Milli-TestDMS (1 / 1" THIN_SP_UTF8 "000)");
             case uDMS: return QString("Micro-TestDMS (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-            case duffs: return QString("Ten Nano-TestDMS (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case docz: return QString("Ten Nano-TestDMS (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
             default: return QString("???");
         }
     }
@@ -101,7 +101,7 @@ qint64 BitcoinUnits::factor(int unit)
     case DMS:  return 100000000;
     case mDMS: return 100000;
     case uDMS: return 100;
-    case duffs: return 1;
+    case docs: return 1;
     default:   return 100000000;
     }
 }
@@ -113,7 +113,7 @@ int BitcoinUnits::decimals(int unit)
     case DMS: return 8;
     case mDMS: return 5;
     case uDMS: return 2;
-    case duffs: return 0;
+    case docz: return 0;
     default: return 0;
     }
 }

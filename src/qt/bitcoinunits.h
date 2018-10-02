@@ -62,7 +62,7 @@ public:
         DMS,
         mDMS,
         uDMS,
-        duffs
+        docz    // Bitcoin=Satoshi, Dash=Duff, DMS=docz
     };
 
     enum SeparatorStyle

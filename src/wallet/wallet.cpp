@@ -52,7 +52,7 @@ bool bBIP69Enabled = true;
 const char * DEFAULT_WALLET_DAT = "wallet.dat";
 
 /** 
- * Fees smaller than this (in duffs) are considered zero fee (for transaction creation)
+ * Fees smaller than this (in docz) are considered zero fee (for transaction creation)
  * Override with -mintxfee
  */
 CFeeRate CWallet::minTxFee = CFeeRate(DEFAULT_TRANSACTION_MINFEE);
