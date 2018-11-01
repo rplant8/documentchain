@@ -62,7 +62,7 @@ QString BitcoinUnits::name(int unit)
             case DMS: return QString("tDMS");
             case mDMS: return QString("mtDMS");
             case uDMS: return QString::fromUtf8("μtDMS");
-            case ddocs: return QString("tdocz");
+            case docz: return QString("tdocz");
             default: return QString("???");
         }
     }
@@ -101,7 +101,7 @@ qint64 BitcoinUnits::factor(int unit)
     case DMS:  return 100000000;
     case mDMS: return 100000;
     case uDMS: return 100;
-    case docs: return 1;
+    case docz: return 1;
     default:   return 100000000;
     }
 }
