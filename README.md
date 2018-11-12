@@ -1,11 +1,14 @@
-DMS Core staging tree 0.12.9
+DMS Core staging tree 0.12
 =====================
 
-http://www.dms.cash
+https://dms.cash
 
 
 What is DMS?
 ---------------------
+
+The main task of Documentchain is to store document information for a tamper-proof 
+document revision. DMS is the project-own coin used to pay the storage fees.
 
 DMS is an experimental digital currency forked from Dash 0.12.3.2
 DMS Core is the name of the open source software which enables the use of this currency.
@@ -24,31 +27,3 @@ The `master` branch is meant to be stable. Development is normally done in separ
 stable release versions of DMS Core.
 
 The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md).
-
-Testing
----------------------
-
-Testing and code review is the bottleneck for development; we get more pull
-requests than we can review and test on short notice. Please be patient and help out by testing
-other people's pull requests, and remember this is a security-critical project where any mistake might cost people
-lots of money.
-
-### Automated Testing
-
-Developers are strongly encouraged to write [unit tests](src/test/README.md) for new code, and to
-submit new unit tests for old code. Unit tests can be compiled and run
-(assuming they weren't disabled in configure) with: `make check`. Further details on running
-and extending unit tests can be found in [/src/test/README.md](/src/test/README.md).
-
-There are also [regression and integration tests](/qa) of the RPC interface, written
-in Python, that are run automatically on the build server.
-These tests can be run (if the [test dependencies](/qa) are installed) with: `qa/pull-tester/rpc-tests.py`
-
-The Travis CI system makes sure that every pull request is built for Windows, Linux, and OS X, and that unit/sanity tests are run automatically.
-
-### Manual Quality Assurance (QA) Testing
-
-Changes should be tested by somebody other than the developer who wrote the
-code. This is especially important for large or high-risk changes. It is useful
-to add a test plan to the pull request description if testing the changes is
-not straightforward.

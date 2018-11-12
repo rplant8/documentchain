@@ -620,7 +620,11 @@ std::string LicenseInfo()
            "\n" +
            strprintf(_("The source code is available from %s."),
                URL_SOURCE_CODE) +
-           "\n" +
+           "\n\n" +
+		   "Publisher/Impressum:\n" +
+		   "Softwarebüro Krekeler, Friedrich-Engels-Str. 45, 15712 Königs Wusterhausen, Germany\n" +
+		   "Phone +49 3375 203631, Fax +49 3375 203622, mail@dms.cash, VAT ID/USt-IdNr. DE136377489\n" +
+		   "Verantwortlicher i. S. d. § 55 Abs: 2 RStV: Harald Krekeler (Anschrift s. o.)\n" +
            "\n" +
            _("This is experimental software.") + "\n" +
            strprintf(_("Distributed under the MIT software license, see the accompanying file %s or %s"), "COPYING", "<https://opensource.org/licenses/MIT>") + "\n" +
