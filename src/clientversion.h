@@ -18,7 +18,7 @@
 //! These need to be macros, as clientversion.cpp's and dms*-res.rc's voodoo requires it
 #define CLIENT_VERSION_MAJOR 0
 #define CLIENT_VERSION_MINOR 12
-#define CLIENT_VERSION_REVISION 10
+#define CLIENT_VERSION_REVISION 11
 #define CLIENT_VERSION_BUILD 0
 
 //! Set to true for release, false for prerelease or test build

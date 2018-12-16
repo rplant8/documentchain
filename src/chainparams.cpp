@@ -241,7 +241,7 @@ public:
         fMiningRequiresPeers = true;
         fDefaultConsistencyChecks = false;
         fRequireStandard = true;
-        fMineBlocksOnDemand = true;    // TODO
+        fMineBlocksOnDemand = false;
         fAllowMultipleAddressesFromGroup = false;
         fAllowMultiplePorts = false;
 
@@ -254,12 +254,12 @@ public:
             boost::assign::map_list_of
             (     0, uint256S("0x00000af4a21d6e8daa4026a5eafc7132089a7dbb9d3921b12c4fa39b78c9a010"))
             (   133, uint256S("0x00003c1aa0d920b6a665b71fb8ebde8dff0426ed02483a1f3165a1b9533f339f"))
-            (  1000, uint256S("0x0000c6fb12f19cb00ef845519800c89eaf66d0238abc7d3a025e69bc1182b270"))
             (  1444, uint256S("0x000052ddaadcb557173492fc2b0a381d63917532b6c933b7145410d491ba5167"))
             (  4600, uint256S("0x00003e6d58a4974170d74f8ccb55aca3afeca21fc6a25789c64a88ac3b44c239"))
             (  8410, uint256S("0x000000dcc96e66827c73c603c96683bb53d536e878fa282ef3e1a30ee42c4121"))
             ( 15000, uint256S("0x0000024a04c4ac9eb28385fa0a18b6911b7ee22c64c3af476cd72bcf27fa136f"))
             ( 17600, uint256S("0x0000b0fabbc7116c54ca34d85424778a41643febe205d1486779573f975e4ae5"))
+            ( 24986, uint256S("0x00000425064314521ecb0a68e75d2389ecaf69273d98a594362fa514fb6e204c"))
         };
 
         chainTxData = ChainTxData{
@@ -386,7 +386,7 @@ public:
         fMiningRequiresPeers = false;
         fDefaultConsistencyChecks = false;
         fRequireStandard = false;
-        fMineBlocksOnDemand = true; // TODO
+        fMineBlocksOnDemand = false;
         fAllowMultipleAddressesFromGroup = false;
         fAllowMultiplePorts = false;
 
@@ -517,7 +517,7 @@ public:
         fMiningRequiresPeers = false;
         fDefaultConsistencyChecks = false;
         fRequireStandard = false;
-        fMineBlocksOnDemand = true; // TODO
+        fMineBlocksOnDemand = false;
         fAllowMultipleAddressesFromGroup = true;
         fAllowMultiplePorts = true;
 
