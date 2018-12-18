@@ -32,6 +32,9 @@
 
 #endif //HAVE_CONFIG_H
 
+// Release code names: Alice 0.12.9, Bob 0.12.10, Carol 0.12.11
+#define RELEASE_CODE_NAME "Carol"
+
 /**
  * Converts the parameter X to a string after macro replacement on X has been performed.
  * Don't merge these into one macro!
