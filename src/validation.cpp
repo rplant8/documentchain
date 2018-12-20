@@ -1291,58 +1291,33 @@ NOTE:   unlike bitcoin we are using PREVIOUS block height here,
 */
 CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params& consensusParams, bool fSuperblockPartOnly)
 {
-    double dDiff;
-    CAmount nSubsidyBase;
+    int nHeight = nPrevHeight + 1; // TODO: use nHeight as param like bitcoin, remove unused params
 
-	/*
-    if (nPrevHeight <= 4500 && Params().NetworkIDString() == CBaseChainParams::MAIN) {
-        // Dash: a bug which caused diff to not be correctly calculated 
-        dDiff = (double)0x0000ffff / (double)(nPrevBits & 0x00ffffff);
-    } else {
-        dDiff = ConvertBitsToDouble(nPrevBits);
-    }
-	*/
-	dDiff = ConvertBitsToDouble(nPrevBits);
+    // 10 blocks/hour, 240/day, 7200/month, 87600/year
+    int nReward;
+    if      (nHeight <   44001) { nReward = 50; }  // 2 200 000 /  6 month
+    else if (nHeight <   88001) { nReward = 40; }  // 1 760 000 /  6 month
+    else if (nHeight <  132001) { nReward = 30; }  // 1 320 000 /  6 month
+    else if (nHeight <  176001) { nReward = 20; }  //   840 000 /  6 month
+    else if (nHeight <  350001) { nReward = 15; }  // 2 610 000 /  2 years
+    else if (nHeight <  788001) { nReward = 10; }  // 4 380 000 /  5 years
+    else if (nHeight < 1226001) { nReward =  5; }  // 2 190 000 /  5 years
+    else if (nHeight < 2102001) { nReward =  3; }  // 2 628 000 / 10 years 
+    else if (nHeight < 2978001) { nReward =  2; }  // 1 752 000 / 10 years 
+    else if (nHeight < 4298001) { nReward =  1; }  // 1 320 000 / 15 years 
+    else                        { nReward =  0; }; // reward = fee only
+                                             // sum: 21 000 000 / 49 years  
 
-    /* Dash:
-    if (nPrevHeight < 5465) {
-        // Early ages...
-        // 1111/((x+1)^2)
-        nSubsidyBase = (1111.0 / (pow((dDiff+1.0),2.0)));
-        if(nSubsidyBase > 500) nSubsidyBase = 500;
-        else if(nSubsidyBase < 1) nSubsidyBase = 1;
-    } else if (nPrevHeight < 17000 || (dDiff <= 75 && nPrevHeight < 24000)) {
-        // CPU mining era
-        // 11111/(((x+51)/6)^2)
-        nSubsidyBase = (11111.0 / (pow((dDiff+51.0)/6.0,2.0)));
-        if(nSubsidyBase > 500) nSubsidyBase = 500;
-        else if(nSubsidyBase < 25) nSubsidyBase = 25;
-    } else {
-        // GPU/ASIC mining era
-        // 2222222/(((x+2600)/9)^2)
-        nSubsidyBase = (2222222.0 / (pow((dDiff+2600.0)/9.0,2.0)));
-        if(nSubsidyBase > 25) nSubsidyBase = 25;
-        else if(nSubsidyBase < 5) nSubsidyBase = 5;
-    }
-	*/
-	// DMS: CPU mining era, reward 25 - 50 DMS
-    // 11111/(((x+51)/6)^2)
-    nSubsidyBase = (11111.0 / (pow((dDiff+51.0)/6.0,2.0)));
-    if(nSubsidyBase > 50) nSubsidyBase = 50;
-    else if(nSubsidyBase < 25) nSubsidyBase = 25;	
+    CAmount nSubsidy = nReward * COIN;
+    return nSubsidy;
 
-    // LogPrintf("height %u diff %4.2f reward %d\n", nPrevHeight, dDiff, nSubsidyBase);
-    CAmount nSubsidy = nSubsidyBase * COIN;
-
-    // yearly decline of production by ~7.1% per year, projected ~18M coins max by year 2050+.
-    for (int i = consensusParams.nSubsidyHalvingInterval; i <= nPrevHeight; i += consensusParams.nSubsidyHalvingInterval) {
-        nSubsidy -= nSubsidy/14;
-    }
-
-    // Hard fork to reduce the block reward by 10 extra percent (allowing budget/superblocks)
+    // reduce the block reward by 10 extra percent (allowing budget/superblocks)
+	// DMS does not use superblocks (consensus.nSuperblockStartBlock is set to >1000 years ), 
+	// but the code is not removed yet because it could be of interest for other purposes.
+	/* uncomment for budget/superblocks:
     CAmount nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? nSubsidy/10 : 0;
-
     return fSuperblockPartOnly ? nSuperblockPart : nSubsidy - nSuperblockPart;
+	*/
 }
 
 CAmount GetMasternodePayment(int nHeight, CAmount blockValue)
@@ -2096,7 +2071,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     // This rule was originally applied to all blocks with a timestamp after March 15, 2012, 0:00 UTC.
     // Now that the whole chain is irreversibly beyond that time it is applied to all blocks except the
     // two in the chain that violate it. This prevents exploiting the issue against nodes during their
-    // initial block download.
+    // initial block download.    DMS - TODO:
     bool fEnforceBIP30 = (!pindex->phashBlock) || // Enforce on CreateNewBlock invocations which don't have a hash.
                           !((pindex->nHeight==91842 && pindex->GetBlockHash() == uint256S("0x00000000000a4d0a398161ffc163c503763b1f4360639393e0e4c8e300e0caec")) ||
                            (pindex->nHeight==91880 && pindex->GetBlockHash() == uint256S("0x00000000000743f190a18c5577a3c2d2a1f610ae9601ac046a38084ccb7cd721")));
@@ -2122,7 +2097,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
         }
     }
 
-    /// DMS: Check superblock start
+    /// Dash: Check superblock start
 
     // make sure old budget is the real one
     if (pindex->nHeight == chainparams.GetConsensus().nSuperblockStartBlock &&
@@ -2131,7 +2106,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
             return state.DoS(100, error("ConnectBlock(): invalid superblock start"),
                              REJECT_INVALID, "bad-sb-start");
 
-    /// END DMS
+    /// END Dash
 
     // BIP16 didn't become active until Apr 1 2012
     int64_t nBIP16SwitchTime = 1333238400;

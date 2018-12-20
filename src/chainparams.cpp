@@ -125,17 +125,17 @@ class CMainParams : public CChainParams {
 public:
     CMainParams() {
         strNetworkID = "main";
-        consensus.nSubsidyHalvingInterval = 210000; // Bitcoin=210000, Dash=210240; // Note: actual number of blocks per calendar year with DGW v3 is ~200700 (for example 449750 - 249050)
-        consensus.nMasternodePaymentsStartBlock = 5000; // Dash=100000; // not true, but it's ok as long as it's less then nMasternodePaymentsIncreaseBlock
-        consensus.nMasternodePaymentsIncreaseBlock = 158000; // actual historical value
+      //consensus.nSubsidyHalvingInterval = 210000; DMS does not use Halving, see validation.cpp GetBlockSubsidy
+        consensus.nMasternodePaymentsStartBlock = 5000; // Dash=100000;
+        consensus.nMasternodePaymentsIncreaseBlock = 158000; // Dash: actual historical value
         consensus.nMasternodePaymentsIncreasePeriod = 576*30; // 17280 - actual historical value
         consensus.nInstantSendConfirmationsRequired = 6;
         consensus.nInstantSendKeepLock = 24;
-        consensus.nBudgetPaymentsStartBlock = 328008; // actual historical value
+        consensus.nBudgetPaymentsStartBlock = 100000000; // >1000 years: DMS does not use this yet
         consensus.nBudgetPaymentsCycleBlocks = 7200; // DMS: (60*24*30)/6; Dash: ~(60*24*30)/2.6, actual number of blocks per month is 200700 / 12 = 16725
         consensus.nBudgetPaymentsWindowBlocks = 100;
-        consensus.nSuperblockStartBlock = 614820; // TODO    // The block at which 12.1 goes live (end of final 12.0 budget cycle)
-        consensus.nSuperblockStartHash = uint256S("0000000000020cb27c7ef164d21003d5d20cdca2f54dd9a9ca6d45f4d47f8aa3");
+        consensus.nSuperblockStartBlock = 100000000; // >1000 years: DMS does not use superblocks, but the code is not removed yet because it could be of interest for other purposes
+        consensus.nSuperblockStartHash = uint256S("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"); // - " -
         consensus.nSuperblockCycle = 7200; // DMS: (60*24*30)/6; Dash: ~(60*24*30)/2.6, actual number of blocks per month is 200700 / 12 = 16725
         consensus.nGovernanceMinQuorum = 10;
         consensus.nGovernanceFilterElements = 20000;
@@ -150,10 +150,10 @@ public:
         consensus.nPowTargetSpacing = 6 * 60; // DMS 6 minutes (initial 4 minutes); Bitcoin 10 minutes; Dash 2.5 minutes
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
-        consensus.nPowKGWHeight = 0; // 15200;   TODO
-        consensus.nPowDGWHeight = 0; // 34140;   TODO
+        consensus.nPowKGWHeight = 0; // 15200;
+        consensus.nPowDGWHeight = 0; // 34140;
         consensus.nRuleChangeActivationThreshold = 1916; // 95% of 2016
-        consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
+        consensus.nMinerConfirmationWindow = 2016; // relevant to BIP 9 soft fork, see params.h
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // Dash: January 1, 2008
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // Dash: December 31, 2008
@@ -279,7 +279,6 @@ class CTestNetParams : public CChainParams {
 public:
     CTestNetParams() {
         strNetworkID = "test";
-        consensus.nSubsidyHalvingInterval = 210240;
         consensus.nMasternodePaymentsStartBlock = 4010; // not true, but it's ok as long as it's less then nMasternodePaymentsIncreaseBlock
         consensus.nMasternodePaymentsIncreaseBlock = 4030;
         consensus.nMasternodePaymentsIncreasePeriod = 10;
@@ -289,7 +288,7 @@ public:
         consensus.nBudgetPaymentsCycleBlocks = 50;
         consensus.nBudgetPaymentsWindowBlocks = 10;
         consensus.nSuperblockStartBlock = 4200; // NOTE: Should satisfy nSuperblockStartBlock > nBudgetPeymentsStartBlock
-        consensus.nSuperblockStartHash = uint256S("00000000cffabc0f646867fba0550afd6e30e0f4b0fc54e34d3e101a1552df5d");  // TODO
+        consensus.nSuperblockStartHash = uint256S("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");  // Hash of first Superblock
         consensus.nSuperblockCycle = 24; // Superblocks can be issued hourly on testnet
         consensus.nGovernanceMinQuorum = 1;
         consensus.nGovernanceFilterElements = 500;
@@ -419,7 +418,6 @@ class CDevNetParams : public CChainParams {
 public:
     CDevNetParams() {
         strNetworkID = "dev";
-        consensus.nSubsidyHalvingInterval = 210240;
         consensus.nMasternodePaymentsStartBlock = 4010; // not true, but it's ok as long as it's less then nMasternodePaymentsIncreaseBlock
         consensus.nMasternodePaymentsIncreaseBlock = 4030;
         consensus.nMasternodePaymentsIncreasePeriod = 10;
@@ -549,7 +547,6 @@ class CRegTestParams : public CChainParams {
 public:
     CRegTestParams() {
         strNetworkID = "regtest";
-        consensus.nSubsidyHalvingInterval = 150;
         consensus.nMasternodePaymentsStartBlock = 240;
         consensus.nMasternodePaymentsIncreaseBlock = 350;
         consensus.nMasternodePaymentsIncreasePeriod = 10;
