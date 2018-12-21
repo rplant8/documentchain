@@ -1284,15 +1284,10 @@ double ConvertBitsToDouble(unsigned int nBits)
     return dDiff;
 }
 
-/*
-NOTE:   unlike bitcoin we are using PREVIOUS block height here,
-        might be a good idea to change this to use prev bits
-        but current height to avoid confusion.
-*/
-CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params& consensusParams, bool fSuperblockPartOnly)
+// unlike Dash we are using current block height and previous nBits here, Dash uses previous height
+// DMS uses only nHeight, but the params are not removed yet because they could be of interest for future purposes
+CAmount GetBlockSubsidy(int nPrevBits, int nHeight, const Consensus::Params& consensusParams, bool fSuperblockPartOnly)
 {
-    int nHeight = nPrevHeight + 1; // TODO: use nHeight as param like bitcoin, remove unused params
-
     // 10 blocks/hour, 240/day, 7200/month, 87600/year
     int nReward;
     if      (nHeight <   44001) { nReward = 50; }  // 2 200 000 /  6 month
@@ -2292,15 +2287,15 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     int64_t nTime3 = GetTimeMicros(); nTimeConnect += nTime3 - nTime2;
     LogPrint("bench", "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime3 - nTime2), 0.001 * (nTime3 - nTime2) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime3 - nTime2) / (nInputs-1), nTimeConnect * 0.000001);
 
-    // DMS : MODIFIED TO CHECK MASTERNODE PAYMENTS AND SUPERBLOCKS
-
+    // Dash : MODIFIED TO CHECK MASTERNODE PAYMENTS AND SUPERBLOCKS
     // It's possible that we simply don't have enough data and this could fail
     // (i.e. block itself could be a correct one and we need to store it),
     // that's why this is in ConnectBlock. Could be the other way around however -
     // the peer who sent us this block is missing some data and wasn't able
     // to recognize that block is actually invalid.
     // TODO: resync data (both ways?) and try to reprocess this block later.
-    CAmount blockReward = nFees + GetBlockSubsidy(pindex->pprev->nBits, pindex->pprev->nHeight, chainparams.GetConsensus());
+	// DMS: GetBlockSubsidy uses previus nBits and current nHeight
+    CAmount blockReward = nFees + GetBlockSubsidy(pindex->pprev->nBits, pindex->nHeight, chainparams.GetConsensus());
     std::string strError = "";
     if (!IsBlockValueValid(block, pindex->nHeight, blockReward, strError)) {
         return state.DoS(0, error("ConnectBlock(DMS): %s", strError), REJECT_INVALID, "bad-cb-amount");
@@ -2311,7 +2306,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
         return state.DoS(0, error("ConnectBlock(DMS): couldn't find masternode or superblock payments"),
                                 REJECT_INVALID, "bad-cb-payee");
     }
-    // END DMS
+    // END Dash
 
     if (!control.Wait())
         return state.DoS(100, false);
