@@ -236,7 +236,7 @@ public:
         nExtCoinType = 5;
 
         // fixed seed node, use contrib/seeds/generate-seeds.py to edit pnSeed6_main and pnSeed6_test
-        vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main)); // vFixedSeeds.clear();
+        vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
 
         fMiningRequiresPeers = true;
         fDefaultConsistencyChecks = false;
@@ -258,8 +258,8 @@ public:
             (  4600, uint256S("0x00003e6d58a4974170d74f8ccb55aca3afeca21fc6a25789c64a88ac3b44c239"))
             (  8410, uint256S("0x000000dcc96e66827c73c603c96683bb53d536e878fa282ef3e1a30ee42c4121"))
             ( 15000, uint256S("0x0000024a04c4ac9eb28385fa0a18b6911b7ee22c64c3af476cd72bcf27fa136f"))
-            ( 17600, uint256S("0x0000b0fabbc7116c54ca34d85424778a41643febe205d1486779573f975e4ae5"))
-            ( 24986, uint256S("0x00000425064314521ecb0a68e75d2389ecaf69273d98a594362fa514fb6e204c"))
+            ( 20013, uint256S("0x000000465d652bda5d5746ec620b0926de583a622011b61404af02fd07176236"))
+            ( 26990, uint256S("0x00000ac7439f65441970eed887d5bad2ecf6a1bbde4f39a4a21f50aaa648d049"))
         };
 
         chainTxData = ChainTxData{
