@@ -1,4 +1,4 @@
-Deterministic OS X Dmg Notes.
+Deterministic macOS (formerly OS X) Dmg Notes.
 
 Working OS X DMGs are created in Linux by combining a recent clang,
 the Apple binutils (ld, ar, etc) and DMG authoring tools.
@@ -6,7 +6,7 @@ the Apple binutils (ld, ar, etc) and DMG authoring tools.
 Apple uses clang extensively for development and has upstreamed the necessary
 functionality so that a vanilla clang can take advantage. It supports the use
 of -F, -target, -mmacosx-version-min, and --sysroot, which are all necessary
-when building for OS X.
+when building for macOS.
 
 Apple's version of binutils (called cctools) contains lots of functionality
 missing in the FSF's binutils. In addition to extra linker options for
@@ -38,7 +38,7 @@ Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.1
 Unfortunately, the usual linux tools (7zip, hpmount, loopback mount) are incapable of opening this file.
 To create a tarball suitable for Gitian input, there are two options:
 
-Using Mac OS X, you can mount the dmg, and then create it with:
+Using macOS, you can mount the dmg, and then create it with:
 ```
   $ hdiutil attach Xcode_7.3.1.dmg
   $ tar -C /Volumes/Xcode/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/ -czf MacOSX10.11.sdk.tar.gz MacOSX10.11.sdk

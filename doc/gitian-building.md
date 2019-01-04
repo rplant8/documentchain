@@ -346,7 +346,7 @@ offline.
 Building DMS Core
 ----------------
 
-To build DMS Core (for Linux, OS X and Windows) just follow the steps under 'perform
+To build DMS Core (for Linux, macOS and Windows) just follow the steps under 'perform
 Gitian builds' in [doc/release-process.md](release-process.md#perform-gitian-builds) in the DMS Core repository.
 
 This may take some time as it will build all the dependencies needed for each descriptor.

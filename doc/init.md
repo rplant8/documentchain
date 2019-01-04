@@ -15,7 +15,7 @@ can be found in the contrib/init folder.
 
 All three Linux startup configurations assume the existence of a "dmscore" user
 and group.  They must be created before attempting to use these scripts.
-The OS X configuration assumes dmsd will be set up for the current user.
+The macOS configuration assumes dmsd will be set up for the current user.
 
 2. Configuration
 ---------------------------------
@@ -65,7 +65,7 @@ reasons to make the configuration file and data directory only readable by the
 dmscore user and group.  Access to dms-cli and other dmsd rpc clients
 can then be controlled by group membership.
 
-3b) Mac OS X
+3b) macOS (OS X)
 
 Binary:              `/usr/local/bin/dmsd`  
 Configuration file:  `~/Library/Application Support/DMSCore/dms.conf`  
@@ -107,7 +107,7 @@ Using this script, you can adjust the path and flags to the dmsd program by
 setting the dmsd and FLAGS environment variables in the file
 /etc/sysconfig/dmsd. You can also use the DAEMONOPTS environment variable here.
 
-4e) Mac OS X
+4e) macOS (OS X)
 
 Copy org.dms.dmsd.plist into ~/Library/LaunchAgents. Load the launch agent by
 running `launchctl load ~/Library/LaunchAgents/org.dms.dmsd.plist`.

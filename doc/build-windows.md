@@ -11,7 +11,7 @@ using the Windows Subsystem For Linux is the most straightforward. If you are bu
 another method, please contribute the instructions here for others who are running versions
 of Windows that are not compatible with the Windows Subsystem for Linux.
 
-Compiling with Windows Subsystem For Linux
+Compiling with Windows Subsystem for Linux (WSL)
 -------------------------------------------
 
 With Windows 10, Microsoft has released a new feature named the [Windows
@@ -22,68 +22,96 @@ the need for a separate Linux VM or server.
 
 This feature is not supported in versions of Windows prior to Windows 10 or on
 Windows Server SKUs. In addition, it is available [only for 64-bit versions of
-Windows](https://msdn.microsoft.com/en-us/commandline/wsl/install_guide).
+Windows].
 
 To get the bash shell, you must first activate the feature in Windows.
 
-1. Turn on Developer Mode
-  * Open Settings -> Update and Security -> For developers
-  * Select the Developer Mode radio button
-  * Restart if necessary
-2. Enable the Windows Subsystem for Linux feature
-  * From Start, search for "Turn Windows features on or off" (type 'turn')
-  * Select Windows Subsystem for Linux (beta)
-  * Click OK
-  * Restart if necessary
-3. Complete Installation
-  * Open a cmd prompt and type "bash"
-  * Accept the license
-  * Create a new UNIX user account (this is a separate account from your Windows account)
+1. Follow [Windows Subsystem for Linux Installation](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+   and install Ubuntu 18.04 LTS from Microsoft Store.
+   You can also use Ubuntu 14.04 or 17.04
+1. Restart if necessary
+1. Create a new UNIX user account (this is a separate account from your Windows account)
 
-After the bash shell is active, you can follow the instructions below, starting
-with the "Cross-compilation" section. Compiling the 64-bit version is
-recommended but it is possible to compile the 32-bit version.
+After the bash shell is active, you can follow the instructions below.
 
 Cross-compilation
 -------------------
 
-These steps can be performed on, for example, an Ubuntu VM. The depends system
+These steps can be performed on WSL or, for example, an Ubuntu VM. The depends system
 will also work on other Linux distributions, however the commands for
 installing the toolchain will be different.
 
+In WSL the entire windows path is part of the linux $PATH variable and it interferes with the
+make command. We have to clean $PATH or can add "PATH=$(getconf PATH)" to the make command.
+See https://github.com/bitcoin/bitcoin/pull/10889
+
 First, install the general dependencies:
 
-    sudo apt-get install build-essential libtool autotools-dev automake pkg-config bsdmainutils curl
+    sudo apt update
+    sudo apt upgrade
+    sudo apt install build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git
 
 A host toolchain (`build-essential`) is necessary because some dependency
 packages (such as `protobuf`) need to build host utilities that are used in the
 build process.
 
-## Building for 64-bit Windows
+### BerkeleyDB is required for the wallet
+
+For Ubuntu only: db4.8 packages are available [here](https://launchpad.net/~bitcoin/+archive/bitcoin).
+You can add the repository and install using the following commands:
+
+    sudo apt install software-properties-common
+    sudo add-apt-repository ppa:bitcoin/bitcoin
+    sudo apt install libdb4.8-dev libdb4.8++-dev
+
+Ubuntu and Debian have their own libdb-dev and libdb++-dev packages, but these will install
+BerkeleyDB 5.1 or later. This will break binary wallet compatibility with the distributed executables, which
+are based on BerkeleyDB 4.8. If you do not care about wallet compatibility,
+pass `--with-incompatible-bdb` to configure.
+
+### Installer
+
+If you want to build the windows installer with `make deploy` you need NSIS:
+
+    sudo apt install nsis
+
+### Download the source
+
+    git clone https://github.com/Krekeler/documentchain.git
+
+### Building for 64-bit Windows
 
 To build executables for Windows 64-bit, install the following dependencies:
 
-    sudo apt-get install g++-mingw-w64-x86-64 mingw-w64-x86-64-dev
+    sudo apt install g++-mingw-w64-x86-64
+	
+Ubuntu 18.04:
 
+    sudo update-alternatives --config x86_64-w64-mingw32-g++ # Set the default mingw32 g++ compiler option to posix.
+	
 Then build using:
 
-    cd depends
-    make HOST=x86_64-w64-mingw32
+    cd documentchain/depends
+    make HOST=x86_64-w64-mingw32 PATH=$(getconf PATH)
     cd ..
     ./autogen.sh # not required when building from tarball
     CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/
     make
 
-## Building for 32-bit Windows
+### Building for 32-bit Windows
 
 To build executables for Windows 32-bit, install the following dependencies:
 
-    sudo apt-get install g++-mingw-w64-i686 mingw-w64-i686-dev 
+    sudo apt install g++-mingw-w64-i686 mingw-w64-i686-dev
+	
+Ubuntu 18.04:
+
+    sudo update-alternatives --config i686-w64-mingw32-g++  # Set the default mingw32 g++ compiler option to posix.
 
 Then build using:
 
     cd depends
-    make HOST=i686-w64-mingw32
+    make HOST=i686-w64-mingw32 PATH=$(getconf PATH)
     cd ..
     ./autogen.sh # not required when building from tarball
     CONFIG_SITE=$PWD/depends/i686-w64-mingw32/share/config.site ./configure --prefix=/
@@ -99,6 +127,6 @@ Installation
 After building using the Windows subsystem it can be useful to copy the compiled
 executables to a directory on the windows drive in the same directory structure
 as they appear in the release `.zip` archive. This can be done in the following
-way. This will install to `c:\workspace\dms`, for example:
+way. This will install to `c:\workspace\documentchain`, for example:
 
-    make install DESTDIR=/mnt/c/workspace/dms
+    make install DESTDIR=/mnt/c/workspace/documentchain

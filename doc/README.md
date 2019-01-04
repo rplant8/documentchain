@@ -18,7 +18,7 @@ Unpack the files into a directory and run:
 
 Unpack the files into a directory, and then run dms-qt.exe.
 
-### OS X
+### macOS (formerly OS X)
 
 Drag DMS-Qt to your applications folder, and then run DMS-Qt.
 
@@ -31,7 +31,7 @@ Building
 ---------------------
 The following are developer notes on how to build DMS Core on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
 
-- [OS X Build Notes](build-osx.md)
+- [macOS Build Notes](build-osx.md)
 - [Unix Build Notes](build-unix.md)
 - [Windows Build Notes](build-windows.md)
 - [OpenBSD Build Notes](build-openbsd.md)
