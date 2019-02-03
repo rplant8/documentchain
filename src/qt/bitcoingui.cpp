@@ -263,6 +263,10 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
     connect(labelConnectionsIcon, SIGNAL(clicked(QPoint)), this, SLOT(showPeers()));
 
     modalOverlay = new ModalOverlay(this->centralWidget());
+
+    // store app path in setting, useful for DMS software under windows
+    GUIUtil::saveAppPath();
+
 #ifdef ENABLE_WALLET
     if(enableWallet) {
         connect(walletFrame, SIGNAL(requestedSyncWarningInfo()), this, SLOT(showModalOverlay()));

@@ -194,6 +194,9 @@ namespace GUIUtil
     /** Restore window size and position */
     void restoreWindowGeometry(const QString& strSetting, const QSize &defaultSizeIn, QWidget *parent);
 
+    /** Save app path for DMS software **/
+    void saveAppPath();
+
     /** Load global CSS theme */
     QString loadStyleSheet();
 

@@ -921,6 +921,14 @@ void restoreWindowGeometry(const QString& strSetting, const QSize& defaultSize, 
     }
 }
 
+// save app path to settings, used by DMS software on windows
+void saveAppPath()
+{
+    QSettings settings;
+    QString strAppPath = QCoreApplication::applicationFilePath();
+    settings.setValue("strAppPath", QDir::toNativeSeparators(strAppPath));
+}
+
 // Return name of current UI-theme or default theme if no theme was found
 QString getThemeName()
 {
