@@ -191,6 +191,43 @@ UniValue getaccountaddress(const JSONRPCRequest& request)
 }
 
 
+UniValue getencryptionstatus(const JSONRPCRequest& request)
+{
+    if (!EnsureWalletIsAvailable(request.fHelp))
+        return NullUniValue;
+
+    if (request.fHelp || request.params.size() != 0)
+        throw std::runtime_error(
+            "getencryptionstatus\n"
+            "\nReturns the encryption status of the wallet.\n"
+            "\nResult:\n"
+            "\"status\"    (string) Current status: \"unencrypted\", \"locked\", \"unlockedformixingonly\" or \"unlocked\"\n"
+            "\nExamples:\n"
+            + HelpExampleCli("getencryptionstatus", "")
+            + HelpExampleRpc("getencryptionstatus", "")
+       );
+
+    LOCK2(cs_main, pwalletMain->cs_wallet);
+
+    if(!pwalletMain->IsCrypted())
+    {
+        return "unencrypted";
+    }
+    else if(pwalletMain->IsLocked(true))
+    {
+        return "locked";
+    }
+    else if (pwalletMain->IsLocked())
+    {
+        return "unlockedformixingonly";
+    }
+    else
+    {
+        return "unlocked";
+    }
+}
+
+
 UniValue getrawchangeaddress(const JSONRPCRequest& request)
 {
     if (!EnsureWalletIsAvailable(request.fHelp))
@@ -2859,6 +2896,7 @@ static const CRPCCommand commands[] =
     { "wallet",             "getaccount",               &getaccount,               true,   {"address"} },
     { "wallet",             "getaddressesbyaccount",    &getaddressesbyaccount,    true,   {"account"} },
     { "wallet",             "getbalance",               &getbalance,               false,  {"account","minconf","addlockconf","include_watchonly"} },
+    { "wallet",             "getencryptionstatus",      &getencryptionstatus,      true,   {} },
     { "wallet",             "getnewaddress",            &getnewaddress,            true,   {"account"} },
     { "wallet",             "getrawchangeaddress",      &getrawchangeaddress,      true,   {} },
     { "wallet",             "getreceivedbyaccount",     &getreceivedbyaccount,     false,  {"account","minconf","addlockconf"} },
