@@ -2459,7 +2459,7 @@ https://www.transifex.com/projects/p/dash/</translation>
     </message>
     <message>
         <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramification of a command.</source>
-        <translation>Warnung: Betrüger verbreiten Befehle für diese Konsole, durch die sie die Guthaben der Nutzer stehlen können. Verwende diese Konsole nicht, wenn du nicht vollständig verstehst welche Auswirkung die Befehle haben.</translation>
+        <translation>Warnung: In Foren und Chats werden Konsolen-Befehle verbreitet, durch die das Guthaben verloren gehen bzw. gestohlen werden kann. Verwende diese Konsole nur, wenn du vollständig verstehst welche Auswirkung die Befehle haben.</translation>
     </message>
     <message>
         <source>In:</source>

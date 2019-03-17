@@ -130,3 +130,13 @@ as they appear in the release `.zip` archive. This can be done in the following
 way. This will install to `c:\workspace\documentchain`, for example:
 
     make install DESTDIR=/mnt/c/workspace/documentchain
+
+Using Qt to review source and forms
+------------------------
+Download and install the open source edition of [Qt](https://www.qt.io/download/).
+Check newest Qt version during installation process.
+
+1. In Qt Creator do "New Project" -> Import Project -> Import Existing Project
+1. Enter "dms-qt" as project name, enter src/qt as location
+1. In file selection add src/forms
+1. Confirm the "summary page"

@@ -73,18 +73,17 @@ You can monitor the download process by looking at the debug.log file:
 
 Using Qt as IDE
 ------------------------
-*This section of Bitcoin has not yet been reviewed for DMS Core.*
-
 Download and install the open source edition of [Qt](https://www.qt.io/download/).
 Check newest Qt version during installation process.
 
 1. Make sure you installed everything through Homebrew mentioned above
-2. Do a proper ./configure --enable-debug
+2. Do a proper `./autogen.sh` and `./configure --with-gui=qt5 --enable-debug`
 3. In Qt Creator do "New Project" -> Import Project -> Import Existing Project
 4. Enter "dms-qt" as project name, enter src/qt as location
 5. Leave the file selection as it is
 6. Confirm the "summary page"
 7. In the "Projects" tab select "Manage Kits..."
-8. Select the default "Desktop" kit and select "Clang (x86 64bit in /usr/bin)" as compiler
+8. On page "Kits" select the default "Desktop" kit and set the compiler to "Clang (x86 64bit in /usr/bin)"
 9. Select LLDB as debugger (you might need to set the path to your installation)
-10. Start debugging with Qt Creator
+10. In the "Projects" tab select "Build Settings", expand "Build Setps" and uncheck the make target "all"
+11. Start building and debugging with Qt Creator
