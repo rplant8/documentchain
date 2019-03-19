@@ -16,6 +16,7 @@
 #include "clientversion.h"
 #include "guiconstants.h"
 #include "guiutil.h"
+#include "miner.h"
 #include "modaloverlay.h"
 #include "networkstyle.h"
 #include "notificator.h"
@@ -48,6 +49,7 @@
 #include <QApplication>
 #include <QDateTime>
 #include <QDesktopWidget>
+#include <QInputDialog>
 #include <QDragEnterEvent>
 #include <QListWidget>
 #include <QMenuBar>
@@ -94,6 +96,7 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
     labelWalletHDStatusIcon(0),
     labelConnectionsIcon(0),
     labelBlocksIcon(0),
+    labelMiningIcon(0),
     progressBarLabel(0),
     progressBar(0),
     progressDialog(0),
@@ -216,6 +219,7 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
     labelConnectionsIcon = new GUIUtil::ClickableLabel();
 
     labelBlocksIcon = new GUIUtil::ClickableLabel();
+    labelMiningIcon = new GUIUtil::ClickableLabel();
     if(enableWallet)
     {
         frameBlocksLayout->addStretch();
@@ -223,6 +227,8 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
         frameBlocksLayout->addStretch();
         frameBlocksLayout->addWidget(labelWalletEncryptionIcon);
         frameBlocksLayout->addWidget(labelWalletHDStatusIcon);
+        frameBlocksLayout->addStretch();
+        frameBlocksLayout->addWidget(labelMiningIcon);
     }
     frameBlocksLayout->addStretch();
     frameBlocksLayout->addWidget(labelConnectionsIcon);
@@ -272,6 +278,12 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
         connect(walletFrame, SIGNAL(requestedSyncWarningInfo()), this, SLOT(showModalOverlay()));
         connect(labelBlocksIcon, SIGNAL(clicked(QPoint)), this, SLOT(showModalOverlay()));
         connect(progressBar, SIGNAL(clicked(QPoint)), this, SLOT(showModalOverlay()));
+        // mining status icon
+        connect(labelMiningIcon, SIGNAL(clicked(QPoint)), this, SLOT(setMining()));
+		QTimer* timerMiningIcon = new QTimer(labelMiningIcon);
+        connect(timerMiningIcon, SIGNAL(timeout()), this, SLOT(setMiningStatus()));
+        timerMiningIcon->start(8000);
+        setMiningStatus();
     }
 #endif
 }
@@ -1303,6 +1315,44 @@ bool BitcoinGUI::handlePaymentRequest(const SendCoinsRecipient& recipient)
         return true;
     }
     return false;
+}
+
+void BitcoinGUI::setMining()
+{
+    bool ok;
+    int nThreads = (int)GetArg("-genproclimit", DEFAULT_GENERATE_THREADS);
+    int maxThreads = boost::thread::hardware_concurrency();
+    if (maxThreads > 2)
+		maxThreads--;
+    nThreads = QInputDialog::getInt(this, tr("Mining"), 
+                                    tr("Mining threads (0-%1)").arg(maxThreads),
+                                    nThreads, 0, maxThreads, 1, &ok);
+    if (ok)
+    {
+        bool fGenerate = (nThreads > 0);
+        ForceSetArg("-gen", (fGenerate ? "1" : "0"));
+        ForceSetArg("-genproclimit", itostr(nThreads));
+        GenerateBitcoins(true, nThreads, Params(), *g_connman);
+    }
+    setMiningStatus();
+}
+
+void BitcoinGUI::setMiningStatus()
+{
+    QString theme = GUIUtil::getThemeName();
+  //QString mininginfo = "<br>Network: " + GetNetworkHashPS(120, -1) + " H/s";
+
+    if (GetBoolArg("-gen", DEFAULT_GENERATE))
+    {
+        labelMiningIcon->setPixmap(QIcon(":/icons/" + theme + "/mining").pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
+        labelMiningIcon->setToolTip(tr("Mining on %n thread(s)", "", (int)GetArg("-genproclimit", DEFAULT_GENERATE_THREADS)));
+    }
+    else
+    {
+        labelMiningIcon->setPixmap(QIcon(":/icons/" + theme + "/notmining").pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
+        labelMiningIcon->setToolTip(tr("Mining is not active.<br>Click to generate Coins."));
+    }
+    labelMiningIcon->setEnabled(true);
 }
 
 void BitcoinGUI::setHDStatus(int hdEnabled)

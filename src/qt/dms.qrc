@@ -53,6 +53,8 @@
         <file alias="about">res/icons/light/about.png</file>
         <file alias="about_qt">res/icons/light/about_qt.png</file>
         <file alias="verify">res/icons/light/verify.png</file>
+        <file alias="mining">res/icons/light/mining.png</file>
+        <file alias="notmining">res/icons/light/notmining.png</file>
         <file alias="hd_enabled">res/icons/light/hd_enabled.png</file>
         <file alias="hd_disabled">res/icons/light/hd_disabled.png</file>
         <file alias="fontbigger">res/icons/light/fontbigger.png</file>

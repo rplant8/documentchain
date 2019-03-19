@@ -91,6 +91,7 @@ private:
     QLabel *labelWalletHDStatusIcon;
     QLabel *labelConnectionsIcon;
     QLabel *labelBlocksIcon;
+    QLabel *labelMiningIcon;
     QLabel *progressBarLabel;
     QProgressBar *progressBar;
     QProgressDialog *progressDialog;
@@ -195,6 +196,9 @@ public Q_SLOTS:
     void message(const QString &title, const QString &message, unsigned int style, bool *ret = NULL);
 
 #ifdef ENABLE_WALLET
+    /** Set the mining status as shown in the UI. **/
+    void setMiningStatus();
+	
     /** Set the hd-enabled status as shown in the UI.
      @param[in] status            current hd enabled status
      @see WalletModel::EncryptionStatus
@@ -233,6 +237,8 @@ private Q_SLOTS:
 
     /** Show open dialog */
     void openClicked();
+    /** ebable/disable mining **/
+    void setMining();
 #endif // ENABLE_WALLET
     /** Show configuration dialog */
     void optionsClicked();

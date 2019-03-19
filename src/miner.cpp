@@ -645,9 +645,9 @@ static bool ProcessBlockFound(const CBlock* pblock, const CChainParams& chainpar
 // ***TODO*** that part changed in bitcoin, we are using a mix with old one here for now
 void static BitcoinMiner(const CChainParams& chainparams, CConnman& connman)
 {
-    LogPrintf("DashMiner -- started\n");
-//    SetThreadPriority(THREAD_PRIORITY_LOWEST);  TODO SetThreadPriority(ThreadHandle, THREAD_PRIORITY_LOWEST)
-    RenameThread("dash-miner");
+    LogPrintf("Miner -- started\n");
+    SetThreadPriority(THREAD_PRIORITY_LOWEST); // TODO SetThreadPriority(ThreadHandle, THREAD_PRIORITY_LOWEST)
+    RenameThread("dms-miner");
     unsigned int nExtraNonce = 0;
     boost::shared_ptr<CReserveScript> coinbaseScript;
     GetMainSignals().ScriptForMining(coinbaseScript);
@@ -678,12 +678,12 @@ void static BitcoinMiner(const CChainParams& chainparams, CConnman& connman)
             std::unique_ptr<CBlockTemplate> pblocktemplate(BlockAssembler(chainparams).CreateNewBlock(coinbaseScript->reserveScript));
             if (!pblocktemplate.get())
             {
-                LogPrintf("DashMiner -- Keypool ran out, please call keypoolrefill before restarting the mining thread\n");
+                LogPrintf("Miner -- Keypool ran out, please call keypoolrefill before restarting the mining thread\n");
                 return;
             }
             CBlock *pblock = &pblocktemplate->block;
             IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
-            LogPrintf("DashMiner -- Running miner with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
+            LogPrintf("Miner -- Running miner with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
                 ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
             //
             // Search
@@ -700,10 +700,10 @@ void static BitcoinMiner(const CChainParams& chainparams, CConnman& connman)
                     if (UintToArith256(hash) <= hashTarget)
                     {
                         // Found a solution
-//                        SetThreadPriority(THREAD_PRIORITY_NORMAL);  TODO
-                        LogPrintf("DashMiner:\n  proof-of-work found\n  hash: %s\n  target: %s\n", hash.GetHex(), hashTarget.GetHex());
+                        SetThreadPriority(THREAD_PRIORITY_NORMAL);
+                        LogPrintf("Miner:\n  proof-of-work found\n  hash: %s\n  target: %s\n", hash.GetHex(), hashTarget.GetHex());
                         ProcessBlockFound(pblock, chainparams);
-//                        SetThreadPriority(THREAD_PRIORITY_LOWEST);  TODO
+                        SetThreadPriority(THREAD_PRIORITY_LOWEST);
                         coinbaseScript->KeepScript();
                         // In regression test mode, stop mining after a block is found. This
                         // allows developers to controllably generate a block on demand.
@@ -741,12 +741,12 @@ void static BitcoinMiner(const CChainParams& chainparams, CConnman& connman)
     }
     catch (const boost::thread_interrupted&)
     {
-        LogPrintf("DashMiner -- terminated\n");
+        LogPrintf("Miner -- terminated\n");
         throw;
     }
     catch (const std::runtime_error &e)
     {
-        LogPrintf("DashMiner -- runtime error: %s\n", e.what());
+        LogPrintf("Miner -- runtime error: %s\n", e.what());
         return;
     }
 }

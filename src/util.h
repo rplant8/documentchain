@@ -90,6 +90,7 @@ inline std::string _(const char* psz)
 
 void SetupEnvironment();
 bool SetupNetworking();
+void SetThreadPriority(int nPriority);
 
 /** Return true if log accepts specified category */
 bool LogAcceptCategory(const char* category);

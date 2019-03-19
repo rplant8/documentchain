@@ -212,6 +212,8 @@ RES_ICONS = \
   qt/res/icons/light/eye_minus.png \
   qt/res/icons/light/eye_plus.png \
   qt/res/icons/light/filesave.png \
+  qt/res/icons/light/mining.png \
+  qt/res/icons/light/notmining.png \
   qt/res/icons/light/hd_disabled.png \
   qt/res/icons/light/hd_enabled.png \
   qt/res/icons/light/history.png \
