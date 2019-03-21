@@ -437,7 +437,7 @@ RPCConsole::RPCConsole(const PlatformStyle *_platformStyle, QWidget *parent) :
 
     ui->openDebugLogfileButton->setToolTip(ui->openDebugLogfileButton->toolTip().arg(tr(PACKAGE_NAME)));
 
-    QString theme = GUIUtil::getThemeName();
+    QString theme = GUIUtil::getThemeName().remove("-hires");
     if (platformStyle->getImagesOnButtons()) {
         ui->openDebugLogfileButton->setIcon(QIcon(":/icons/" + theme + "/export"));
     }

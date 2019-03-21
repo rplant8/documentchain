@@ -46,7 +46,7 @@ SendCoinsDialog::SendCoinsDialog(const PlatformStyle *_platformStyle, QWidget *p
     platformStyle(_platformStyle)
 {
     ui->setupUi(this);
-    QString theme = GUIUtil::getThemeName();
+    QString theme = GUIUtil::getThemeName().remove("-hires");
 
     if (!_platformStyle->getImagesOnButtons()) {
         ui->addButton->setIcon(QIcon());

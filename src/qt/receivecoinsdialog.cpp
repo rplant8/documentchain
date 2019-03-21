@@ -30,7 +30,7 @@ ReceiveCoinsDialog::ReceiveCoinsDialog(const PlatformStyle *_platformStyle, QWid
     platformStyle(_platformStyle)
 {
     ui->setupUi(this);
-    QString theme = GUIUtil::getThemeName();
+    QString theme = GUIUtil::getThemeName().remove("-hires");
     
     if (!_platformStyle->getImagesOnButtons()) {
         ui->clearButton->setIcon(QIcon());

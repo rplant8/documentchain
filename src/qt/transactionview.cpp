@@ -56,7 +56,7 @@ TransactionView::TransactionView(const PlatformStyle *platformStyle, QWidget *pa
         hlayout->setSpacing(1);
         hlayout->addSpacing(5);
     }
-    QString theme = GUIUtil::getThemeName();
+    QString theme = GUIUtil::getThemeName().remove("-hires");
     watchOnlyWidget = new QComboBox(this);
     watchOnlyWidget->setFixedWidth(24);
     watchOnlyWidget->addItem("", TransactionFilterProxy::WatchOnlyFilter_All);

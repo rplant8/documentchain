@@ -203,6 +203,12 @@ namespace GUIUtil
     /** Return name of current CSS theme */
     QString getThemeName();
     
+    // high resolution theme
+    bool isHighresTheme();
+
+    // themed statusbar icon size
+    int getIconSize();
+
     /* Convert QString to OS specific boost path through UTF-8 */
     boost::filesystem::path qstringToBoostPath(const QString &path);
 

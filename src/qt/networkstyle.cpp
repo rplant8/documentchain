@@ -73,7 +73,7 @@ NetworkStyle::NetworkStyle(const QString &_appName, const int iconColorHueShift,
     // Make sure settings migrated properly
     GUIUtil::migrateQtSettings();
     // Grab theme from settings
-    QString theme = GUIUtil::getThemeName();
+    QString theme = GUIUtil::getThemeName().remove("-hires");
     // load pixmap
     QPixmap appIconPixmap(":/icons/bitcoin");
     QPixmap splashImagePixmap(":/images/" + theme + "/splash");

@@ -34,7 +34,7 @@ SendCoinsEntry::SendCoinsEntry(const PlatformStyle *_platformStyle, QWidget *par
     ui->addAsLabel->setPlaceholderText(tr("Enter a label for this address to add it to your address book"));
 #endif
 
-    QString theme = GUIUtil::getThemeName();
+    QString theme = GUIUtil::getThemeName().remove("-hires");
 
     // These icons are needed on Mac also!
     ui->addressBookButton->setIcon(QIcon(":/icons/" + theme + "/address-book"));

@@ -35,7 +35,7 @@ SignVerifyMessageDialog::SignVerifyMessageDialog(const PlatformStyle *_platformS
     ui->signatureOut_SM->setPlaceholderText(tr("Click \"Sign Message\" to generate signature"));
 #endif
 
-    QString theme = GUIUtil::getThemeName();
+    QString theme = GUIUtil::getThemeName().remove("-hires");
 
 #ifdef Q_OS_MAC // Icons on push buttons are very uncommon on Mac
     ui->signMessageButton_SM->setIcon(QIcon());

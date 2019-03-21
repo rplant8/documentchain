@@ -41,11 +41,9 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) 
 
     // set reference point, paddings
     int paddingLeft             = 14;
-    int paddingTop              = 470;
-    int titleVersionVSpace      = 17;
-    int titleCopyrightVSpace    = 22;
-
-    float fontFactor            = 1.0;
+    int paddingTop              = 465;
+    int titleVersionVSpace      = 24;
+    int titleCopyrightVSpace    = 30;
 
     // define text to place
     QString titleText       = tr(PACKAGE_NAME);
@@ -53,13 +51,14 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) 
     QString copyrightText   = QString::fromUtf8(CopyrightHolders("\xc2\xA9", 2014, COPYRIGHT_YEAR).c_str());
     QString titleAddText    = networkStyle->getTitleAddText();
     // networkstyle.cpp can't (yet) read themes, so we do it here to get the correct Splash-screen
-    QString splashScreenPath = ":/images/" + GUIUtil::getThemeName() + "/splash";
+    QString theme = GUIUtil::getThemeName().remove("-hires");
+    QString splashScreenPath = ":/images/" + theme + "/splash";
     if(GetBoolArg("-regtest", false))
-        splashScreenPath = ":/images/" + GUIUtil::getThemeName() + "/splash_testnet";
+        splashScreenPath = ":/images/" + theme + "/splash_testnet";
     if(GetBoolArg("-testnet", false))
-        splashScreenPath = ":/images/" + GUIUtil::getThemeName() + "/splash_testnet";
+        splashScreenPath = ":/images/" + theme + "/splash_testnet";
     if(IsArgSet("-devnet"))
-        splashScreenPath = ":/images/" + GUIUtil::getThemeName() + "/splash_testnet";
+        splashScreenPath = ":/images/" + theme + "/splash_testnet";
 
     QString font = QApplication::font().toString();
 
@@ -70,17 +69,14 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) 
     pixPaint.setPen(QColor(100,100,100));
 
     // check font size and drawing with
-    pixPaint.setFont(QFont(font, 28*fontFactor));
+    pixPaint.setFont(QFont(font, 28));
     QFontMetrics fm = pixPaint.fontMetrics();
-    int titleTextWidth = fm.width(titleText);
-    if (titleTextWidth > 160) {
-        fontFactor = 0.75;
-    }
+
+    int titleTextHeight = fm.height();
+    float fontFactor = 42.0 / titleTextHeight; // (96dpi height / current height) * 0.933
 
     pixPaint.setFont(QFont(font, 28*fontFactor));
-    fm = pixPaint.fontMetrics();
-    titleTextWidth  = fm.width(titleText);
-    pixPaint.drawText(paddingLeft,paddingTop,titleText);
+    pixPaint.drawText(paddingLeft,paddingTop, titleText);
 
     pixPaint.setFont(QFont(font, 15*fontFactor));
     pixPaint.drawText(paddingLeft,paddingTop+titleVersionVSpace,versionText);

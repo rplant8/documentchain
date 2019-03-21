@@ -308,7 +308,7 @@ void BitcoinGUI::createActions()
 {
     QActionGroup *tabGroup = new QActionGroup(this);
 
-    QString theme = GUIUtil::getThemeName();
+    QString theme = GUIUtil::getThemeName().remove("-hires");
     overviewAction = new QAction(QIcon(":/icons/" + theme + "/overview"), tr("&Overview"), this);
     overviewAction->setStatusTip(tr("Show general overview of wallet"));
     overviewAction->setToolTip(overviewAction->statusTip());
@@ -939,7 +939,8 @@ void BitcoinGUI::updateNetworkState()
 {
     int count = clientModel->getNumConnections();
     QString icon;
-    QString theme = GUIUtil::getThemeName();
+    QString theme = GUIUtil::getThemeName().remove("-hires");
+    int iconSize = GUIUtil::getIconSize();
     switch(count)
     {
     case 0: icon = ":/icons/" + theme + "/connect_0"; break;
@@ -956,7 +957,7 @@ void BitcoinGUI::updateNetworkState()
         icon = ":/icons/" + theme + "/network_disabled";
     }
 
-    labelConnectionsIcon->setPixmap(platformStyle->SingleColorIcon(icon).pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
+    labelConnectionsIcon->setPixmap(platformStyle->SingleColorIcon(icon).pixmap(iconSize,iconSize));
 }
 
 void BitcoinGUI::setNumConnections(int count)
@@ -1030,7 +1031,7 @@ void BitcoinGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVer
     tooltip = tr("Processed %n block(s) of transaction history.", "", count);
 
     // Set icon state: spinning if catching up, tick otherwise
-    QString theme = GUIUtil::getThemeName();
+    QString theme = GUIUtil::getThemeName().remove("-hires");
 
 #ifdef ENABLE_WALLET
     if (walletFrame)
@@ -1061,9 +1062,10 @@ void BitcoinGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVer
         tooltip = tr("Catching up...") + QString("<br>") + tooltip;
         if(count != prevBlocks)
         {
+            int iconSize = GUIUtil::getIconSize();
             labelBlocksIcon->setPixmap(platformStyle->SingleColorIcon(QString(
                 ":/movies/spinner-%1").arg(spinnerFrame, 3, 10, QChar('0')))
-                .pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
+                .pixmap(iconSize,iconSize));
             spinnerFrame = (spinnerFrame + 1) % SPINNER_FRAMES;
         }
         prevBlocks = count;
@@ -1106,7 +1108,8 @@ void BitcoinGUI::setAdditionalDataSyncProgress(double nSyncProgress)
     QString tooltip;
 
     // Set icon state: spinning if catching up, tick otherwise
-    QString theme = GUIUtil::getThemeName();
+    QString theme = GUIUtil::getThemeName().remove("-hires");
+    int iconSize = GUIUtil::getIconSize();
 
     QString strSyncStatus;
     tooltip = tr("Up to date") + QString(".<br>") + tooltip;
@@ -1119,12 +1122,12 @@ void BitcoinGUI::setAdditionalDataSyncProgress(double nSyncProgress)
     if(masternodeSync.IsSynced()) {
         progressBarLabel->setVisible(false);
         progressBar->setVisible(false);
-        labelBlocksIcon->setPixmap(QIcon(":/icons/" + theme + "/synced").pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
+        labelBlocksIcon->setPixmap(QIcon(":/icons/" + theme + "/synced").pixmap(iconSize, iconSize));
     } else {
 
         labelBlocksIcon->setPixmap(platformStyle->SingleColorIcon(QString(
             ":/movies/spinner-%1").arg(spinnerFrame, 3, 10, QChar('0')))
-            .pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
+            .pixmap(iconSize, iconSize));
         spinnerFrame = (spinnerFrame + 1) % SPINNER_FRAMES;
 
         progressBar->setFormat(tr("Synchronizing additional data: %p%"));
@@ -1339,27 +1342,28 @@ void BitcoinGUI::setMining()
 
 void BitcoinGUI::setMiningStatus()
 {
-    QString theme = GUIUtil::getThemeName();
+    QString theme = GUIUtil::getThemeName().remove("-hires");
+    int iconSize = GUIUtil::getIconSize();
   //QString mininginfo = "<br>Network: " + GetNetworkHashPS(120, -1) + " H/s";
 
     if (GetBoolArg("-gen", DEFAULT_GENERATE))
     {
-        labelMiningIcon->setPixmap(QIcon(":/icons/" + theme + "/mining").pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
-        labelMiningIcon->setToolTip(tr("Mining on %n thread(s)", "", (int)GetArg("-genproclimit", DEFAULT_GENERATE_THREADS)));
+        labelMiningIcon->setPixmap(QIcon(":/icons/" + theme + "/mining").pixmap(iconSize, iconSize));
+        labelMiningIcon->setToolTip(tr("<b>Mining</b> on %n thread(s)", "", (int)GetArg("-genproclimit", DEFAULT_GENERATE_THREADS)));
     }
     else
     {
-        labelMiningIcon->setPixmap(QIcon(":/icons/" + theme + "/notmining").pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
-        labelMiningIcon->setToolTip(tr("Mining is not active.<br>Click to generate Coins."));
+        labelMiningIcon->setPixmap(QIcon(":/icons/" + theme + "/notmining").pixmap(iconSize, iconSize));
+        labelMiningIcon->setToolTip(tr("Mining is not active.<br>Click here to generate Coins."));
     }
-    labelMiningIcon->setEnabled(true);
 }
 
 void BitcoinGUI::setHDStatus(int hdEnabled)
 {
-    QString theme = GUIUtil::getThemeName();
+    QString theme = GUIUtil::getThemeName().remove("-hires");
+    int iconSize = GUIUtil::getIconSize();
 
-    labelWalletHDStatusIcon->setPixmap(platformStyle->SingleColorIcon(hdEnabled ? ":/icons/" + theme + "/hd_enabled" : ":/icons/" + theme + "/hd_disabled").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
+    labelWalletHDStatusIcon->setPixmap(platformStyle->SingleColorIcon(hdEnabled ? ":/icons/" + theme + "/hd_enabled" : ":/icons/" + theme + "/hd_disabled").pixmap(iconSize,iconSize));
     labelWalletHDStatusIcon->setToolTip(hdEnabled ? tr("HD key generation is <b>enabled</b>") : tr("HD key generation is <b>disabled</b>"));
 
     // eventually disable the QLabel to set its opacity to 50%
@@ -1368,7 +1372,8 @@ void BitcoinGUI::setHDStatus(int hdEnabled)
 
 void BitcoinGUI::setEncryptionStatus(int status)
 {
-    QString theme = GUIUtil::getThemeName();
+    QString theme = GUIUtil::getThemeName().remove("-hires");
+    int iconSize = GUIUtil::getIconSize();
     switch(status)
     {
     case WalletModel::Unencrypted:
@@ -1381,7 +1386,7 @@ void BitcoinGUI::setEncryptionStatus(int status)
         break;
     case WalletModel::Unlocked:
         labelWalletEncryptionIcon->show();
-        labelWalletEncryptionIcon->setPixmap(QIcon(":/icons/" + theme + "/lock_open").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
+        labelWalletEncryptionIcon->setPixmap(QIcon(":/icons/" + theme + "/lock_open").pixmap(iconSize,iconSize));
         labelWalletEncryptionIcon->setToolTip(tr("Wallet is <b>encrypted</b> and currently <b>unlocked</b>"));
         encryptWalletAction->setChecked(true);
         changePassphraseAction->setEnabled(true);
@@ -1391,7 +1396,7 @@ void BitcoinGUI::setEncryptionStatus(int status)
         break;
     case WalletModel::UnlockedForMixingOnly:
         labelWalletEncryptionIcon->show();
-        labelWalletEncryptionIcon->setPixmap(QIcon(":/icons/" + theme + "/lock_open").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
+        labelWalletEncryptionIcon->setPixmap(QIcon(":/icons/" + theme + "/lock_open").pixmap(iconSize,iconSize));
         labelWalletEncryptionIcon->setToolTip(tr("Wallet is <b>encrypted</b> and currently <b>unlocked</b> for mixing only"));
         encryptWalletAction->setChecked(true);
         changePassphraseAction->setEnabled(true);
@@ -1401,7 +1406,7 @@ void BitcoinGUI::setEncryptionStatus(int status)
         break;
     case WalletModel::Locked:
         labelWalletEncryptionIcon->show();
-        labelWalletEncryptionIcon->setPixmap(QIcon(":/icons/" + theme + "/lock_closed").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
+        labelWalletEncryptionIcon->setPixmap(QIcon(":/icons/" + theme + "/lock_closed").pixmap(iconSize,iconSize));
         labelWalletEncryptionIcon->setToolTip(tr("Wallet is <b>encrypted</b> and currently <b>locked</b>"));
         encryptWalletAction->setChecked(true);
         changePassphraseAction->setEnabled(true);
