@@ -646,7 +646,7 @@ static bool ProcessBlockFound(const CBlock* pblock, const CChainParams& chainpar
 void static BitcoinMiner(const CChainParams& chainparams, CConnman& connman)
 {
     LogPrintf("Miner -- started\n");
-    SetThreadPriority(THREAD_PRIORITY_LOWEST); // TODO SetThreadPriority(ThreadHandle, THREAD_PRIORITY_LOWEST)
+    SetThreadPriority(THREAD_PRIORITY_LOWEST);
     RenameThread("dms-miner");
     unsigned int nExtraNonce = 0;
     boost::shared_ptr<CReserveScript> coinbaseScript;
