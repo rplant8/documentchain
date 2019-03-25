@@ -49,6 +49,7 @@
 #include <QApplication>
 #include <QDateTime>
 #include <QDesktopWidget>
+#include <QDesktopServices>
 #include <QInputDialog>
 #include <QDragEnterEvent>
 #include <QListWidget>
@@ -122,6 +123,7 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
     aboutQtAction(0),
     openRPCConsoleAction(0),
     openAction(0),
+    openSupportWebsiteAction(0),
     showHelpMessageAction(0),
     showPrivateSendHelpAction(0),
     trayIcon(0),
@@ -458,6 +460,10 @@ void BitcoinGUI::createActions()
     openAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_DirOpenIcon), tr("Open &URI..."), this);
     openAction->setStatusTip(tr("Open a dms: URI or payment request"));
 
+    openSupportWebsiteAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_MessageBoxQuestion), tr("&Support Website"), this);
+    openSupportWebsiteAction->setMenuRole(QAction::NoRole);
+    openSupportWebsiteAction->setStatusTip(tr("Open the %1 support website").arg(tr(PACKAGE_NAME)));
+
     showHelpMessageAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_MessageBoxInformation), tr("&Command-line options"), this);
     showHelpMessageAction->setMenuRole(QAction::NoRole);
     showHelpMessageAction->setStatusTip(tr("Show the %1 help message to get a list with possible DMS command-line options").arg(tr(PACKAGE_NAME)));
@@ -471,6 +477,7 @@ void BitcoinGUI::createActions()
     connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     connect(optionsAction, SIGNAL(triggered()), this, SLOT(optionsClicked()));
     connect(toggleHideAction, SIGNAL(triggered()), this, SLOT(toggleHidden()));
+    connect(openSupportWebsiteAction, SIGNAL(triggered()), this, SLOT(openSupportWebsiteClicked()));
     connect(showHelpMessageAction, SIGNAL(triggered()), this, SLOT(showHelpMessageClicked()));
     connect(showPrivateSendHelpAction, SIGNAL(triggered()), this, SLOT(showPrivateSendHelpClicked()));
 
@@ -566,6 +573,7 @@ void BitcoinGUI::createMenuBar()
     }
 
     QMenu *help = appMenuBar->addMenu(tr("&Help"));
+    help->addAction(openSupportWebsiteAction);
     help->addAction(showHelpMessageAction);
     help->addAction(showPrivateSendHelpAction);
     help->addSeparator();
@@ -865,6 +873,13 @@ void BitcoinGUI::showMNConfEditor()
 void BitcoinGUI::showBackups()
 {
     GUIUtil::showBackups();
+}
+
+void BitcoinGUI::openSupportWebsiteClicked()
+{
+    QString supporturl = QString::fromStdString("https://dms.cash/redirect/wallet/openSupportWebsite-")
+                       + GUIUtil::getLangTerritory();
+    QDesktopServices::openUrl(supporturl);
 }
 
 void BitcoinGUI::showHelpMessageClicked()

@@ -124,7 +124,7 @@ namespace GUIUtil
     void showBackups();
 
     // Replace invalid default fonts with known good ones
-    void SubstituteFonts(const QString& language);
+    void SubstituteFonts();
 
     /** Qt event filter that intercepts ToolTipChange events, and replaces the tooltip with a rich text
       representation if needed. This assures that Qt can word-wrap long tooltip messages.
@@ -200,13 +200,16 @@ namespace GUIUtil
     /** Load global CSS theme */
     QString loadStyleSheet();
 
+    /** GUI Language like 'en_US', 'en' or 'de_DE' */
+    QString getLangTerritory();
+
     /** Return name of current CSS theme */
     QString getThemeName();
     
-    // high resolution theme
+    /** high resolution theme */
     bool isHighresTheme();
 
-    // themed statusbar icon size
+    /** themed statusbar icon size */
     int getIconSize();
 
     /* Convert QString to OS specific boost path through UTF-8 */

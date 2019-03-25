@@ -468,7 +468,7 @@ void showBackups()
         QDesktopServices::openUrl(QUrl::fromLocalFile(boostPathToQString(backupsDir)));
 }
 
-void SubstituteFonts(const QString& language)
+void SubstituteFonts()
 {
 #if defined(Q_OS_MAC)
 // Background:
@@ -483,6 +483,7 @@ void SubstituteFonts(const QString& language)
 // Solution: If building with the 10.7 SDK or lower and the user's platform
 // is 10.9 or higher at runtime, substitute the correct font. This needs to
 // happen before the QApplication is created.
+    QString language = getLangTerritory();
 #if defined(MAC_OS_X_VERSION_MAX_ALLOWED) && MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_8
     if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_8)
     {
@@ -928,6 +929,23 @@ void saveAppPath()
     QSettings settings;
     QString strAppPath = QCoreApplication::applicationFilePath();
     settings.setValue("strAppPath", QDir::toNativeSeparators(strAppPath));
+}
+
+QString getLangTerritory()
+{
+    QSettings settings;
+    // Get desired locale (e.g. "de_DE")
+    // 1) System default language
+    QString lang_territory = QLocale::system().name();
+    // 2) Language from QSettings (e.g. "de")
+    QString lang_territory_qsettings = settings.value("language", "").toString();
+    if(!lang_territory_qsettings.isEmpty())
+        lang_territory = lang_territory_qsettings;
+    // 3) -lang command line argument
+    QString lang_territory_arg = QString::fromStdString(GetArg("-lang", ""));
+    if(!lang_territory_arg.isEmpty())
+        lang_territory = lang_territory_arg;
+    return lang_territory;
 }
 
 // Return name of current UI-theme or default theme if no theme was found

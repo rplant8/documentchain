@@ -127,6 +127,7 @@ private:
     QAction *openMNConfEditorAction;
     QAction *showBackupsAction;
     QAction *openAction;
+    QAction *openSupportWebsiteAction;
     QAction *showHelpMessageAction;
     QAction *showPrivateSendHelpAction;
 
@@ -261,6 +262,8 @@ private Q_SLOTS:
     /** Show folder with wallet backups in default file browser */
     void showBackups();
 
+	/** Open support website */
+	void openSupportWebsiteClicked();
     /** Show help message dialog */
     void showHelpMessageClicked();
     /** Show PrivateSend help message dialog */
