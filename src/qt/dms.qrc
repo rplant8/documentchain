@@ -37,6 +37,7 @@
         <file alias="synced">res/icons/light/synced.png</file>
         <file alias="remove">res/icons/light/remove.png</file>
         <file alias="tx_mined">res/icons/light/tx_mined.png</file>
+        <file alias="tx_document">res/icons/light/tx_document.png</file>
         <file alias="tx_input">res/icons/light/tx_input.png</file>
         <file alias="tx_output">res/icons/light/tx_output.png</file>
         <file alias="tx_inout">res/icons/light/tx_inout.png</file>

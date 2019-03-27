@@ -1,6 +1,6 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Documentchain developers
+// Copyright (c) 2018-2019 The Documentchain developers
 
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -193,6 +193,13 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
                     // Sent to DMS Address
                     sub.type = TransactionRecord::SendToAddress;
                     sub.address = CBitcoinAddress(address).ToString();
+                }
+                else if (txout.nValue == 0)
+                {
+                    // Sent Document Revision information to Blockchain
+                    // TODO : document is currently recognized on nValue=0. Use transaction types.
+                    sub.type = TransactionRecord::DocumentRevision;
+                    sub.address = mapValue["to"]; // TODO : document GUID or name
                 }
                 else
                 {

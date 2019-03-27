@@ -230,6 +230,7 @@ RES_ICONS = \
   qt/res/icons/light/transaction0.png \
   qt/res/icons/light/transaction2.png \
   qt/res/icons/light/transaction_conflicted.png \
+  qt/res/icons/light/tx_document.png \
   qt/res/icons/light/tx_inout.png \
   qt/res/icons/light/tx_input.png \
   qt/res/icons/light/tx_output.png \

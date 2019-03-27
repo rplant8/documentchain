@@ -78,6 +78,7 @@ public:
         Generated,
         SendToAddress,
         SendToOther,
+        DocumentRevision,
         RecvWithAddress,
         RecvFromOther,
         SendToSelf,
