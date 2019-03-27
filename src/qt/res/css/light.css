@@ -67,7 +67,6 @@ color:#fff;
 QToolBar > QToolButton:checked {
 background-color:#990000;
 color:#fff;
-font-weight:bold;
 }
 
 QMessageBox {
