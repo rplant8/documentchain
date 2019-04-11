@@ -1,4 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
+// Copyright (c) 2018-2019 The Documentchain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -120,6 +121,16 @@ void WalletFrame::gotoHistoryPage()
     QMap<QString, WalletView*>::const_iterator i;
     for (i = mapWalletViews.constBegin(); i != mapWalletViews.constEnd(); ++i)
         i.value()->gotoHistoryPage();
+}
+
+void WalletFrame::gotoDocumentPage(const QStringList newFiles)
+{
+    QMap<QString, WalletView*>::const_iterator i;
+    bool filesSend = false;
+    for (i = mapWalletViews.constBegin(); i != mapWalletViews.constEnd(); ++i) {
+        i.value()->gotoDocumentPage(!filesSend ? newFiles : QStringList());
+        filesSend = true;
+    }
 }
 
 void WalletFrame::gotoMasternodePage()

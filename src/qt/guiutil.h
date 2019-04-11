@@ -1,4 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
+// Copyright (c) 2018-2019 The Documentchain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -74,6 +75,8 @@ namespace GUIUtil
 
     void setClipboard(const QString& str);
 
+    QString getOSDocumentsDir();
+
     /** Get save filename, mimics QFileDialog::getSaveFileName, except that it appends a default suffix
         when no suffix is provided by the user.
 
@@ -110,6 +113,12 @@ namespace GUIUtil
 
     // Determine whether a widget is hidden behind other windows
     bool isObscured(QWidget *w);
+
+    // Open file with the associated application
+    void openDocumentFile(const QString fileName);
+
+    // get file name from full path
+    QString extractFileName(const QString fullFilePath);
 
     // Open debug.log
     void openDebugLogfile();

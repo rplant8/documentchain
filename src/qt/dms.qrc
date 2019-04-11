@@ -13,6 +13,7 @@
         <file alias="connect_2">res/icons/light/connect2_16.png</file>
         <file alias="connect_3">res/icons/light/connect3_16.png</file>
         <file alias="connect_4">res/icons/light/connect4_16.png</file>
+        <file alias="document">res/icons/light/document.png</file>
         <file alias="transaction_0">res/icons/light/transaction0.png</file>
         <file alias="transaction_confirmed">res/icons/light/transaction2.png</file>
         <file alias="transaction_conflicted">res/icons/light/transaction_conflicted.png</file>

@@ -1,6 +1,6 @@
 # Copyright (c) 2013-2016 The Bitcoin Core developers
 # Copyright (c) 2014-2018 The Dash Core developers
-# Copyright (c) 2018 The Documentchain developers
+# Copyright (c) 2018-2019 The Documentchain developers
 
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -34,6 +34,7 @@ QT_FORMS_UI = \
   qt/forms/askpassphrasedialog.ui \
   qt/forms/coincontroldialog.ui \
   qt/forms/darksendconfig.ui \
+  qt/forms/documentlist.ui \
   qt/forms/editaddressdialog.ui \
   qt/forms/helpmessagedialog.ui \
   qt/forms/intro.ui \
@@ -65,6 +66,7 @@ QT_MOC_CPP = \
   qt/moc_coincontroltreewidget.cpp \
   qt/moc_csvmodelwriter.cpp \
   qt/moc_darksendconfig.cpp \
+  qt/moc_documentlist.cpp \
   qt/moc_editaddressdialog.cpp \
   qt/moc_guiutil.cpp \
   qt/moc_intro.cpp \
@@ -135,6 +137,7 @@ BITCOIN_QT_H = \
   qt/coincontroltreewidget.h \
   qt/csvmodelwriter.h \
   qt/darksendconfig.h \
+  qt/documentlist.h \
   qt/editaddressdialog.h \
   qt/guiconstants.h \
   qt/guiutil.h \
@@ -200,6 +203,7 @@ RES_ICONS = \
   qt/res/icons/light/connect3_16.png \
   qt/res/icons/light/connect4_16.png \
   qt/res/icons/light/debugwindow.png \
+  qt/res/icons/light/document.png \
   qt/res/icons/light/drkblue_editpaste.png \
   qt/res/icons/light/drkblue_address-book.png \
   qt/res/icons/light/drkblue_editcopy.png \
@@ -277,6 +281,7 @@ BITCOIN_QT_WALLET_CPP = \
   qt/coincontroldialog.cpp \
   qt/coincontroltreewidget.cpp \
   qt/darksendconfig.cpp \
+  qt/documentlist.cpp \
   qt/editaddressdialog.cpp \
   qt/masternodelist.cpp \
   qt/openuridialog.cpp \

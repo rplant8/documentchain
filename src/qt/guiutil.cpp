@@ -1,6 +1,6 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Documentchain developers
+// Copyright (c) 2018-2019 The Documentchain developers
 
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -319,6 +319,15 @@ QList<QModelIndex> getEntryData(QAbstractItemView *view, int column)
     return view->selectionModel()->selectedRows(column);
 }
 
+QString getOSDocumentsDir()
+{
+#if QT_VERSION < 0x050000
+    return QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+#else
+    return QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+#endif
+}
+
 QString getSaveFileName(QWidget *parent, const QString &caption, const QString &dir,
     const QString &filter,
     QString *selectedSuffixOut)
@@ -430,6 +439,17 @@ bool isObscured(QWidget *w)
         && checkPoint(QPoint(0, w->height() - 1), w)
         && checkPoint(QPoint(w->width() - 1, w->height() - 1), w)
         && checkPoint(QPoint(w->width() / 2, w->height() / 2), w));
+}
+
+void openDocumentFile(const QString fileName)
+{
+    QDesktopServices::openUrl(QUrl::fromLocalFile(fileName));
+}
+
+QString extractFileName(const QString fullFilePath)
+{
+  QFileInfo fileInfo(fullFilePath);
+  return fileInfo.fileName();
 }
 
 void openDebugLogfile()
