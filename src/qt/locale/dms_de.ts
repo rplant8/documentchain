@@ -290,6 +290,30 @@
         <translation>Transaktionsverlauf durchsehen</translation>
     </message>
     <message>
+        <source>&amp;Documents</source>
+        <translation>&amp;Dokumente</translation>
+    </message>
+    <message>
+        <source>Document Revision</source>
+        <translation>Dokumentenrevision</translation>
+    </message>
+    <message>
+        <source>&amp;Support Website</source>
+        <translation>&amp;Support-Webseite</translation>
+    </message>
+    <message>
+        <source>Open the %1 support website</source>
+        <translation>Öffnet die %1 support Webseite</translation>
+    </message>
+    <message>
+        <source>&amp;Mining...</source>
+        <translation>&amp;Mining...</translation>
+    </message>
+    <message>
+        <source>Generate coins</source>
+        <translation>Coins generieren</translation>
+    </message>
+    <message>
         <source>&amp;Masternodes</source>
         <translation>&amp;Masternodes</translation>
     </message>
@@ -3553,6 +3577,10 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Überwiesen an</translation>
     </message>
     <message>
+        <source>Document Revision</source>
+        <translation>Dokumentenrevision</translation>
+    </message>
+    <message>
         <source>Payment to yourself</source>
         <translation>Eigenüberweisung</translation>
     </message>
@@ -3658,6 +3686,10 @@ https://www.transifex.com/projects/p/dash/</translation>
     <message>
         <source>Sent to</source>
         <translation>Überwiesen an</translation>
+    </message>
+    <message>
+        <source>Document Revision</source>
+        <translation>Dokumentenrevision</translation>
     </message>
     <message>
         <source>PrivateSend</source>
@@ -5341,6 +5373,183 @@ https://www.transifex.com/projects/p/dash/</translation>
     <message>
         <source>Zapping all transactions from wallet...</source>
         <translation>Lösche alle Transaktionen aus Wallet...</translation>
+    </message>
+</context>
+<context>
+    <name>DocumentList</name>
+    <message>
+        <location filename="../forms/documentlist.ui"/>
+        <source>Document Revision</source>
+        <translation>Dokumentenrevision</translation>
+    </message>
+    <message>
+        <source>&amp;Add File...</source>
+        <translation>&amp;Hinzufügen...</translation>
+    </message>
+    <message>
+        <source>&amp;Open</source>
+        <translation>&amp;Öffnen</translation>
+    </message>
+    <message>
+        <source>&amp;Revision</source>
+        <translation>&amp;Revision</translation>
+    </message>
+    <message>
+        <location filename="../documentlist.cpp"/>
+        <source>Select file(s) to append</source>
+        <translation>Hinzuzufügende Datei(en) wählen</translation>
+    </message>
+    <message>
+        <source>All Files (*.*)</source>
+        <translation>Alle Dateien (*.*)</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation>Dokument</translation>
+    </message>
+    <message>
+        <source>File hash</source>
+        <translation>Dateihash</translation>
+    </message>
+    <message>
+        <source>GUID</source>
+        <translation>GUID</translation>
+    </message>
+    <message>
+        <source>Attribute hash</source>
+        <translation>Attributhash</translation>
+    </message>
+    <message>
+        <source>Blockchain</source>
+        <translation>Blockchain</translation>
+    </message>
+    <message>
+        <source>Document Revision</source>
+        <translation>Dokumentenrevision</translation>
+    </message>
+    <message>
+        <source>Execute</source>
+        <translation>Ausführen</translation>
+    </message>
+    <message>
+        <source>Transaction ID</source>
+        <translation>Transaktions-ID</translation>
+    </message>
+    <message>
+        <source>Total Amount</source>
+        <translation>Summe</translation>
+    </message>
+    <message>
+        <source>Stored</source>
+        <translation>Gespeichert</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to send?</source>
+        <translation>Wollen Sie die Überweisung ausführen?</translation>
+    </message>
+    <message>
+        <source>Store document information</source>
+        <translation>Documentinformation speichern</translation>
+    </message>
+    <message>
+        <source>is paid as transaction fee.</source>
+        <translation>wird als Transaktionsgebühr bezahlt.</translation>
+    </message>
+    <message>
+        <source>Send Document</source>
+        <translation>Dokument senden</translation>
+    </message>
+    <message>
+        <source>File exists</source>
+        <translation>Datei existiert</translation>
+    </message>
+    <message>
+        <source>New file name</source>
+        <translation>Neuer Dateiname</translation>
+    </message>
+    <message>
+        <source>%1 document files</source>
+        <translation>%1 Dokumentdateien</translation>
+    </message>
+</context>
+<context>
+    <name>Document</name>
+    <message>
+        <location filename="../documentlist.cpp"/>
+        <source>Revision successful</source>
+        <translation>Revision erfolgreich</translation>
+    </message>
+    <message>
+        <source>Revision with notes</source>
+        <translation>Revision mit Hinweise</translation>
+    </message>
+    <message>
+        <source>Revision is not possible yet</source>
+        <translation>Revision ist noch nicht möglich</translation>
+    </message>
+    <message>
+        <source>Revision failed</source>
+        <translation>Revision gescheitert</translation>
+    </message>
+    <message>
+        <source>No Transaction stored.</source>
+        <translation>Keine Transaktion gespeichert.</translation>
+    </message>
+    <message>
+        <source>The current file does not match the locally saved hash. This file has been modified.</source>
+        <translation>Die aktuelle Datei entspricht nicht dem lokal gespeicherten Hash. Diese Datei wurde verändert.</translation>
+    </message>
+    <message>
+        <source>Transaction not found.</source>
+        <translation>Transaktion nicht gefunden.</translation>
+    </message>
+    <message>
+        <source>current value \"%1\" differs from value \"%2\" stored in blockchain.</source>
+        <translation>aktueller Wert \"%1\" unterscheidet sich vom in der Blockchain gespeicherten Wert \"%2\".</translation>
+    </message>
+    <message>
+        <source>matches the blockchain value.</source>
+        <translation>entspricht dem Wert in der Blockchain.</translation>
+    </message>
+    <message>
+        <source>There are not enough blockchain confirmations available for revision. Please wait a while.</source>
+        <translation>Es sind noch nicht genügend Blockchain-Bestätigungen für eine Revision vorhanden. Bitte etwas warten.</translation>
+    </message>
+    <message>
+        <source>Rejected</source>
+        <translation>Abgelehnt</translation>
+    </message>
+    <message>
+        <source>This file information has already been stored in Documentchain.</source>
+        <translation>Diese Dateiinformation wurde bereits in der Blockchain abgelegt.</translation>
+    </message>
+    <message>
+        <source>Invalid document description.</source>
+        <translation>Ungültige Dokument-Beschreibung.</translation>
+    </message>
+    <message>
+        <source>Signing</source>
+        <translation>Signierung</translation>
+    </message>
+    <message>
+        <source>Could not sign transaction.</source>
+        <translation>Transaktion konnte nicht signiert werden.</translation>
+    </message>
+    <message>
+        <source>RPC Error</source>
+        <translation>RPC-Fehler</translation>
+    </message>
+    <message>
+        <source>Unknown error.</source>
+        <translation>Unbekannter Fehler.</translation>
+    </message>
+    <message>
+        <source>Blockchain confirmations</source>
+        <translation>Blockchain-Bestätigungen</translation>
+    </message>
+    <message>
+        <source>The blockchain confirms that %1this document file%2 exists at least since %3 and has not been modified.</source>
+        <translation>Die Blockchain bestätigt, dass %1diese Dokumentdatei%2 seit %3 vorhanden ist und unverändert vorliegt.</translation>
     </message>
 </context>
 </TS>

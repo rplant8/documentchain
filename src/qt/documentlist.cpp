@@ -40,6 +40,18 @@ namespace {
 const QString descFileExt = ".desc";
 const double minDocRevFee = 0.1; // DMS
 
+/** frequent terms */
+QString trDocument;
+QString trFileHash;
+QString trGUID;
+QString trAttrHash;
+QString trBlockchain;
+QString trDocRev;
+QString trExecute;
+QString trTransID;
+QString trTotalAmount;
+QString trStored;
+
 QString getTextHash(const QString text)
 {
     QCryptographicHash crypto(QCryptographicHash::Md5);
@@ -189,7 +201,7 @@ QString Document::documentRevision()
 
         if (confirmations < minConfirms) {
             revlog.append(revNoConf);
-            revlog.append(tr("<p>There are not enough blockchain confirmations available for revision. Please wait a while.</p>"));
+            revlog.append("<p>" + tr("There are not enough blockchain confirmations available for revision. Please wait a while.") + "</p>");
         }
         else if (compressGuid(guid) == bcguid && attrhash == bcattrhash && filehash == bcfilehash)
             revlog.append(revOk);
@@ -200,23 +212,27 @@ QString Document::documentRevision()
 
         revlog.append("<p>");
         if (compressGuid(guid) == bcguid)
-            revlog.append("<b>GUID</b>: <span style=\"color:green\">" + accordance + "</span><br>");
+            revlog.append(QString("<b>%1</b>: <span style=\"color:green\">%2</span><br>").arg(trGUID, accordance));
         else
-            revlog.append("<b>GUID</b>: <span style=\"color:red\">" + deviation.arg(compressGuid(guid), bcguid) + "</span><br>");
+            revlog.append(QString("<b>%1</b>: <span style=\"color:red\">%2</span><br>")
+                         .arg(trGUID, deviation.arg(compressGuid(guid), bcguid)));
         if (attrhash == bcattrhash)
-            revlog.append("<b>Attribuite hash</b>: <span style=\"color:green\">" + accordance + "</span><br>");
+            revlog.append(QString("<b>%1</b>: <span style=\"color:green\">%2</span><br>").arg(trAttrHash, accordance));
         else
-            revlog.append("<b>Attribuite hash</b>: <span style=\"color:red\">" + deviation.arg(compressGuid(guid), bcguid) + "</span><br>");
+            revlog.append(QString("<b>%1</b>: <span style=\"color:red\">%2</span><br>")
+                         .arg(trAttrHash, deviation.arg(compressGuid(guid), bcguid)));
         if (filehash == bcfilehash) {
-            revlog.append("<b>File hash</b>: <span style=\"color:green\">" + accordance + "</span>");
+            revlog.append(QString("<b>%1</b>: <span style=\"color:green\">%2</span>").arg(trFileHash, accordance));
             if (confirmations >= minConfirms)
-                revlog.append("</p><p>The blockchain confirms that <a href=\"open\">this document file</a> exists at least since " +
-                              GUIUtil::dateTimeStr(blocktime) + " and has not been modified.");
+                revlog.append("</p><p>" + tr("The blockchain confirms that %1this document file%2 exists at least since %3 and has not been modified.")
+                                            .arg("<a href=\"open\">", "</a>", GUIUtil::dateTimeStr(blocktime)));
         }
         else
-            revlog.append("<b>File hash</b>: <span style=\"color:red\">" + deviation.arg(compressGuid(guid), bcguid) + "</span>");
+            revlog.append(QString("<b>%1</b>: <span style=\"color:red\">%2</span>")
+                         .arg(trFileHash, deviation.arg(compressGuid(guid), bcguid)));
 
-        revlog.append("</p><p><b>Blockchain confirmations</b>: " + QString::number(confirmations) 
+        revlog.append("</p><p><b>" + tr("Blockchain confirmations") 
+            + "</b>: " + QString::number(confirmations) 
             + ((confirmations < minConfirms) ? ("/" + QString::number(minConfirms)) : "") + "</p>");
 
         return revlog;
@@ -224,23 +240,25 @@ QString Document::documentRevision()
     } catch (const std::exception& e) {
         return revError + "<p>" + QString::fromStdString(e.what()) + "</p>";
     } catch (...) {
-        return  revError + "<p>Unknown error.</p>";
+        return  revError + "<p>" + tr("Unknown Error.") + "</p>";
     }
 }
 
 QString Document::getInformationHtml()
 {
-    return tr("<h1>%1</h1><h2>Document</h2>"
+    return QString("<h1>%1</h1><h2>%9</h2>"
         "<p><a href=\"open\">%2</a> (%3 byte)</p>"
-        "<p><b>GUID</b><br>%4</p>"
-        "<p><b>File hash</b><br>%5<br>"
-        "<b>Attribute hash</b><br>%6</p>"
-        "<h2>Blockchain</h2>"
-        "<p><b>Transaction ID</b><br>%7</p>"
-        "<p><b>Stored</b><br>%8 (local system time)</p>"
+        "<p><b>%10</b><br>%4</p>"
+        "<p><b>%11</b><br>%5<br>"
+        "<b>%12</b><br>%6</p>"
+        "<h2>%13</h2>"
+        "<p><b>%14</b><br>%7</p>"
+        "<p><b>%15</b><br>%8 (local system time)</p>"
         ).arg(
         name, filename, QString::number(filesize), guid, filehash, attrhash, txid,
-        GUIUtil::dateTimeStr(savetime));
+        GUIUtil::dateTimeStr(savetime)  // %8
+        ).arg(
+        trDocument, trGUID, trFileHash, trAttrHash, trBlockchain, trTransID, trStored);
 }
 
 /** we are using RPC functions to create the transaction
@@ -274,7 +292,7 @@ QString Document::writeToBlockchain()
         QString attrhash = descFile.value("attrhash", "").toString();
         descFile.endGroup();
         if ( comprguid.length() != 32 || filehash.length() != 32 || attrhash.length() != 32 ) {
-            QMessageBox::critical(NULL, tr("Desc File"), tr("Invalid document description."));
+            QMessageBox::critical(NULL, "Desc File", tr("Invalid document description."));
             return "";
         }
 
@@ -299,8 +317,8 @@ QString Document::writeToBlockchain()
         }
         if (txid.isEmpty()) {  // TODO: remove the 55 DMS limit above
             QMessageBox::critical(NULL, tr("Input"), 
-                tr("No matching credit (input) found. At least one input with a credit "
-                   "between 0.1 and 55 coins and 6 confirmation required."));
+                   "No matching credit (input) found. At least one input with a credit "
+                   "between 0.1 and 55 coins and 6 confirmation required.");
             return "";
         }
 
@@ -366,7 +384,7 @@ QString Document::writeToBlockchain()
         QMessageBox::critical(NULL, tr("RPC Error"), QString::fromStdString(e.what()));
         return "";
     } catch (...) {
-        QMessageBox::critical(NULL, tr("RPC Error"), "Unknown error.");
+        QMessageBox::critical(NULL, tr("RPC Error"), tr("Unknown Error."));
         return "";
     }
 }
@@ -382,6 +400,17 @@ DocumentList::DocumentList(const PlatformStyle *_platformStyle, QWidget *parent)
     platformStyle(_platformStyle)
 {
     ui->setupUi(this);
+
+    trDocument = tr("Document");
+    trFileHash = tr("File hash");
+    trGUID = tr("GUID");
+    trAttrHash = tr("Attribute hash");
+    trBlockchain = tr("Blockchain");
+    trDocRev = tr("Document Revision");
+    trExecute = tr("Execute");
+    trTransID = tr("Transaction ID");
+    trTotalAmount = tr("Total Amount");
+    trStored = tr("Stored");
 
     documentModel = new QStringListModel(this);
     ui->listViewDocuments->setModel(documentModel);
@@ -471,7 +500,7 @@ bool DocumentList::TransactionConfirmDlg(const QString docName, const double txF
     questionString.append("</b><hr><span style='color:#aa0000;'>");
     questionString.append(BitcoinUnits::formatHtmlWithUnit(walletModel->getOptionsModel()->getDisplayUnit(), txFeeSat));
     questionString.append("</span> ");
-    questionString.append(tr(" is paid as transaction fee."));
+    questionString.append(" " + tr("is paid as transaction fee."));
 
     // add total amount in all subdivision units
     questionString.append("<hr />");
@@ -603,8 +632,8 @@ void DocumentList::onlistViewDocumentsChanged(const QModelIndex &current, const 
 
     Document doc(getFileName(current, true));
     ui->textBrowserRevision->setHtml(doc.getInformationHtml());
-    ui->textBrowserRevision->append("<h2>Document Revision</h2>"
-                         "<p><a href=\"docrev\">Execute</a></p>");
+    ui->textBrowserRevision->append(QString("<h2>%1</h2><p><a href=\"docrev\">%2</a></p>")
+                                           .arg(trDocRev, trExecute));
 
     ui->pushButtonOpenFile->setEnabled(true);
     ui->pushButtonRevision->setEnabled(true);
@@ -632,6 +661,7 @@ void DocumentList::on_pushButtonAddFile_clicked()
     QStringList srcFileNames = QFileDialog::getOpenFileNames(this, 
         tr("Select file(s) to append"), 
         GUIUtil::getOSDocumentsDir(), tr("All Files (*.*)"));
+    if (srcFileNames.isEmpty()) return;
 
     QString lastAddedFile = addFiles(srcFileNames);
 
