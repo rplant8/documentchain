@@ -1,4 +1,4 @@
-DMS Core 0.12.9
+DMS Core
 =====================
 
 This is the official reference wallet for DMS digital currency and comprises the backbone of the Documentchain peer-to-peer network. You can [download DMS Core](https://github.com/Krekeler/documentchain/releases) or [build it yourself](#building) using the guides below.
@@ -24,8 +24,8 @@ Drag DMS-Qt to your applications folder, and then run DMS-Qt.
 
 ### Need Help?
 
-* See the [Dash documentation](https://dashpay.atlassian.net/wiki/display/DOC)
-for help and more information. DMS is forked from Dash 0.12.3
+* See the [Supportpages](https://dms.cash/support/) for help and more information
+* DMS is forked from Dash, see [Dash documentation](https://dashpay.atlassian.net/wiki/display/DOC)
 
 Building
 ---------------------

@@ -1,4 +1,4 @@
-DMS Core staging tree 0.12
+DMS Core - Documentchain project
 =====================
 
 https://dms.cash
@@ -12,6 +12,13 @@ document revision. DMS is the project-own coin used to pay the storage fees.
 
 DMS is an experimental digital currency forked from Dash 0.12.3.2
 DMS Core is the name of the open source software which enables the use of this currency.
+
+Help and Support
+---------------------
+* Wallet installation https://dms.cash/support/guides/wallet.html
+* User interface https://dms.cash/support/wallet/
+* Document revision https://dms.cash/support/guides/dms.html
+* Masternode setup https://dms.cash/support/guides/masternode.html
 
 License
 ---------------------

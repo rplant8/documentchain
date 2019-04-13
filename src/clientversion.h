@@ -18,7 +18,7 @@
 //! These need to be macros, as clientversion.cpp's and dms*-res.rc's voodoo requires it
 #define CLIENT_VERSION_MAJOR 0
 #define CLIENT_VERSION_MINOR 12
-#define CLIENT_VERSION_REVISION 11
+#define CLIENT_VERSION_REVISION 12
 #define CLIENT_VERSION_BUILD 0
 
 //! Set to true for release, false for prerelease or test build
@@ -32,8 +32,8 @@
 
 #endif //HAVE_CONFIG_H
 
-// Release code names: Alice 0.12.9, Bob 0.12.10, Carol 0.12.11
-#define RELEASE_CODE_NAME "Carol"
+// Release code names: Alice 0.12.9, Bob 0.12.10, Carol 0.12.11, Dave 0.12.12
+#define RELEASE_CODE_NAME "Dave"
 
 /**
  * Converts the parameter X to a string after macro replacement on X has been performed.

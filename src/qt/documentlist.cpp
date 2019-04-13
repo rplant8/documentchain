@@ -240,7 +240,7 @@ QString Document::documentRevision()
     } catch (const std::exception& e) {
         return revError + "<p>" + QString::fromStdString(e.what()) + "</p>";
     } catch (...) {
-        return  revError + "<p>" + tr("Unknown Error.") + "</p>";
+        return  revError + "<p>" + tr("Unknown error.") + "</p>";
     }
 }
 
@@ -384,7 +384,7 @@ QString Document::writeToBlockchain()
         QMessageBox::critical(NULL, tr("RPC Error"), QString::fromStdString(e.what()));
         return "";
     } catch (...) {
-        QMessageBox::critical(NULL, tr("RPC Error"), tr("Unknown Error."));
+        QMessageBox::critical(NULL, tr("RPC Error"), tr("Unknown error."));
         return "";
     }
 }
