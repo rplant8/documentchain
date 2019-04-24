@@ -12,13 +12,15 @@
 
 CCriticalSection cs_warnings;
 std::string strMiscWarning;
+std::string strMiscWarningGuiEx;
 bool fLargeWorkForkFound = false;
 bool fLargeWorkInvalidChainFound = false;
 
-void SetMiscWarning(const std::string& strWarning)
+void SetMiscWarning(const std::string& strWarning, const std::string& strGuiEx)
 {
     LOCK(cs_warnings);
     strMiscWarning = strWarning;
+    strMiscWarningGuiEx = strGuiEx;
 }
 
 void SetfLargeWorkForkFound(bool flag)
@@ -63,12 +65,13 @@ std::string GetWarnings(const std::string& strFor)
     if (GetBoolArg("-testsafemode", DEFAULT_TESTSAFEMODE))
         strStatusBar = strRPC = strGUI = "testsafemode enabled";
 
-    // Misc warnings like out of disk space and clock is wrong
+    // Misc warnings like outdated release, out of disk space and clock is wrong
     if (strMiscWarning != "")
     {
         nPriority = 1000;
         strStatusBar = strMiscWarning;
         strGUI += (strGUI.empty() ? "" : uiAlertSeperator) + strMiscWarning;
+        strGUI += strMiscWarningGuiEx.empty() ? "" : " " + strMiscWarningGuiEx;
     }
 
     if (fLargeWorkForkFound)

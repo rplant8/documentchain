@@ -1734,7 +1734,7 @@ void CMasternodeMan::WarnMasternodeDaemonUpdates()
     }
 
     // notify GetWarnings(), called by Qt and the JSON-RPC code to warn the user
-    SetMiscWarning(strWarning);
+    SetMiscWarning(strWarning, "<a href=\"https://github.com/Krekeler/documentchain/releases\">&raquo; github.com</a>");
     // trigger GUI update
     uiInterface.NotifyAlertChanged(SerializeHash(strWarning), CT_NEW);
     // trigger cmd-line notification
