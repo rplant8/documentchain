@@ -167,6 +167,9 @@ private:
     void updateNetworkState();
 
     void updateHeadersSyncProgressLabel();
+#ifdef ENABLE_WALLET
+    void setMining(int nThreads);
+#endif // ENABLE_WALLET
 
 Q_SIGNALS:
     /** Signal raised when a URI was entered */
@@ -242,7 +245,7 @@ private Q_SLOTS:
     /** Show open dialog */
     void openClicked();
     /** ebable/disable mining **/
-    void setMining();
+    void setMiningUI();
 #endif // ENABLE_WALLET
     /** Show configuration dialog */
     void optionsClicked();

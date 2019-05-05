@@ -284,7 +284,7 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *_platformStyle, const NetworkStyle *
         connect(labelBlocksIcon, SIGNAL(clicked(QPoint)), this, SLOT(showModalOverlay()));
         connect(progressBar, SIGNAL(clicked(QPoint)), this, SLOT(showModalOverlay()));
         // mining status icon
-        connect(labelMiningIcon, SIGNAL(clicked(QPoint)), this, SLOT(setMining()));
+        connect(labelMiningIcon, SIGNAL(clicked(QPoint)), this, SLOT(setMiningUI()));
         QTimer* timerMiningIcon = new QTimer(labelMiningIcon);
         connect(timerMiningIcon, SIGNAL(timeout()), this, SLOT(setMiningStatus()));
         timerMiningIcon->start(8000);
@@ -488,7 +488,7 @@ void BitcoinGUI::createActions()
     connect(showHelpMessageAction, SIGNAL(triggered()), this, SLOT(showHelpMessageClicked()));
     connect(showPrivateSendHelpAction, SIGNAL(triggered()), this, SLOT(showPrivateSendHelpClicked()));
     connect(openRPCConsoleAction, SIGNAL(triggered()), this, SLOT(showConsole()));
-    connect(startMiningAction, SIGNAL(triggered()), this, SLOT(setMining()));
+    connect(startMiningAction, SIGNAL(triggered()), this, SLOT(setMiningUI()));
 
     // Open configs and backup folder from menu
     connect(openConfEditorAction, SIGNAL(triggered()), this, SLOT(showConfEditor()));
@@ -1143,7 +1143,12 @@ void BitcoinGUI::setAdditionalDataSyncProgress(double nSyncProgress)
     if(masternodeSync.IsSynced()) {
         progressBarLabel->setVisible(false);
         progressBar->setVisible(false);
+        startMiningAction->setEnabled(true);
         labelBlocksIcon->setPixmap(QIcon(":/icons/" + theme + "/synced").pixmap(iconSize, iconSize));
+        QSettings settings;
+        int genproc = settings.value("nGenProc", 0).toInt();
+        if (genproc > 0)
+            setMining(genproc);
     } else {
 
         labelBlocksIcon->setPixmap(platformStyle->SingleColorIcon(QString(
@@ -1273,7 +1278,6 @@ void BitcoinGUI::showEvent(QShowEvent *event)
 {
     // enable the actions when the main window shows up
     openRPCConsoleAction->setEnabled(true);
-    startMiningAction->setEnabled(true);
     aboutAction->setEnabled(true);
     optionsAction->setEnabled(true);
 }
@@ -1342,8 +1346,20 @@ bool BitcoinGUI::handlePaymentRequest(const SendCoinsRecipient& recipient)
     return false;
 }
 
-void BitcoinGUI::setMining()
+void BitcoinGUI::setMining(int nThreads)
 {
+    bool fGenerate = (nThreads > 0);
+    ForceSetArg("-gen", (fGenerate ? "1" : "0"));
+    ForceSetArg("-genproclimit", itostr(nThreads));
+    GenerateBitcoins(true, nThreads, Params(), *g_connman);
+    setMiningStatus();
+}
+
+void BitcoinGUI::setMiningUI()
+{
+    if (!masternodeSync.IsSynced())
+        return;
+
     bool ok;
     int nThreads = (int)GetArg("-genproclimit", DEFAULT_GENERATE_THREADS);
     int maxThreads = boost::thread::hardware_concurrency();
@@ -1354,12 +1370,10 @@ void BitcoinGUI::setMining()
                                     nThreads, 0, maxThreads, 1, &ok);
     if (ok)
     {
-        bool fGenerate = (nThreads > 0);
-        ForceSetArg("-gen", (fGenerate ? "1" : "0"));
-        ForceSetArg("-genproclimit", itostr(nThreads));
-        GenerateBitcoins(true, nThreads, Params(), *g_connman);
+        setMining(nThreads);
+        QSettings settings;
+        settings.setValue("nGenProc", nThreads);
     }
-    setMiningStatus();
 }
 
 void BitcoinGUI::setMiningStatus()
@@ -1368,7 +1382,12 @@ void BitcoinGUI::setMiningStatus()
     int iconSize = GUIUtil::getIconSize();
   //QString mininginfo = "<br>Network: " + GetNetworkHashPS(120, -1) + " H/s";
 
-    if (GetBoolArg("-gen", DEFAULT_GENERATE))
+    if (!masternodeSync.IsSynced())
+    {
+        labelMiningIcon->setPixmap(QIcon(":/icons/" + theme + "/notmining").pixmap(iconSize, iconSize));
+        labelMiningIcon->setToolTip(tr("Please wait.") + "<br>" + progressBarLabel->text());
+    }
+    else if (GetBoolArg("-gen", DEFAULT_GENERATE))
     {
         labelMiningIcon->setPixmap(QIcon(":/icons/" + theme + "/mining").pixmap(iconSize, iconSize));
         labelMiningIcon->setToolTip(tr("<b>Mining</b> on %n thread(s)", "", (int)GetArg("-genproclimit", DEFAULT_GENERATE_THREADS)));
