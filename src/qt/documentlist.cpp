@@ -305,7 +305,8 @@ QString Document::writeToBlockchain()
             QJsonObject jobj = jarval.toObject();
             tmpamount = jobj.value("amount").toDouble();
             if(jobj.value("spendable").toBool()
-            && jobj.value("confirmations").toInt() >= TransactionRecord::RecommendedNumConfirmations
+          //the following would prevent a revision with recently received InstandSend
+          //&& jobj.value("confirmations").toInt() >= TransactionRecord::RecommendedNumConfirmations
             && tmpamount <= 55  // max input is just a safety value to avoid loss of change
             && tmpamount >= minDocRevFee
             && tmpamount <  mininput) {
@@ -618,8 +619,10 @@ void DocumentList::handleNewFiles(const QStringList newFiles)
 {
     QString lastAddedFile = addFiles(newFiles);
 
-    LoadFiles();
-    selectDocument(lastAddedFile);
+    if (!lastAddedFile.isEmpty()) {
+        LoadFiles();
+        selectDocument(lastAddedFile);
+    }
 }
 
 void DocumentList::onlistViewDocumentsChanged(const QModelIndex &current, const QModelIndex &previous)
