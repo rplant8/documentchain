@@ -1322,16 +1322,22 @@ CAmount GetMasternodePayment(int nHeight, CAmount blockValue)
     int nMNPIBlock = Params().GetConsensus().nMasternodePaymentsIncreaseBlock;
     int nMNPIPeriod = Params().GetConsensus().nMasternodePaymentsIncreasePeriod;
 
-                                                                      // mainnet:
-    if(nHeight > nMNPIBlock)                  ret += blockValue / 20; // 158000 - 25.0% - 2014-10-24
-    if(nHeight > nMNPIBlock+(nMNPIPeriod* 1)) ret += blockValue / 20; // 175280 - 30.0% - 2014-11-25
-    if(nHeight > nMNPIBlock+(nMNPIPeriod* 2)) ret += blockValue / 20; // 192560 - 35.0% - 2014-12-26
-    if(nHeight > nMNPIBlock+(nMNPIPeriod* 3)) ret += blockValue / 40; // 209840 - 37.5% - 2015-01-26
-    if(nHeight > nMNPIBlock+(nMNPIPeriod* 4)) ret += blockValue / 40; // 227120 - 40.0% - 2015-02-27
-    if(nHeight > nMNPIBlock+(nMNPIPeriod* 5)) ret += blockValue / 40; // 244400 - 42.5% - 2015-03-30
-    if(nHeight > nMNPIBlock+(nMNPIPeriod* 6)) ret += blockValue / 40; // 261680 - 45.0% - 2015-05-01
-    if(nHeight > nMNPIBlock+(nMNPIPeriod* 7)) ret += blockValue / 40; // 278960 - 47.5% - 2015-06-01
-    if(nHeight > nMNPIBlock+(nMNPIPeriod* 9)) ret += blockValue / 40; // 313520 - 50.0% - 2015-08-03
+                                                                      // DMS mainnet:
+    if(nHeight > nMNPIBlock)                  ret += blockValue / 20; //  60000 - 25.0% ~ 2019-05-19
+    if(nHeight > nMNPIBlock+(nMNPIPeriod* 1)) ret += blockValue / 20; //  67000 - 30.0% ~ 2019-06
+    if(nHeight > nMNPIBlock+(nMNPIPeriod* 2)) ret += blockValue / 20; //  74000 - 35.0% ~ 2019-07
+    if(nHeight > nMNPIBlock+(nMNPIPeriod* 3)) ret += blockValue / 40; //  81000 - 37.5% ~ 2019-08
+    if(nHeight > nMNPIBlock+(nMNPIPeriod* 4)) ret += blockValue / 40; //  88000 - 40.0% ~ 2019-09
+    if(nHeight > nMNPIBlock+(nMNPIPeriod* 5)) ret += blockValue /100; //  95000 - 41.0% ~ 2019-10
+    if(nHeight > nMNPIBlock+(nMNPIPeriod* 6)) ret += blockValue /100; // 102000 - 42.0% ~ 2019-11
+    if(nHeight > nMNPIBlock+(nMNPIPeriod* 7)) ret += blockValue /100; // 109000 - 43.0% ~ 2019-12
+    if(nHeight > nMNPIBlock+(nMNPIPeriod* 8)) ret += blockValue /100; // 116000 - 44.0% ~ 2020-01
+    if(nHeight > nMNPIBlock+(nMNPIPeriod* 9)) ret += blockValue /100; // 123000 - 45.0% ~ 2020-02
+    if(nHeight > nMNPIBlock+(nMNPIPeriod*10)) ret += blockValue /100; // 130000 - 46.0% ~ 2020-03
+    if(nHeight > nMNPIBlock+(nMNPIPeriod*11)) ret += blockValue /100; // 137000 - 47.0% ~ 2020-04
+    if(nHeight > nMNPIBlock+(nMNPIPeriod*12)) ret += blockValue /100; // 144000 - 48.0% ~ 2020-05
+    if(nHeight > nMNPIBlock+(nMNPIPeriod*13)) ret += blockValue /100; // 151000 - 49.0% ~ 2020-06
+    if(nHeight > nMNPIBlock+(nMNPIPeriod*14)) ret += blockValue /100; // 158000 - 50.0% ~ 2020-07
 
     return ret;
 }

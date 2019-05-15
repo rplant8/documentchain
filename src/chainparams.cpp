@@ -127,8 +127,8 @@ public:
         strNetworkID = "main";
       //consensus.nSubsidyHalvingInterval = 210000; DMS does not use Halving, see validation.cpp GetBlockSubsidy
         consensus.nMasternodePaymentsStartBlock = 5000; // Dash=100000;
-        consensus.nMasternodePaymentsIncreaseBlock = 158000; // Dash: actual historical value
-        consensus.nMasternodePaymentsIncreasePeriod = 576*30; // 17280 - actual historical value
+        consensus.nMasternodePaymentsIncreaseBlock = 60000; // Dash: 158000
+        consensus.nMasternodePaymentsIncreasePeriod = 7000; // ~29 days, Dash: 17280
         consensus.nInstantSendConfirmationsRequired = 6;
         consensus.nInstantSendKeepLock = 24;
         consensus.nBudgetPaymentsStartBlock = 100000000; // >1000 years: DMS does not use this yet
