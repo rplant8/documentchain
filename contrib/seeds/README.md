@@ -21,13 +21,10 @@ Ubuntu:
 	
 ### Internal notice
 
-Compilation computer, ~/documentchain/contrib/seeds$
+Compilation computer
 
-	cp nodes_main.txt ori.txt
+	cd ~/documentchain/contrib/seeds
 	vi nodes_main.txt
 	python3 generate-seeds.py ./
 
-Code computer: copy result to chainparamsseeds.h
-
-	rm nodes_main.txt
-	mv ori.txt nodes_main.txt
+Code computer: copy result to chainparamsseeds.h, copy node_main.txt

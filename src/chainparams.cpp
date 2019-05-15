@@ -181,7 +181,7 @@ public:
         consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000100010"); // TODO
                                                 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x00000516a96541bf40e137db48544378afd997d0ed3c7dc6d007ab6e953499be"); // TODO
+        consensus.defaultAssumeValid = uint256S("0x0000062c9eeac8249ff40512763846be367c9404c2ebded2646309bb30a28f4a"); // 59098
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -262,6 +262,7 @@ public:
             ( 35993, uint256S("0x000000d3ea06a03deccce15641c113ce59bc9ed662d878eb1d971fb0478df9cc")) // 2019-Feb-03
             ( 46096, uint256S("0x000000a402d9343d7b70df237cfedadefbd002d18f95ce775d33956e7f7e4141")) // 2019-Mar-19
             ( 51834, uint256S("0x00001617483dacc4cb349535a9d1806c0b749801111d705362d61d7df72269d7")) // 2019-Apr-13
+            ( 59098, uint256S("0x0000062c9eeac8249ff40512763846be367c9404c2ebded2646309bb30a28f4a")) // 2019-May-15
         };
 
         chainTxData = ChainTxData{
