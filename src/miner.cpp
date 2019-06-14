@@ -643,7 +643,7 @@ static bool ProcessBlockFound(const CBlock* pblock, const CChainParams& chainpar
     return true;
 }
 // ***TODO*** that part changed in bitcoin, we are using a mix with old one here for now
-void static BitcoinMiner(const CChainParams& chainparams, CConnman& connman)
+void static BitcoinMiner(const CChainParams& chainparams, CConnman& connman, int nPause)
 {
     LogPrintf("Miner -- started\n");
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
@@ -715,6 +715,9 @@ void static BitcoinMiner(const CChainParams& chainparams, CConnman& connman)
                     nHashesDone += 1;
                     if ((pblock->nNonce & 0xFF) == 0)
                         break;
+
+                    if (nPause > 0)
+                        boost::this_thread::sleep(boost::posix_time::milliseconds(nPause));
                 }
                 // Check for stop or if block needs to be rebuilt
                 boost::this_thread::interruption_point();
@@ -752,9 +755,23 @@ void static BitcoinMiner(const CChainParams& chainparams, CConnman& connman)
 }
 void GenerateBitcoins(bool fGenerate, int nThreads, const CChainParams& chainparams, CConnman& connman)
 {
+    int nPause = 0; // msec, allows weak mining
     static boost::thread_group* minerThreads = NULL;
-    if (nThreads < 0)
-        nThreads = GetNumCores();
+
+    switch (nThreads) {
+        case -1:
+            nThreads = GetNumCores();
+            break;
+        case -2:
+            nThreads = 1;
+            nPause = 50;
+            break;
+        case -3:
+            nThreads = 1;
+            nPause = 100;
+            break;
+    }
+
     if (minerThreads != NULL)
     {
         minerThreads->interrupt_all();
@@ -765,5 +782,5 @@ void GenerateBitcoins(bool fGenerate, int nThreads, const CChainParams& chainpar
         return;
     minerThreads = new boost::thread_group();
     for (int i = 0; i < nThreads; i++)
-        minerThreads->create_thread(boost::bind(&BitcoinMiner, boost::cref(chainparams), boost::ref(connman)));
+        minerThreads->create_thread(boost::bind(&BitcoinMiner, boost::cref(chainparams), boost::ref(connman), nPause));
 }

@@ -1390,7 +1390,18 @@ void BitcoinGUI::setMiningStatus()
     else if (GetBoolArg("-gen", DEFAULT_GENERATE))
     {
         labelMiningIcon->setPixmap(QIcon(":/icons/" + theme + "/mining").pixmap(iconSize, iconSize));
-        labelMiningIcon->setToolTip(tr("<b>Mining</b> on %n thread(s)", "", (int)GetArg("-genproclimit", DEFAULT_GENERATE_THREADS)));
+        int nThreads = GetArg("-genproclimit", DEFAULT_GENERATE_THREADS);
+        switch (nThreads) {
+            case -1:
+                labelMiningIcon->setToolTip(tr("<b>Unlimited mining</b>"));
+                break;
+            case -2:
+            case -3:
+                labelMiningIcon->setToolTip(tr("Weak <b>mining</b>"));
+                break;
+            default:
+                labelMiningIcon->setToolTip(tr("<b>Mining</b> on %n thread(s)", "", nThreads));
+        }
     }
     else
     {

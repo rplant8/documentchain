@@ -130,7 +130,7 @@ UniValue setgenerate(const JSONRPCRequest& request)
             "See the getgenerate call for the current setting.\n"
             "\nArguments:\n"
             "1. generate         (boolean, required) Set to true to turn on generation, false to turn off.\n"
-            "2. genproclimit     (numeric, optional) Set the processor limit for when generation is on. Can be -1 for unlimited.\n"
+            "2. genproclimit     (numeric, optional) Set the processor limit for when generation is on. Can be -1 for unlimited. -2 or -3 for weak mining on 1 processor with 50 or 100 msec pause.\n"
             "\nExamples:\n"
             "\nSet the generation on with a limit of one processor\n"
             + HelpExampleCli("setgenerate", "true 1") +

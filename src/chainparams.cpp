@@ -145,7 +145,7 @@ public:
         consensus.BIP65Height = 619382; // TODO    // 00000000000076d8fcea02ec0963de4abfd01e771fec0863f960c2c64fe6f357
         consensus.BIP66Height = 245817; // TODO    // 00000000000b1fa2dfa312863570e13fae9ca7b5566cb27e55422620b469aefa
         consensus.DIP0001Height = 782208; // TODO    
-        consensus.powLimit = uint256S("0000ffffff000000000000000000000000000000000000000000000000000000");  //uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20 
+        consensus.powLimit = uint256S("000fffffff000000000000000000000000000000000000000000000000000000");  //uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20 
         consensus.nPowTargetTimespan = 24 * 60 * 60; // PoW calculation 24 * 60 * 60;  1 day
         consensus.nPowTargetSpacing = 6 * 60; // DMS 6 minutes (initial 4 minutes); Bitcoin 10 minutes; Dash 2.5 minutes
         consensus.fPowAllowMinDifficultyBlocks = false;
