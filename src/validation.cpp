@@ -1285,21 +1285,24 @@ double ConvertBitsToDouble(unsigned int nBits)
 }
 
 // unlike Dash we are using current block height and previous nBits here, Dash uses previous height
-// DMS uses only nHeight, but the params are not removed yet because they could be of interest for future purposes
+// DMS does not use superblocks (consensus.nSuperblockStartBlock is set to >1000 years
+// but the param is not removed yet because is could be of interest for future purposes
 CAmount GetBlockSubsidy(int nPrevBits, int nHeight, const Consensus::Params& consensusParams, bool fSuperblockPartOnly)
 {
     // 10 blocks/hour, 240/day, 7200/month, 87600/year
+    int nDec = consensusParams.nSubsidyDecreaseStart; // mainnet: 44001
     int nReward;
-    if      (nHeight <   44001) { nReward = 50; }  // 2 200 000 /  6 month
-    else if (nHeight <   88001) { nReward = 40; }  // 1 760 000 /  6 month
-    else if (nHeight <  132001) { nReward = 30; }  // 1 320 000 /  6 month
-    else if (nHeight <  176001) { nReward = 20; }  //   840 000 /  6 month
-    else if (nHeight <  350001) { nReward = 15; }  // 2 610 000 /  2 years
-    else if (nHeight <  788001) { nReward = 10; }  // 4 380 000 /  5 years
-    else if (nHeight < 1226001) { nReward =  5; }  // 2 190 000 /  5 years
-    else if (nHeight < 2102001) { nReward =  3; }  // 2 628 000 / 10 years 
-    else if (nHeight < 2978001) { nReward =  2; }  // 1 752 000 / 10 years 
-    else if (nHeight < 4298001) { nReward =  1; }  // 1 320 000 / 15 years 
+
+    if      (nHeight < nDec)          { nReward = 50; }  // 2 200 000 /  6 month
+    else if (nHeight < nDec +  44000) { nReward = 40; }  // 1 760 000 /  6 month
+    else if (nHeight < nDec +  88000) { nReward = 30; }  // 1 320 000 /  6 month
+    else if (nHeight < nDec + 132000) { nReward = 20; }  //   840 000 /  6 month
+    else if (nHeight < nDec + 306000) { nReward = 15; }  // 2 610 000 /  2 years
+    else if (nHeight < nDec + 744000) { nReward = 10; }  // 4 380 000 /  5 years
+    else if (nHeight < nDec +1182000) { nReward =  5; }  // 2 190 000 /  5 years
+    else if (nHeight < nDec +2058000) { nReward =  3; }  // 2 628 000 / 10 years 
+    else if (nHeight < nDec +2934000) { nReward =  2; }  // 1 752 000 / 10 years 
+    else if (nHeight < nDec +4254000) { nReward =  1; }  // 1 320 000 / 15 years 
     else                        { nReward =  0; }; // reward = fee only
                                              // sum: 21 000 000 / 49 years  
 
@@ -1323,8 +1326,8 @@ CAmount GetMasternodePayment(int nHeight, CAmount blockValue)
     int nMNPIPeriod = Params().GetConsensus().nMasternodePaymentsIncreasePeriod;
 
                                                                       // DMS mainnet:
-    if(nHeight > nMNPIBlock)                  ret += blockValue / 20; //  60000 - 25.0% ~ 2019-05-19
-    if(nHeight > nMNPIBlock+(nMNPIPeriod* 1)) ret += blockValue / 20; //  67000 - 30.0% ~ 2019-06
+    if(nHeight > nMNPIBlock)                  ret += blockValue / 20; //  60000 - 25.0% - 2019-05-19
+    if(nHeight > nMNPIBlock+(nMNPIPeriod* 1)) ret += blockValue / 20; //  67000 - 30.0% - 2019-06-18
     if(nHeight > nMNPIBlock+(nMNPIPeriod* 2)) ret += blockValue / 20; //  74000 - 35.0% ~ 2019-07
     if(nHeight > nMNPIBlock+(nMNPIPeriod* 3)) ret += blockValue / 40; //  81000 - 37.5% ~ 2019-08
     if(nHeight > nMNPIBlock+(nMNPIPeriod* 4)) ret += blockValue / 40; //  88000 - 40.0% ~ 2019-09

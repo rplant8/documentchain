@@ -125,7 +125,7 @@ class CMainParams : public CChainParams {
 public:
     CMainParams() {
         strNetworkID = "main";
-      //consensus.nSubsidyHalvingInterval = 210000; DMS does not use Halving, see validation.cpp GetBlockSubsidy
+        consensus.nSubsidyDecreaseStart = 44001;
         consensus.nMasternodePaymentsStartBlock = 5000; // Dash=100000;
         consensus.nMasternodePaymentsIncreaseBlock = 60000; // Dash: 158000
         consensus.nMasternodePaymentsIncreasePeriod = 7000; // ~29 days, Dash: 17280
@@ -145,7 +145,7 @@ public:
         consensus.BIP65Height = 619382; // TODO    // 00000000000076d8fcea02ec0963de4abfd01e771fec0863f960c2c64fe6f357
         consensus.BIP66Height = 245817; // TODO    // 00000000000b1fa2dfa312863570e13fae9ca7b5566cb27e55422620b469aefa
         consensus.DIP0001Height = 782208; // TODO    
-        consensus.powLimit = uint256S("000fffffff000000000000000000000000000000000000000000000000000000");  //uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20 
+        consensus.powLimit = uint256S("0000ffffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // PoW calculation 24 * 60 * 60;  1 day
         consensus.nPowTargetSpacing = 6 * 60; // DMS 6 minutes (initial 4 minutes); Bitcoin 10 minutes; Dash 2.5 minutes
         consensus.fPowAllowMinDifficultyBlocks = false;
@@ -215,10 +215,7 @@ public:
             printf("genesis.nTime %d\n", genesis.nTime);
 		*/
 		
-/*      vSeeds.push_back(CDNSSeedData("dash.org", "dnsseed.dash.org"));
-        vSeeds.push_back(CDNSSeedData("dashdot.io", "dnsseed.dashdot.io"));
-        vSeeds.push_back(CDNSSeedData("masternode.io", "dnsseed.masternode.io"));
-        vSeeds.push_back(CDNSSeedData("dashpay.io", "dnsseed.dashpay.io"));*/
+      //vSeeds.push_back(CDNSSeedData("documentchain.org", "dnsseed.documentchain.org"));
         vSeeds.clear();
 
         // DMS addresses start with 'D'
@@ -263,6 +260,7 @@ public:
             ( 46096, uint256S("0x000000a402d9343d7b70df237cfedadefbd002d18f95ce775d33956e7f7e4141")) // 2019-Mar-19
             ( 51834, uint256S("0x00001617483dacc4cb349535a9d1806c0b749801111d705362d61d7df72269d7")) // 2019-Apr-13
             ( 59098, uint256S("0x0000062c9eeac8249ff40512763846be367c9404c2ebded2646309bb30a28f4a")) // 2019-May-15
+            ( 68050, uint256S("0x000005c0ed9cec8cd6c2a23c673b3047bf2f3c205d85ca3843fb8ec4b53c27c9")) // 2019-Jun-23
         };
 
         chainTxData = ChainTxData{
@@ -282,6 +280,7 @@ class CTestNetParams : public CChainParams {
 public:
     CTestNetParams() {
         strNetworkID = "test";
+        consensus.nSubsidyDecreaseStart = 4001; // Main: 44001
         consensus.nMasternodePaymentsStartBlock = 1000; // Main: 5000
         consensus.nMasternodePaymentsIncreaseBlock = 5000; // Main: 60000
         consensus.nMasternodePaymentsIncreasePeriod = 7000; // = Main
@@ -298,9 +297,9 @@ public:
         consensus.nMasternodeMinimumConfirmations = 15; // = Main
         consensus.BIP34Height = 0; // = Main
         consensus.BIP34Hash = uint256S("0x00004399a114a034b2f8d742b8e7f018d3cfdec0b25150d0b7e271b63c9cd4ce");
-        consensus.BIP65Height = 619382; // = Main
-        consensus.BIP66Height = 245817; // = Main
-        consensus.DIP0001Height = 782208; // = Main    
+        consensus.BIP65Height = 2910; // = Main 619382
+        consensus.BIP66Height = 2900; // = Main 245817
+        consensus.DIP0001Height = 2920; // = Main 782208
         consensus.powLimit = uint256S("000fffffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // = Main
         consensus.nPowTargetSpacing = 6 * 60; // = Main
@@ -324,7 +323,7 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nStartTime = 1508025600;
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nTimeout = 1539561600;
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nWindowSize = 4032;
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 3226;
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 3226; // 80% of 4032
 
         // Deployment of BIP147  = Main
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].bit = 2;
@@ -398,11 +397,10 @@ public:
         strSporkAddress = "t9Q5m4qupg9gmPh5dRvaTotcyuoaeE5ZZH";
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (    0, uint256S("0x00004399a114a034b2f8d742b8e7f018d3cfdec0b25150d0b7e271b63c9cd4ce"))
-/*            (   1999, uint256S("0x00000052e538d27fa53693efe6fb6892a0c1d26c0235f599171c48a3cce553b1"))
-            (   2999, uint256S("0x0000024bc3f4f4cb30d29827c13d921ad77d2c6072e586c7f60d83c2722cdcc5"))
-            ( 100000, uint256S("0x0000000003aa53e24b6e60ef97642e4193611f2bcb75ea1fa8105f0b5ffd5242"))
-            ( 143200, uint256S("0x0000000004a7878409189b7a8f75b3815d9b8c45ee8f79955a6c727d83bddb04")) */
+            (      0, uint256S("0x00004399a114a034b2f8d742b8e7f018d3cfdec0b25150d0b7e271b63c9cd4ce"))
+            (    490, uint256S("0x00007564d828bf5407ed4aa40dce016f31582156789c885d0045090ebe877c5e"))
+            (   1497, uint256S("0x0000191cde93168929bd0de462cf12385fbcbe5eefdb97f01b049818eabdf0dd"))
+            (   2672, uint256S("0x0000a425da471cecde3d95ff3e58b1f52ff3cf1119836751bffa20f462d388cd"))
         };
         chainTxData = ChainTxData{        
             1559127600, // * UNIX timestamp of last known number of transactions
@@ -421,6 +419,7 @@ class CDevNetParams : public CChainParams {
 public:
     CDevNetParams() {
         strNetworkID = "dev";
+        consensus.nSubsidyDecreaseStart = 1001;
         consensus.nMasternodePaymentsStartBlock = 4010; // not true, but it's ok as long as it's less then nMasternodePaymentsIncreaseBlock
         consensus.nMasternodePaymentsIncreaseBlock = 4030;
         consensus.nMasternodePaymentsIncreasePeriod = 10;
@@ -550,6 +549,7 @@ class CRegTestParams : public CChainParams {
 public:
     CRegTestParams() {
         strNetworkID = "regtest";
+        consensus.nSubsidyDecreaseStart = 1001;
         consensus.nMasternodePaymentsStartBlock = 240;
         consensus.nMasternodePaymentsIncreaseBlock = 350;
         consensus.nMasternodePaymentsIncreasePeriod = 10;

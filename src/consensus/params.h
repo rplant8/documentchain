@@ -44,7 +44,7 @@ struct BIP9Deployment {
 struct Params {
     uint256 hashGenesisBlock;
     uint256 hashDevnetGenesisBlock;
-  //int nSubsidyHalvingInterval; DMS does not use Halving, see validation.cpp GetBlockSubsidy
+    int nSubsidyDecreaseStart; // Bitcoin/Dash uses nSubsidyHalvingInterval
     int nMasternodePaymentsStartBlock;
     int nMasternodePaymentsIncreaseBlock;
     int nMasternodePaymentsIncreasePeriod; // in blocks
