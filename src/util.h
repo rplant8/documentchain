@@ -1,8 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Documentchain developers
-
+// Copyright (c) 2014-2019 The Dash Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -27,6 +25,7 @@
 #include <map>
 #include <stdint.h>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include <boost/filesystem/path.hpp>
@@ -55,11 +54,6 @@ static const bool DEFAULT_LOGIPS         = false;
 static const bool DEFAULT_LOGTIMESTAMPS  = true;
 static const bool DEFAULT_LOGTHREADNAMES = false;
 
-#ifdef __linux__
-static const int THREAD_PRIORITY_LOWEST = 19;
-static const int THREAD_PRIORITY_NORMAL = 0;
-#endif
-
 /** Signals for translation. */
 class CTranslationInterface
 {
@@ -68,7 +62,7 @@ public:
     boost::signals2::signal<std::string (const char* psz)> Translate;
 };
 
-extern const std::map<std::string, std::vector<std::string> >& mapMultiArgs;
+extern const std::unordered_map<std::string, std::vector<std::string> >& mapMultiArgs;
 extern bool fDebug;
 extern bool fPrintToConsole;
 extern bool fPrintToDebugLog;
@@ -95,31 +89,45 @@ inline std::string _(const char* psz)
 
 void SetupEnvironment();
 bool SetupNetworking();
-void SetThreadPriority(int nPriority);
 
 /** Return true if log accepts specified category */
 bool LogAcceptCategory(const char* category);
+/** Reset internal log category caching (call this when debug categories have changed) */
+void ResetLogAcceptCategoryCache();
 /** Send a string to the log output */
 int LogPrintStr(const std::string &str);
 
+/** Formats a string without throwing exceptions. Instead, it'll return an error string instead of formatted string. */
+template<typename... Args>
+std::string SafeStringFormat(const std::string& fmt, const Args&... args)
+{
+    try {
+        return tinyformat::format(fmt, args...);
+    } catch (std::runtime_error& e) {
+        std::string message = tinyformat::format("\n****TINYFORMAT ERROR****\n    err=\"%s\"\n    fmt=\"%s\"\n", e.what(), fmt);
+        fprintf(stderr, "%s", message.c_str());
+        return message;
+    }
+}
+
 #define LogPrint(category, ...) do { \
     if (LogAcceptCategory((category))) { \
-        LogPrintStr(tinyformat::format(__VA_ARGS__)); \
+        LogPrintStr(SafeStringFormat(__VA_ARGS__)); \
     } \
 } while(0)
 
 #define LogPrintf(...) do { \
-    LogPrintStr(tinyformat::format(__VA_ARGS__)); \
+    LogPrintStr(SafeStringFormat(__VA_ARGS__)); \
 } while(0)
 
 template<typename... Args>
 bool error(const char* fmt, const Args&... args)
 {
-    LogPrintStr("ERROR: " + tinyformat::format(fmt, args...) + "\n");
+    LogPrintStr("ERROR: " + SafeStringFormat(fmt, args...) + "\n");
     return false;
 }
 
-void PrintExceptionContinue(const std::exception *pex, const char* pszThread);
+void PrintExceptionContinue(const std::exception_ptr pex, const char* pszThread);
 void ParseParameters(int argc, const char*const argv[]);
 void FileCommit(FILE *file);
 bool TruncateFile(FILE *file, unsigned int length);
@@ -132,7 +140,6 @@ const boost::filesystem::path &GetDataDir(bool fNetSpecific = true);
 boost::filesystem::path GetBackupsDir();
 void ClearDatadirCache();
 boost::filesystem::path GetConfigFile(const std::string& confPath);
-boost::filesystem::path GetMasternodeConfigFile();
 #ifndef WIN32
 boost::filesystem::path GetPidFile();
 void CreatePidFile(const boost::filesystem::path &path, pid_t pid);
@@ -239,6 +246,11 @@ int GetNumCores();
 void RenameThread(const char* name);
 std::string GetThreadName();
 
+namespace ctpl {
+    class thread_pool;
+}
+void RenameThreadPool(ctpl::thread_pool& tp, const char* baseName);
+
 /**
  * .. and a wrapper that just calls func once
  */
@@ -257,12 +269,8 @@ template <typename Callable> void TraceThread(const char* name,  Callable func)
         LogPrintf("%s thread interrupt\n", name);
         throw;
     }
-    catch (const std::exception& e) {
-        PrintExceptionContinue(&e, name);
-        throw;
-    }
     catch (...) {
-        PrintExceptionContinue(NULL, name);
+        PrintExceptionContinue(std::current_exception(), name);
         throw;
     }
 }

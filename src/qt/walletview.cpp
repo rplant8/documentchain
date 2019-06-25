@@ -1,5 +1,4 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2018-2019 The Documentchain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,13 +9,13 @@
 #include "bitcoingui.h"
 #include "clientmodel.h"
 #include "guiutil.h"
-#include "masternodeconfig.h"
 #include "optionsmodel.h"
 #include "overviewpage.h"
 #include "platformstyle.h"
 #include "receivecoinsdialog.h"
 #include "sendcoinsdialog.h"
 #include "signverifymessagedialog.h"
+#include "transactionrecord.h"
 #include "transactiontablemodel.h"
 #include "transactionview.h"
 #include "walletmodel.h"
@@ -50,7 +49,7 @@ WalletView::WalletView(const PlatformStyle *_platformStyle, QWidget *parent):
     QPushButton *exportButton = new QPushButton(tr("&Export"), this);
     exportButton->setToolTip(tr("Export the data in the current tab to a file"));
     if (platformStyle->getImagesOnButtons()) {
-        QString theme = GUIUtil::getThemeName().remove("-hires");
+        QString theme = GUIUtil::getThemeName();
         exportButton->setIcon(QIcon(":/icons/" + theme + "/export"));
     }
     hbox_buttons->addStretch();
@@ -73,14 +72,12 @@ WalletView::WalletView(const PlatformStyle *_platformStyle, QWidget *parent):
 
     receiveCoinsPage = new ReceiveCoinsDialog(platformStyle);
     sendCoinsPage = new SendCoinsDialog(platformStyle);
-    documentsPage = new DocumentList(platformStyle);
 
     usedSendingAddressesPage = new AddressBookPage(platformStyle, AddressBookPage::ForEditing, AddressBookPage::SendingTab, this);
     usedReceivingAddressesPage = new AddressBookPage(platformStyle, AddressBookPage::ForEditing, AddressBookPage::ReceivingTab, this);
 
     addWidget(overviewPage);
     addWidget(transactionsPage);
-    addWidget(documentsPage);
     addWidget(receiveCoinsPage);
     addWidget(sendCoinsPage);
 
@@ -108,9 +105,6 @@ WalletView::WalletView(const PlatformStyle *_platformStyle, QWidget *parent):
 
     // Pass through messages from transactionView
     connect(transactionView, SIGNAL(message(QString,QString,unsigned int)), this, SIGNAL(message(QString,QString,unsigned int)));
-
-    // Pass through messages from documentsPage
-    connect(documentsPage, SIGNAL(message(QString,QString,unsigned int)), this, SIGNAL(message(QString,QString,unsigned int)));
 }
 
 WalletView::~WalletView()
@@ -144,7 +138,6 @@ void WalletView::setClientModel(ClientModel *_clientModel)
 
     overviewPage->setClientModel(_clientModel);
     sendCoinsPage->setClientModel(_clientModel);
-    documentsPage->setClientModel(_clientModel);
     QSettings settings;
     if (!fLiteMode && settings.value("fShowMasternodesTab").toBool()) {
         masternodeListPage->setClientModel(_clientModel);
@@ -157,7 +150,6 @@ void WalletView::setWalletModel(WalletModel *_walletModel)
 
     // Put transaction list in tabs
     transactionView->setModel(_walletModel);
-    documentsPage->setWalletModel(_walletModel);
     overviewPage->setWalletModel(_walletModel);
     QSettings settings;
     if (!fLiteMode && settings.value("fShowMasternodesTab").toBool()) {
@@ -202,10 +194,19 @@ void WalletView::processNewTransaction(const QModelIndex& parent, int start, int
     if (!ttm || ttm->processingQueuedTransactions())
         return;
 
+    QModelIndex index = ttm->index(start, 0, parent);
+    QSettings settings;
+    if (!settings.value("fShowPrivateSendPopups").toBool()) {
+        QVariant nType = ttm->data(index, TransactionTableModel::TypeRole);
+        if (nType == TransactionRecord::PrivateSendDenominate ||
+            nType == TransactionRecord::PrivateSendCollateralPayment ||
+            nType == TransactionRecord::PrivateSendMakeCollaterals ||
+            nType == TransactionRecord::PrivateSendCreateDenominations) return;
+    }
+
     QString date = ttm->index(start, TransactionTableModel::Date, parent).data().toString();
     qint64 amount = ttm->index(start, TransactionTableModel::Amount, parent).data(Qt::EditRole).toULongLong();
     QString type = ttm->index(start, TransactionTableModel::Type, parent).data().toString();
-    QModelIndex index = ttm->index(start, 0, parent);
     QString address = ttm->data(index, TransactionTableModel::AddressRole).toString();
     QString label = ttm->data(index, TransactionTableModel::LabelRole).toString();
 
@@ -220,13 +221,6 @@ void WalletView::gotoOverviewPage()
 void WalletView::gotoHistoryPage()
 {
     setCurrentWidget(transactionsPage);
-}
-
-void WalletView::gotoDocumentPage(const QStringList newFiles)
-{
-    setCurrentWidget(documentsPage);
-    if (newFiles.count() > 0)
-        documentsPage->handleNewFiles(newFiles);
 }
 
 void WalletView::gotoMasternodePage()

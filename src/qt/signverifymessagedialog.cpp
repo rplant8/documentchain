@@ -1,7 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Documentchain developers
-
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -35,7 +33,7 @@ SignVerifyMessageDialog::SignVerifyMessageDialog(const PlatformStyle *_platformS
     ui->signatureOut_SM->setPlaceholderText(tr("Click \"Sign Message\" to generate signature"));
 #endif
 
-    QString theme = GUIUtil::getThemeName().remove("-hires");
+    QString theme = GUIUtil::getThemeName();
 
 #ifdef Q_OS_MAC // Icons on push buttons are very uncommon on Mac
     ui->signMessageButton_SM->setIcon(QIcon());

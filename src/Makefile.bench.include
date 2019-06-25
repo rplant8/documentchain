@@ -1,7 +1,5 @@
 # Copyright (c) 2015-2016 The Bitcoin Core developers
 # Copyright (c) 2014-2018 The Dash Core developers
-# Copyright (c) 2018 The Documentchain developers
-
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -17,8 +15,11 @@ bench_bench_dms_SOURCES = \
   bench/bench_dms.cpp \
   bench/bench.cpp \
   bench/bench.h \
+  bench/bls.cpp \
+  bench/bls_dkg.cpp \
   bench/checkblock.cpp \
   bench/checkqueue.cpp \
+  bench/ecdsa.cpp \
   bench/Examples.cpp \
   bench/rollingbloom.cpp \
   bench/crypto_hash.cpp \
@@ -28,6 +29,7 @@ bench_bench_dms_SOURCES = \
   bench/lockedpool.cpp \
   bench/perf.cpp \
   bench/perf.h \
+  bench/prevector_destructor.cpp \
   bench/string_cast.cpp
 
 nodist_bench_bench_dms_SOURCES = $(GENERATED_TEST_FILES)
@@ -54,8 +56,8 @@ bench_bench_dms_SOURCES += bench/coin_selection.cpp
 bench_bench_dms_LDADD += $(LIBBITCOIN_WALLET) $(LIBBITCOIN_CRYPTO)
 endif
 
-bench_bench_dms_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
-bench_bench_dms_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+bench_bench_dms_LDADD += $(BACKTRACE_LIB) $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(BLS_LIBS)
+bench_bench_dms_LDFLAGS = $(LDFLAGS_WRAP_EXCEPTIONS) $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 CLEAN_BITCOIN_BENCH = bench/*.gcda bench/*.gcno $(GENERATED_TEST_FILES)
 

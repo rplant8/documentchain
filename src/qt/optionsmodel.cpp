@@ -1,7 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Documentchain developers
-
+// Copyright (c) 2014-2019 The Dash Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -25,7 +23,6 @@
 #include "wallet/wallet.h"
 #include "wallet/walletdb.h"
 
-#include "masternodeconfig.h"
 #include "privatesend-client.h"
 #endif
 
@@ -89,19 +86,19 @@ void OptionsModel::Init(bool resetSettings)
 
 #ifdef ENABLE_WALLET
     if (!settings.contains("fCoinControlFeatures"))
-        settings.setValue("fCoinControlFeatures", true);
-    fCoinControlFeatures = settings.value("fCoinControlFeatures", true).toBool();
+        settings.setValue("fCoinControlFeatures", false);
+    fCoinControlFeatures = settings.value("fCoinControlFeatures", false).toBool();
 
     if (!settings.contains("digits"))
         settings.setValue("digits", "2");
-
-    if (!settings.contains("fShowMasternodesTab"))
-        settings.setValue("fShowMasternodesTab", masternodeConfig.getCount());
 
     // PrivateSend
     if (!settings.contains("fShowAdvancedPSUI"))
         settings.setValue("fShowAdvancedPSUI", false);
     fShowAdvancedPSUI = settings.value("fShowAdvancedPSUI", false).toBool();
+
+    if (!settings.contains("fShowPrivateSendPopups"))
+        settings.setValue("fShowPrivateSendPopups", true);
 
     if (!settings.contains("fLowKeysWarning"))
         settings.setValue("fLowKeysWarning", true);
@@ -142,10 +139,10 @@ void OptionsModel::Init(bool resetSettings)
 
     if (!settings.contains("nPrivateSendAmount")) {
         // for migration from old settings
-        if (!settings.contains("nAnonymizeDmsAmount"))
+        if (!settings.contains("nAnonymizeDMSAmount"))
             settings.setValue("nPrivateSendAmount", DEFAULT_PRIVATESEND_AMOUNT);
         else
-            settings.setValue("nPrivateSendAmount", settings.value("nAnonymizeDmsAmount").toInt());
+            settings.setValue("nPrivateSendAmount", settings.value("nAnonymizeDMSAmount").toInt());
     }
     if (!SoftSetArg("-privatesendamount", settings.value("nPrivateSendAmount").toString().toStdString()))
         addOverriddenOption("-privatesendamount");
@@ -274,6 +271,8 @@ QVariant OptionsModel::data(const QModelIndex & index, int role) const
             return settings.value("fShowMasternodesTab");
         case ShowAdvancedPSUI:
             return fShowAdvancedPSUI;
+        case ShowPrivateSendPopups:
+            return settings.value("fShowPrivateSendPopups");
         case LowKeysWarning:
             return settings.value("fLowKeysWarning");
         case PrivateSendRounds:
@@ -423,6 +422,9 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
             fShowAdvancedPSUI = value.toBool();
             settings.setValue("fShowAdvancedPSUI", fShowAdvancedPSUI);
             Q_EMIT advancedPSUIChanged(fShowAdvancedPSUI);
+            break;
+        case ShowPrivateSendPopups:
+            settings.setValue("fShowPrivateSendPopups", value);
             break;
         case LowKeysWarning:
             settings.setValue("fLowKeysWarning", value);

@@ -4,7 +4,7 @@ NOTE : 12.1 -- REWRITE
 Masternode Budget API
 =======================
 
-DMS now supports full decentralized budgets that are paid directly from the blockchain via superblocks once per month.
+Documentchain now supports full decentralized budgets that are paid directly from the blockchain via superblocks once per month.
 
 Budgets go through a series of stages before being paid:
  * prepare - create a special transaction that destroys coins in order to make a proposal
@@ -25,7 +25,7 @@ In this transaction we prepare collateral for "_cool-project_". This proposal wi
 
 Format: ```mngovernance prepare proposal-name url payment-count block-start dms-address monthly-payment-dms```
 
-Example: ```mngovernance prepare cool-project http://www.cool-project/one.json 12 100000 y6R9oN12KnB9zydzTLc3LikD9cCjjQzYG7 1200 true```
+Example: ```mngovernance prepare cool-project http://www.cool-project/one.json 12 100000 D5ugcfpWFBRF8jryUMoSyvU2vYeXsyYWkc 1200 true```
 
 Output: ```464a0eb70ea91c94295214df48c47baa72b3876cfb658744aaf863c7b5bf1ff0```
 
@@ -128,7 +128,7 @@ After you get enough votes, execute ```mngovernance projection``` to see if you 
 6. Get paid
 --
 
-TODO: When block ```1000000``` is reached you'll receive a payment for ```1200``` DASH to ```y6R9oN12KnB9zydzTLc3LikD9cCjjQzYG7```.
+When block ```1000000``` is reached you'll receive a payment for ```1200``` DMS to ```y6R9oN12KnB9zydzTLc3LikD9cCjjQzYG7```.
 
 7. Command list
 --
@@ -147,7 +147,7 @@ The following RPC commands are supported:
   - nextsuperblocksize - Get superblock size for a given blockheight
   - projection         - Show the projection of which proposals will be paid the next cycle
   - vote               - Vote on a proposal by single masternode (using dms.conf setup)
-  - vote-many          - Vote on a proposal by all masternodes (using masternode.conf setup)
+  - vote-many          - Vote on a proposal by all masternodes for which the voting key is in the wallet
   - vote-alias         - Vote on a proposal by alias
  - mnfinalbudget "command"... ( "passphrase" )
   - vote-many   - Vote on a finalized budget

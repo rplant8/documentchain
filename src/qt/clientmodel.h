@@ -1,12 +1,13 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Documentchain developers
-
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_QT_CLIENTMODEL_H
 #define BITCOIN_QT_CLIENTMODEL_H
+
+#include "evo/deterministicmns.h"
+#include "sync.h"
 
 #include <QObject>
 #include <QDateTime>
@@ -40,7 +41,7 @@ enum NumConnections {
     CONNECTIONS_ALL  = (CONNECTIONS_IN | CONNECTIONS_OUT),
 };
 
-/** Model for DMS network client. */
+/** Model for Documentchain network client. */
 class ClientModel : public QObject
 {
     Q_OBJECT
@@ -55,7 +56,6 @@ public:
 
     //! Return number of connections, default is in- and outbound (total)
     int getNumConnections(unsigned int flags = CONNECTIONS_ALL) const;
-    QString getMasternodeCountString() const;
     int getNumBlocks() const;
     int getHeaderTipHeight() const;
     int64_t getHeaderTipTime() const;
@@ -63,6 +63,10 @@ public:
     long getMempoolSize() const;
     //! Return the dynamic memory usage of the mempool
     size_t getMempoolDynamicUsage() const;
+
+    void setMasternodeList(const CDeterministicMNList& mnList);
+    CDeterministicMNList getMasternodeList() const;
+    void refreshMasternodeList();
     
     quint64 getTotalBytesRecv() const;
     quint64 getTotalBytesSent() const;
@@ -94,18 +98,22 @@ public:
 private:
     OptionsModel *optionsModel;
     PeerTableModel *peerTableModel;
-    QString cachedMasternodeCountString;
     BanTableModel *banTableModel;
 
     QTimer *pollTimer;
-    QTimer *pollMnTimer;
+
+    // The cache for mn list is not technically needed because CDeterministicMNManager
+    // caches it internally for recent blocks but it's not enough to get consistent
+    // representation of the list in UI during initial sync/reindex, so we cache it here too.
+    mutable CCriticalSection cs_mnlinst; // protects mnListCached
+    CDeterministicMNList mnListCached;
 
     void subscribeToCoreSignals();
     void unsubscribeFromCoreSignals();
 
 Q_SIGNALS:
     void numConnectionsChanged(int count);
-    void strMasternodesChanged(const QString &strMasternodes);
+    void masternodeListChanged() const;
     void numBlocksChanged(int count, const QDateTime& blockDate, double nVerificationProgress, bool header);
     void additionalDataSyncProgressChanged(double nSyncProgress);
     void mempoolSizeChanged(long count, size_t mempoolSizeInBytes);
@@ -121,7 +129,6 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void updateTimer();
-    void updateMnTimer();
     void updateNumConnections(int numConnections);
     void updateNetworkActive(bool networkActive);
     void updateAlert(const QString &hash, int status);

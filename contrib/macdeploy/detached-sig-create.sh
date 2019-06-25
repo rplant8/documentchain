@@ -6,11 +6,11 @@
 set -e
 
 ROOTDIR=dist
-BUNDLE="${ROOTDIR}/Dash-Qt.app"
+BUNDLE="${ROOTDIR}/DMS-Qt.app"
 CODESIGN=codesign
 TEMPDIR=sign.temp
 TEMPLIST=${TEMPDIR}/signatures.txt
-OUT=signature.tar.gz
+OUT=signature-osx.tar.gz
 OUTROOT=osx
 
 if [ ! -n "$1" ]; then

@@ -23,9 +23,6 @@ class CWallet;
 
 namespace Consensus { struct Params; };
 
-static const bool DEFAULT_GENERATE = false;    // solo mining in wallet "setgenerate"
-static const int DEFAULT_GENERATE_THREADS = 1;
-
 static const bool DEFAULT_PRINTPRIORITY = false;
 
 struct CBlockTemplate
@@ -33,10 +30,10 @@ struct CBlockTemplate
     CBlock block;
     std::vector<CAmount> vTxFees;
     std::vector<int64_t> vTxSigOps;
+    uint32_t nPrevBits; // nBits of previous block (for subsidy calculation)
+    std::vector<CTxOut> voutMasternodePayments; // masternode payment
+    std::vector<CTxOut> voutSuperblockPayments; // superblock payment
 };
-
-/** Run the solo mining threads */
-void GenerateBitcoins(bool fGenerate, int nThreads, const CChainParams& chainparams, CConnman& connman);
 
 // Container for tracking updates to ancestor feerate as we include (parent)
 // transactions in a block
@@ -161,12 +158,16 @@ private:
     int64_t nLockTimeCutoff;
     const CChainParams& chainparams;
 
-    // Variables used for addPriorityTxs
-    int lastFewTxs;
-    bool blockFinished;
-
 public:
-    BlockAssembler(const CChainParams& chainparams);
+    struct Options {
+        Options();
+        size_t nBlockMaxSize;
+        CFeeRate blockMinFeeRate;
+    };
+
+    BlockAssembler(const CChainParams& params);
+    BlockAssembler(const CChainParams& params, const Options& options);
+
     /** Construct a new block template with coinbase to scriptPubKeyIn */
     std::unique_ptr<CBlockTemplate> CreateNewBlock(const CScript& scriptPubKeyIn);
 
@@ -178,18 +179,10 @@ private:
     void AddToBlock(CTxMemPool::txiter iter);
 
     // Methods for how to add transactions to a block.
-    /** Add transactions based on tx "priority" */
-    void addPriorityTxs();
     /** Add transactions based on feerate including unconfirmed ancestors
       * Increments nPackagesSelected / nDescendantsUpdated with corresponding
       * statistics from the package selection (for logging statistics). */
     void addPackageTxs(int &nPackagesSelected, int &nDescendantsUpdated);
-
-    // helper function for addPriorityTxs
-    /** Test if tx will still "fit" in the block */
-    bool TestForBlock(CTxMemPool::txiter iter);
-    /** Test if tx still has unconfirmed parents not yet in block */
-    bool isStillDependent(CTxMemPool::txiter iter);
 
     // helper functions for addPackageTxs()
     /** Remove confirmed (inBlock) entries from given set */

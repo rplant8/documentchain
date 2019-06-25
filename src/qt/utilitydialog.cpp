@@ -1,7 +1,6 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Documentchain developers
-
+// Copyright (c) 2014-2019 The Dash Core developers
+// Copyright (c) 2018-2019 The Documentchain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -52,7 +51,7 @@ HelpMessageDialog::HelpMessageDialog(QWidget *parent, HelpMode helpMode) :
 
     if (helpMode == about)
     {
-        setWindowTitle(tr("About %1").arg(tr(PACKAGE_NAME)) + " \"" + RELEASE_CODE_NAME + "\"");
+        setWindowTitle(tr("About %1").arg(tr(PACKAGE_NAME)));
 
         /// HTML-format the license message from the core
         QString licenseInfo = QString::fromStdString(LicenseInfo());
@@ -68,7 +67,7 @@ HelpMessageDialog::HelpMessageDialog(QWidget *parent, HelpMode helpMode) :
         ui->aboutMessage->setTextFormat(Qt::RichText);
         ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         text = version + "\n" + licenseInfo;
-        ui->aboutMessage->setText(version + ", code name \"" + RELEASE_CODE_NAME + "\"<br><br>" + licenseInfoHTML);
+        ui->aboutMessage->setText(version + "<br><br>" + licenseInfoHTML);
         ui->aboutMessage->setWordWrap(true);
         ui->helpMessage->setVisible(false);
     } else if (helpMode == cmdline) {
@@ -147,7 +146,7 @@ You retain control of your money at all times.<hr> \
 <b>The PrivateSend process works like this:</b>\
 <ol type=\"1\"> \
 <li>PrivateSend begins by breaking your transaction inputs down into standard denominations. \
-These denominations are 0.01 DMS, 0.1 DMS, 1 DMS and 10 DMS -- sort of like the paper money you use every day.</li> \
+These denominations are 0.001 DMS, 0.01 DMS, 0.1 DMS, 1 DMS and 10 DMS -- sort of like the paper money you use every day.</li> \
 <li>Your wallet then sends requests to specially configured software nodes on the network, called \"masternodes.\" \
 These masternodes are informed then that you are interested in mixing a certain denomination. \
 No identifiable information is sent to the masternodes, so they never know \"who\" you are.</li> \
@@ -163,8 +162,8 @@ your funds will already be anonymized. No additional waiting is required.</li> \
 This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. \
 It can only do this, however, if you have automatic backups enabled.<br> \
 Consequently, users who have backups disabled will also have PrivateSend disabled. <hr>\
-For more info see <a href=\"https://dms.cash/support/wallet/?item=framePrivateSend\">https://dms.cash/support/wallet/?item=framePrivateSend</a> \
-        "));
+For more information, see the <a href=\"https://dms.cash/support/wallet/?item=framePrivateSend\">PrivateSend documentation</a>."
+        ));
         ui->aboutMessage->setWordWrap(true);
         ui->helpMessage->setVisible(false);
         ui->aboutLogo->setVisible(false);

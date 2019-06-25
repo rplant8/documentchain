@@ -8,6 +8,15 @@ Core executables. It provides a way to be reasonably sure that the
 executables are really built from the source on GitHub. It also makes sure that
 the same, tested dependencies are used and statically built into the executable.
 
+Multiple developers build the source code by following a specific descriptor
+("recipe"), cryptographically sign the result, and upload the resulting signature.
+These results are compared and only if they match, the build is accepted and uploaded
+to dms.cash.
+
+More independent Gitian builders are needed, which is why this guide exists.
+It is preferred you follow these steps yourself instead of using someone else's
+VM image to avoid 'contaminating' the build.
+
 Table of Contents
 ------------------
 
@@ -261,14 +270,14 @@ echo "%sudo ALL=NOPASSWD: /usr/bin/lxc-execute" >> /etc/sudoers.d/gitian-lxc
 # make /etc/rc.local script that sets up bridge between guest and host
 echo '#!/bin/sh -e' > /etc/rc.local
 echo 'brctl addbr lxcbr0' >> /etc/rc.local
-echo 'ifconfig lxcbr0 10.0.3.2/24 up' >> /etc/rc.local
+echo 'ifconfig lxcbr0 10.0.3.1/24 up' >> /etc/rc.local
 echo 'iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE' >> /etc/rc.local
 echo 'echo 1 > /proc/sys/net/ipv4/ip_forward' >> /etc/rc.local
 echo 'exit 0' >> /etc/rc.local
 # make sure that USE_LXC is always set when logging in as debian,
 # and configure LXC IP addresses
 echo 'export USE_LXC=1' >> /home/debian/.profile
-echo 'export GITIAN_HOST_IP=10.0.3.2' >> /home/debian/.profile
+echo 'export GITIAN_HOST_IP=10.0.3.1' >> /home/debian/.profile
 echo 'export LXC_GUEST_IP=10.0.3.5' >> /home/debian/.profile
 reboot
 ```
@@ -301,7 +310,7 @@ Clone the git repositories for DMS Core and Gitian.
 ```bash
 git clone https://github.com/devrandom/gitian-builder.git
 git clone https://github.com/Krekeler/documentchain
-TODO: git clone https://github.com/dashpay/gitian.sigs.git
+git clone https://github.com/dashpay/gitian.sigs.git
 ```
 
 Setting up the Gitian image
@@ -317,7 +326,7 @@ Execute the following as user `debian`:
 
 ```bash
 cd gitian-builder
-bin/make-base-vm --lxc --arch amd64 --suite trusty
+bin/make-base-vm --lxc --arch amd64 --suite bionic
 ```
 
 There will be a lot of warnings printed during the build of the image. These can be ignored.
@@ -335,7 +344,7 @@ There will be a lot of warnings printed during the build of the image. These can
 Getting and building the inputs
 --------------------------------
 
-At this point you have two options, you can either use the automated script (found in [contrib/gitian-build.sh](/contrib/gitian-build.sh)) or you could manually do everything by following this guide. If you're using the automated script, then run it with the "--setup" command. Afterwards, run it with the "--build" command (example: "contrib/gitian-building.sh -b signer 0.13.0"). Otherwise ignore this.
+At this point you have two options, you can either use the automated script (found in [contrib/gitian-build.py](/contrib/gitian-build.py)) or you could manually do everything by following this guide. If you're using the automated script, then run it with the "--setup" command. Afterwards, run it with the "--build" command (example: "contrib/gitian-building.sh -b signer 0.13.0"). Otherwise ignore this.
 
 Follow the instructions in [doc/release-process.md](release-process.md#fetch-and-create-inputs-first-time-or-when-dependency-versions-change)
 in the DMS Core repository under 'Fetch and create inputs' to install sources which require
@@ -346,7 +355,7 @@ offline.
 Building DMS Core
 ----------------
 
-To build DMS Core (for Linux, macOS and Windows) just follow the steps under 'perform
+To build DMS Core (for Linux, OS X and Windows) just follow the steps under 'perform
 Gitian builds' in [doc/release-process.md](release-process.md#perform-gitian-builds) in the DMS Core repository.
 
 This may take some time as it will build all the dependencies needed for each descriptor.
@@ -362,14 +371,14 @@ tail -f var/build.log
 Output from `gbuild` will look something like
 
 ```bash
-    Initialized empty Git repository in /home/debian/gitian-builder/inputs/dms/.git/
+    Initialized empty Git repository in /home/debian/gitian-builder/inputs/documentchain/.git/
     remote: Counting objects: 57959, done.
     remote: Total 57959 (delta 0), reused 0 (delta 0), pack-reused 57958
     Receiving objects: 100% (57959/57959), 53.76 MiB | 484.00 KiB/s, done.
     Resolving deltas: 100% (41590/41590), done.
     From https://github.com/Krekeler/documentchain
     ... (new tags, new branch etc)
-    --- Building for trusty amd64 ---
+    --- Building for bionic amd64 ---
     Stopping target if it is up
     Making a new image copy
     stdin: is not a tty
@@ -384,27 +393,12 @@ Output from `gbuild` will look something like
     lxc-start: Connection refused - inotify event with no name (mask 32768)
     Running build script (log in var/build.log)
 ```
-Building an alternative repository
------------------------------------
-
-If you want to do a test build of a pull on GitHub it can be useful to point
-the Gitian builder at an alternative repository, using the same descriptors
-and inputs.
-
-For example:
-```bash
-URL=https://github.com/crowning-/documentchain.git
-COMMIT=b616fb8ef0d49a919b72b0388b091aaec5849b96
-./bin/gbuild --commit dms=${COMMIT} --url dms=${URL} ../documentchain/contrib/gitian-descriptors/gitian-linux.yml
-./bin/gbuild --commit dms=${COMMIT} --url dms=${URL} ../documentchain/contrib/gitian-descriptors/gitian-win.yml
-./bin/gbuild --commit dms=${COMMIT} --url dms=${URL} ../documentchain/contrib/gitian-descriptors/gitian-osx.yml
-```
 
 Building fully offline
 -----------------------
 
 For building fully offline including attaching signatures to unsigned builds, the detached-sigs repository
-and the documentchain git repository with the desired tag must both be available locally, and then gbuild must be
+and the dms git repository with the desired tag must both be available locally, and then gbuild must be
 told where to find them. It also requires an apt-cacher-ng which is fully-populated but set to offline mode, or
 manually disabling gitian-builder's use of apt-get to update the VM build environment.
 
@@ -418,14 +412,14 @@ So, if you use LXC:
 export PATH="$PATH":/path/to/gitian-builder/libexec
 export USE_LXC=1
 cd /path/to/gitian-builder
-./libexec/make-clean-vm --suite trusty --arch amd64
+./libexec/make-clean-vm --suite bionic --arch amd64
 
-LXC_ARCH=amd64 LXC_SUITE=trusty on-target -u root apt-get update
-LXC_ARCH=amd64 LXC_SUITE=trusty on-target -u root \
+LXC_ARCH=amd64 LXC_SUITE=bionic on-target -u root apt-get update
+LXC_ARCH=amd64 LXC_SUITE=bionic on-target -u root \
   -e DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends -y install \
   $( sed -ne '/^packages:/,/[^-] .*/ {/^- .*/{s/"//g;s/- //;p}}' ../documentchain/contrib/gitian-descriptors/*|sort|uniq )
-LXC_ARCH=amd64 LXC_SUITE=trusty on-target -u root apt-get -q -y purge grub
-LXC_ARCH=amd64 LXC_SUITE=trusty on-target -u root -e DEBIAN_FRONTEND=noninteractive apt-get -y dist-upgrade
+LXC_ARCH=amd64 LXC_SUITE=bionic on-target -u root apt-get -q -y purge grub
+LXC_ARCH=amd64 LXC_SUITE=bionic on-target -u root -e DEBIAN_FRONTEND=noninteractive apt-get -y dist-upgrade
 ```
 
 And then set offline mode for apt-cacher-ng:
@@ -443,12 +437,12 @@ Then when building, override the remote URLs that gbuild would otherwise pull fr
 ```bash
 
 cd /some/root/path/
-TODO : git clone https://github.com/Krekeler/documentchain-detached-sigs.git
+git clone https://github.com/Krekeler/documentchain-detached-sigs.git
 
 BTCPATH=/some/root/path/documentchain
-SIGPATH=/some/root/path/dms-detached-sigs
+SIGPATH=/some/root/path/documentchain-detached-sigs
 
-./bin/gbuild --url dash=${BTCPATH},signature=${SIGPATH} ../documentchain/contrib/gitian-descriptors/gitian-win-signer.yml
+./bin/gbuild --url dms=${BTCPATH},signature=${SIGPATH} ../documentchain/contrib/gitian-descriptors/gitian-win-signer.yml
 ```
 
 Signing externally
@@ -470,11 +464,3 @@ in `gitian.sigs` to your signing machine and do
 
 This will create the `.sig` files that can be committed together with the `.assert` files to assert your
 Gitian build.
-
-Uploading signatures (not yet implemented)
----------------------
-
-In the future it will be possible to push your signatures (both the `.assert` and `.assert.sig` files) to the
-[dash/gitian.sigs](https://github.com/dashpay/gitian.sigs/) repository, or if that's not possible to create a pull
-request.
-There will be an official announcement when this repository is online.

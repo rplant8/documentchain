@@ -4,10 +4,9 @@ RequestExecutionLevel highest
 SetCompressor /SOLID lzma
 
 # General Symbol Definitions
-!define REGKEY "SOFTWARE\Krekeler\$(^Name)"
+!define REGKEY "SOFTWARE\$(^Name)"
 !define VERSION @CLIENT_VERSION_MAJOR@.@CLIENT_VERSION_MINOR@.@CLIENT_VERSION_REVISION@
-# COMPANY = publisher in uninstall list
-!define COMPANY "Softwarebuero Krekeler"
+!define COMPANY "@PACKAGE_NAME@ project"
 !define URL @PACKAGE_URL@
 
 # MUI Symbol Definitions
@@ -19,8 +18,10 @@ SetCompressor /SOLID lzma
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_STARTMENUPAGE_REGISTRY_ROOT HKLM
 !define MUI_STARTMENUPAGE_REGISTRY_KEY ${REGKEY}
+!define MUI_STARTMENUPAGE_REGISTRY_VALUENAME StartMenuGroup
 !define MUI_STARTMENUPAGE_DEFAULTFOLDER "@PACKAGE_NAME@"
-!define MUI_UNICON "@abs_top_srcdir@/share/pixmaps/bitcoin.ico"
+!define MUI_FINISHPAGE_RUN $INSTDIR\@BITCOIN_GUI_NAME@@EXEEXT@
+!define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "@abs_top_srcdir@/share/pixmaps/nsis-wizard.bmp"
 !define MUI_UNFINISHPAGE_NOAUTOCLOSE
 
@@ -31,9 +32,13 @@ SetCompressor /SOLID lzma
 !include x64.nsh
 !endif
 
+# Variables
+Var StartMenuGroup
+
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_DIRECTORY
+!insertmacro MUI_PAGE_STARTMENU Application $StartMenuGroup
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
 !insertmacro MUI_UNPAGE_CONFIRM
@@ -45,21 +50,21 @@ SetCompressor /SOLID lzma
 # Installer attributes
 OutFile @abs_top_srcdir@/@PACKAGE_TARNAME@-${VERSION}-win@WINDOWS_BITS@-setup.exe
 !if "@WINDOWS_BITS@" == "64"
-InstallDir $PROGRAMFILES64\Krekeler\DMSCore
+InstallDir $PROGRAMFILES64\DMSCore
 !else
-InstallDir $PROGRAMFILES\Krekeler\DMSCore
+InstallDir $PROGRAMFILES\DMSCore
 !endif
 CRCCheck on
 XPStyle on
 BrandingText " "
 ShowInstDetails show
 VIProductVersion ${VERSION}.@CLIENT_VERSION_BUILD@
-VIAddVersionKey ProductName "Documentchain - @PACKAGE_NAME@"
+VIAddVersionKey ProductName "@PACKAGE_NAME@"
 VIAddVersionKey ProductVersion "${VERSION}"
 VIAddVersionKey CompanyName "${COMPANY}"
 VIAddVersionKey CompanyWebsite "${URL}"
 VIAddVersionKey FileVersion "${VERSION}"
-VIAddVersionKey FileDescription "Setup"
+VIAddVersionKey FileDescription ""
 VIAddVersionKey LegalCopyright ""
 InstallDirRegKey HKCU "${REGKEY}" Path
 ShowUninstDetails show
@@ -84,7 +89,12 @@ Section -post SEC0001
     WriteRegStr HKCU "${REGKEY}" Path $INSTDIR
     SetOutPath $INSTDIR
     WriteUninstaller $INSTDIR\uninstall.exe
-    CreateShortcut "$SMPROGRAMS\$(^Name).lnk" $INSTDIR\@BITCOIN_GUI_NAME@@EXEEXT@
+    !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
+    CreateDirectory $SMPROGRAMS\$StartMenuGroup
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$(^Name).lnk" $INSTDIR\@BITCOIN_GUI_NAME@@EXEEXT@
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\@PACKAGE_NAME@ (testnet, @WINDOWS_BITS@-bit).lnk" "$INSTDIR\@BITCOIN_GUI_NAME@@EXEEXT@" "-testnet" "$INSTDIR\@BITCOIN_GUI_NAME@@EXEEXT@" 1
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall $(^Name).lnk" $INSTDIR\uninstall.exe
+    !insertmacro MUI_STARTMENU_WRITE_END
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayVersion "${VERSION}"
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" Publisher "${COMPANY}"
@@ -124,18 +134,25 @@ SectionEnd
 
 Section -un.post UNSEC0001
     DeleteRegKey HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
-    Delete /REBOOTOK "$SMPROGRAMS\$(^Name).lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Uninstall $(^Name).lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\$(^Name).lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\@PACKAGE_NAME@ (testnet, @WINDOWS_BITS@-bit).lnk"
+    Delete /REBOOTOK "$SMSTARTUP\DMS.lnk"
     Delete /REBOOTOK $INSTDIR\uninstall.exe
     Delete /REBOOTOK $INSTDIR\debug.log
     Delete /REBOOTOK $INSTDIR\db.log
+    DeleteRegValue HKCU "${REGKEY}" StartMenuGroup
     DeleteRegValue HKCU "${REGKEY}" Path
     DeleteRegKey /IfEmpty HKCU "${REGKEY}\Components"
     DeleteRegKey /IfEmpty HKCU "${REGKEY}"
     DeleteRegKey HKCR "@PACKAGE_TARNAME@"
+    RmDir /REBOOTOK $SMPROGRAMS\$StartMenuGroup
     RmDir /REBOOTOK $INSTDIR
-	# if we also want to delete the "DMS-Qt" key:
-	; DeleteRegKey HKCU "SOFTWARE\Krekeler\DMS-Qt"
-	; DeleteRegKey /IfEmpty HKCU "SOFTWARE\Krekeler"
+    Push $R0
+    StrCpy $R0 $StartMenuGroup 1
+    StrCmp $R0 ">" no_smgroup
+no_smgroup:
+    Pop $R0
 SectionEnd
 
 # Installer functions
@@ -155,5 +172,6 @@ FunctionEnd
 # Uninstaller functions
 Function un.onInit
     ReadRegStr $INSTDIR HKCU "${REGKEY}" Path
+    !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuGroup
     !insertmacro SELECT_UNSECTION Main ${UNSEC0000}
 FunctionEnd

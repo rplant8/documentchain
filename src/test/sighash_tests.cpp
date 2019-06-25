@@ -1,6 +1,4 @@
 // Copyright (c) 2013-2015 The Bitcoin Core developers
-// Copyright (c) 2018 The Documentchain developers
-
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -98,7 +96,7 @@ void static RandomScript(CScript &script) {
 }
 
 void static RandomTransaction(CMutableTransaction &tx, bool fSingle) {
-    tx.nVersion = insecure_rand();
+    tx.nVersion = (insecure_rand() % 2) + 1;
     tx.vin.clear();
     tx.vout.clear();
     tx.nLockTime = (insecure_rand() % 2) ? insecure_rand() : 0;

@@ -1,7 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Documentchain developers
-
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -81,7 +79,7 @@ namespace // Anon namespace
 //
 static QString ipcServerName()
 {
-    QString name("DmsQt");
+    QString name("DMSQt");
 
     // Append a simple hash of the datadir
     // Note that GetDataDir(true) returns a different path
@@ -564,7 +562,7 @@ bool PaymentServer::processPaymentRequest(const PaymentRequestPlus& request, Sen
             addresses.append(QString::fromStdString(CBitcoinAddress(dest).ToString()));
         }
         else if (!recipient.authenticatedMerchant.isEmpty()) {
-            // Unauthenticated payment requests to custom dms addresses are not supported
+            // Unauthenticated payment requests to custom DMS addresses are not supported
             // (there is no good way to tell the user where they are paying in a way they'd
             // have a chance of understanding).
             Q_EMIT message(tr("Payment request rejected"),

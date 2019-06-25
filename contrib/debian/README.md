@@ -4,7 +4,7 @@ Debian
 This directory contains files used to package dmsd/dms-qt
 for Debian-based Linux systems. If you compile dmsd/dms-qt yourself, there are some useful files here.
 
-## DMS: URI support ##
+## dms: URI support ##
 
 
 dms-qt.desktop  (Gnome / Open Desktop)

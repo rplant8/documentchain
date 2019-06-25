@@ -1,7 +1,5 @@
 // Copyright (c) 2014 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Documentchain developers
-
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -73,7 +71,7 @@ NetworkStyle::NetworkStyle(const QString &_appName, const int iconColorHueShift,
     // Make sure settings migrated properly
     GUIUtil::migrateQtSettings();
     // Grab theme from settings
-    QString theme = GUIUtil::getThemeName().remove("-hires");
+    QString theme = GUIUtil::getThemeName();
     // load pixmap
     QPixmap appIconPixmap(":/icons/bitcoin");
     QPixmap splashImagePixmap(":/images/" + theme + "/splash");

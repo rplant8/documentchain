@@ -1,5 +1,4 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2018-2019 The Documentchain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -75,8 +74,6 @@ namespace GUIUtil
 
     void setClipboard(const QString& str);
 
-    QString getOSDocumentsDir();
-
     /** Get save filename, mimics QFileDialog::getSaveFileName, except that it appends a default suffix
         when no suffix is provided by the user.
 
@@ -114,26 +111,17 @@ namespace GUIUtil
     // Determine whether a widget is hidden behind other windows
     bool isObscured(QWidget *w);
 
-    // Open file with the associated application
-    void openDocumentFile(const QString fileName);
-
-    // get file name from full path
-    QString extractFileName(const QString fullFilePath);
-
     // Open debug.log
     void openDebugLogfile();
 	
     // Open dms.conf
     void openConfigfile();	
 
-    // Open masternode.conf
-    void openMNConfigfile();	
-
     // Browse backup folder
     void showBackups();
 
     // Replace invalid default fonts with known good ones
-    void SubstituteFonts();
+    void SubstituteFonts(const QString& language);
 
     /** Qt event filter that intercepts ToolTipChange events, and replaces the tooltip with a rich text
       representation if needed. This assures that Qt can word-wrap long tooltip messages.
@@ -203,24 +191,12 @@ namespace GUIUtil
     /** Restore window size and position */
     void restoreWindowGeometry(const QString& strSetting, const QSize &defaultSizeIn, QWidget *parent);
 
-    /** Save app path for DMS software **/
-    void saveAppPath();
-
     /** Load global CSS theme */
     QString loadStyleSheet();
-
-    /** GUI Language like 'en_US', 'en' or 'de_DE' */
-    QString getLangTerritory();
 
     /** Return name of current CSS theme */
     QString getThemeName();
     
-    /** high resolution theme */
-    bool isHighresTheme();
-
-    /** themed statusbar icon size */
-    int getIconSize();
-
     /* Convert QString to OS specific boost path through UTF-8 */
     boost::filesystem::path qstringToBoostPath(const QString &path);
 

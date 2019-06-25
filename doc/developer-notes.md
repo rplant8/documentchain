@@ -179,6 +179,8 @@ Threads
 
 - ThreadOpenConnections : Initiates new connections to peers.
 
+- ThreadOpenMasternodeConnections : Opens network connections to masternodes.
+
 - ThreadMessageHandler : Higher-level message handling (sending and receiving).
 
 - DumpAddresses : Dumps IP addresses of nodes to peers.dat.
@@ -188,8 +190,6 @@ Threads
 - ThreadRPCServer : Remote procedure call handler, listens on port 9998 for connections and services them.
 
 - BitcoinMiner : Generates coins (if wallet is enabled).
-
-- ThreadCheckDarkSendPool : Runs masternode list and sync data update loops
 
 - Shutdown : Does an orderly shutdown of everything.
 

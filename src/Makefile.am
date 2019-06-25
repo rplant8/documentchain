@@ -1,6 +1,5 @@
 # Copyright (c) 2013-2016 The Bitcoin Core developers
 # Copyright (c) 2014-2018 The Dash Core developers
-# Copyright (c) 2018 The Documentchain developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,6 +9,29 @@ AM_LDFLAGS = $(PTHREAD_CFLAGS) $(LIBTOOL_LDFLAGS) $(HARDENED_LDFLAGS)
 AM_CXXFLAGS = $(HARDENED_CXXFLAGS) $(ERROR_CXXFLAGS)
 AM_CPPFLAGS = $(HARDENED_CPPFLAGS)
 EXTRA_LIBRARIES =
+
+if ENABLE_STACKTRACES
+if STACKTRACE_WRAPPED_CXX_ABI
+# Wrap internal C++ ABI's so that we can attach stacktraces to exceptions
+LDFLAGS_WRAP_EXCEPTIONS = -Wl,-wrap,__cxa_allocate_exception -Wl,-wrap,__cxa_free_exception
+if TARGET_WINDOWS
+LDFLAGS_WRAP_EXCEPTIONS += -Wl,-wrap,_assert -Wl,-wrap,_wassert
+else
+LDFLAGS_WRAP_EXCEPTIONS += -Wl,-wrap,__assert_fail
+endif
+endif
+
+if RDYNAMIC_SUPPORTED
+# This gives better stacktraces
+AM_CXXFLAGS += -rdynamic
+endif
+
+if TARGET_WINDOWS
+BACKTRACE_LIB = -ldbghelp -lbacktrace
+else
+BACKTRACE_LIB = -lbacktrace
+endif
+endif
 
 if EMBEDDED_UNIVALUE
 LIBUNIVALUE = univalue/libunivalue.la
@@ -25,6 +47,8 @@ BITCOIN_INCLUDES=-I$(builddir) -I$(builddir)/obj $(BDB_CPPFLAGS) $(BOOST_CPPFLAG
 
 BITCOIN_INCLUDES += -I$(srcdir)/secp256k1/include
 BITCOIN_INCLUDES += $(UNIVALUE_CFLAGS)
+
+BLS_LIBS=-lchiabls -lgmp
 
 LIBBITCOIN_SERVER=libdms_server.a
 LIBBITCOIN_COMMON=libdms_common.a
@@ -84,6 +108,7 @@ BITCOIN_CORE_H = \
   addrman.h \
   alert.h \
   base58.h \
+  batchedlogger.h \
   bip39.h \
   bip39_english.h \
   blockencodings.h \
@@ -107,6 +132,15 @@ BITCOIN_CORE_H = \
   core_io.h \
   core_memusage.h \
   cuckoocache.h \
+  ctpl.h \
+  cxxtimer.hpp \
+  evo/cbtx.h \
+  evo/deterministicmns.h \
+  evo/evodb.h \
+  evo/mnauth.h \
+  evo/providertx.h \
+  evo/simplifiedmns.h \
+  evo/specialtx.h \
   privatesend.h \
   privatesend-client.h \
   privatesend-server.h \
@@ -131,11 +165,23 @@ BITCOIN_CORE_H = \
   keystore.h \
   dbwrapper.h \
   limitedmap.h \
-  masternode.h \
+  llmq/quorums.h \
+  llmq/quorums_blockprocessor.h \
+  llmq/quorums_commitment.h \
+  llmq/quorums_chainlocks.h \
+  llmq/quorums_debug.h \
+  llmq/quorums_dkgsessionhandler.h \
+  llmq/quorums_dkgsessionmgr.h \
+  llmq/quorums_dkgsession.h \
+  llmq/quorums_init.h \
+  llmq/quorums_instantsend.h \
+  llmq/quorums_signing.h \
+  llmq/quorums_signing_shares.h \
+  llmq/quorums_utils.h \
+  masternode-meta.h \
   masternode-payments.h \
   masternode-sync.h \
-  masternodeman.h \
-  masternodeconfig.h \
+  masternode-utils.h \
   memusage.h \
   merkleblock.h \
   messagesigner.h \
@@ -149,7 +195,6 @@ BITCOIN_CORE_H = \
   noui.h \
   policy/fees.h \
   policy/policy.h \
-  policy/rbf.h \
   pow.h \
   protocol.h \
   random.h \
@@ -158,13 +203,17 @@ BITCOIN_CORE_H = \
   rpc/protocol.h \
   rpc/server.h \
   rpc/register.h \
+  saltedhasher.h \
   scheduler.h \
   script/sigcache.h \
   script/sign.h \
   script/standard.h \
   script/ismine.h \
   spork.h \
+  stacktraces.h \
   streams.h \
+  support/allocators/mt_pooled_secure.h \
+  support/allocators/pooled_secure.h \
   support/allocators/secure.h \
   support/allocators/zeroafterfree.h \
   support/cleanse.h \
@@ -179,6 +228,7 @@ BITCOIN_CORE_H = \
   txmempool.h \
   ui_interface.h \
   undo.h \
+  unordered_lru_cache.h \
   util.h \
   utilmoneystr.h \
   utiltime.h \
@@ -212,11 +262,19 @@ libdms_server_a_SOURCES = \
   addrman.cpp \
   addrdb.cpp \
   alert.cpp \
+  batchedlogger.cpp \
   bloom.cpp \
   blockencodings.cpp \
   chain.cpp \
   checkpoints.cpp \
   dsnotificationinterface.cpp \
+  evo/cbtx.cpp \
+  evo/deterministicmns.cpp \
+  evo/evodb.cpp \
+  evo/mnauth.cpp \
+  evo/providertx.cpp \
+  evo/simplifiedmns.cpp \
+  evo/specialtx.cpp \
   httprpc.cpp \
   httpserver.cpp \
   init.cpp \
@@ -228,11 +286,23 @@ libdms_server_a_SOURCES = \
   governance-validators.cpp \
   governance-vote.cpp \
   governance-votedb.cpp \
-  masternode.cpp \
+  llmq/quorums.cpp \
+  llmq/quorums_blockprocessor.cpp \
+  llmq/quorums_commitment.cpp \
+  llmq/quorums_chainlocks.cpp \
+  llmq/quorums_debug.cpp \
+  llmq/quorums_dkgsessionhandler.cpp \
+  llmq/quorums_dkgsessionmgr.cpp \
+  llmq/quorums_dkgsession.cpp \
+  llmq/quorums_init.cpp \
+  llmq/quorums_instantsend.cpp \
+  llmq/quorums_signing.cpp \
+  llmq/quorums_signing_shares.cpp \
+  llmq/quorums_utils.cpp \
+  masternode-meta.cpp \
   masternode-payments.cpp \
   masternode-sync.cpp \
-  masternodeconfig.cpp \
-  masternodeman.cpp \
+  masternode-utils.cpp \
   merkleblock.cpp \
   messagesigner.cpp \
   miner.cpp \
@@ -253,6 +323,8 @@ libdms_server_a_SOURCES = \
   rpc/misc.cpp \
   rpc/net.cpp \
   rpc/rawtransaction.cpp \
+  rpc/rpcevo.cpp \
+  rpc/rpcquorums.cpp \
   rpc/server.cpp \
   script/sigcache.cpp \
   script/ismine.cpp \
@@ -292,7 +364,6 @@ libdms_wallet_a_SOURCES = \
   wallet/rpcwallet.cpp \
   wallet/wallet.cpp \
   wallet/walletdb.cpp \
-  policy/rbf.cpp \
   $(BITCOIN_CORE_H)
 
 # crypto primitives library
@@ -314,19 +385,7 @@ crypto_libdms_crypto_a_SOURCES = \
   crypto/sha256.cpp \
   crypto/sha256.h \
   crypto/sha512.cpp \
-  crypto/sha512.h \
-  crypto/yescrypt/yescrypt.c
-
-# YescryptR32
-noinst_HEADERS = \
-  crypto/yescrypt/sha256.h \
-  crypto/yescrypt/sha256_c.h \
-  crypto/yescrypt/sysendian.h \
-  crypto/yescrypt/yescrypt.h \
-  crypto/yescrypt/yescrypt-best_c.h \
-  crypto/yescrypt/yescrypt-opt_c.h \
-  crypto/yescrypt/yescrypt-platform_c.h \
-  crypto/yescrypt/yescrypt-simd_c.h
+  crypto/sha512.h
 
 # x11
 crypto_libdms_crypto_a_SOURCES += \
@@ -361,6 +420,8 @@ libdms_consensus_a_SOURCES = \
   amount.h \
   arith_uint256.cpp \
   arith_uint256.h \
+  bls/bls.cpp \
+  bls/bls.h \
   consensus/merkle.cpp \
   consensus/merkle.h \
   consensus/params.h \
@@ -382,6 +443,7 @@ libdms_consensus_a_SOURCES = \
   script/script_error.cpp \
   script/script_error.h \
   serialize.h \
+  streams.h \
   tinyformat.h \
   uint256.cpp \
   uint256.h \
@@ -407,6 +469,7 @@ libdms_common_a_SOURCES = \
   netaddress.cpp \
   netbase.cpp \
   protocol.cpp \
+  saltedhasher.cpp \
   scheduler.cpp \
   script/sign.cpp \
   script/standard.cpp \
@@ -419,6 +482,11 @@ libdms_common_a_SOURCES = \
 libdms_util_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libdms_util_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libdms_util_a_SOURCES = \
+  bls/bls_batchverifier.h \
+  bls/bls_ies.cpp \
+  bls/bls_ies.h \
+  bls/bls_worker.cpp \
+  bls/bls_worker.h \
   support/lockedpool.cpp \
   chainparamsbase.cpp \
   clientversion.cpp \
@@ -427,6 +495,7 @@ libdms_util_a_SOURCES = \
   compat/strnlen.cpp \
   random.cpp \
   rpc/protocol.cpp \
+  stacktraces.cpp \
   support/cleanse.cpp \
   sync.cpp \
   threadinterrupt.cpp \
@@ -438,6 +507,7 @@ libdms_util_a_SOURCES = \
 
 if GLIBC_BACK_COMPAT
 libdms_util_a_SOURCES += compat/glibc_compat.cpp
+AM_LDFLAGS += -Wl,--wrap=log2f -Wl,--wrap=__divmoddi4
 endif
 
 # cli: shared between dms-cli and dms-qt
@@ -454,7 +524,7 @@ nodist_libdms_util_a_SOURCES = $(srcdir)/obj/build.h
 dmsd_SOURCES = dmsd.cpp
 dmsd_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 dmsd_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-dmsd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+dmsd_LDFLAGS = $(LDFLAGS_WRAP_EXCEPTIONS) $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
 dmsd_SOURCES += dmsd-res.rc
@@ -473,13 +543,13 @@ dmsd_LDADD = \
   $(LIBMEMENV) \
   $(LIBSECP256K1)
 
-dmsd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS)
+dmsd_LDADD += $(BACKTRACE_LIB) $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS) $(BLS_LIBS)
 
 # dms-cli binary #
 dms_cli_SOURCES = dms-cli.cpp
 dms_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
 dms_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-dms_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+dms_cli_LDFLAGS = $(LDFLAGS_WRAP_EXCEPTIONS) $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
 dms_cli_SOURCES += dms-cli-res.rc
@@ -490,14 +560,14 @@ dms_cli_LDADD = \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_CRYPTO)
-dms_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
+dms_cli_LDADD += $(BACKTRACE_LIB) $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS) $(BLS_LIBS)
 #
 
 # dms-tx binary #
 dms_tx_SOURCES = dms-tx.cpp
 dms_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 dms_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-dms_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+dms_tx_LDFLAGS = $(LDFLAGS_WRAP_EXCEPTIONS) $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
 dms_tx_SOURCES += dms-tx-res.rc
@@ -511,7 +581,7 @@ dms_tx_LDADD = \
   $(LIBBITCOIN_CRYPTO) \
   $(LIBSECP256K1)
 
-dms_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
+dms_tx_LDADD += $(BACKTRACE_LIB) $(BOOST_LIBS) $(CRYPTO_LIBS) $(BLS_LIBS)
 #
 
 # dmsconsensus library #
@@ -524,7 +594,7 @@ if GLIBC_BACK_COMPAT
 endif
 
 libdmsconsensus_la_LDFLAGS = $(AM_LDFLAGS) -no-undefined $(RELDFLAGS)
-libdmsconsensus_la_LIBADD = $(LIBSECP256K1)
+libdmsconsensus_la_LIBADD = $(LIBSECP256K1) $(BLS_LIBS)
 libdmsconsensus_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(builddir)/obj -I$(srcdir)/secp256k1/include -DBUILD_BITCOIN_INTERNAL
 libdmsconsensus_la_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 
@@ -552,9 +622,12 @@ CLEANFILES += wallet/*.gcda wallet/*.gcno
 CLEANFILES += wallet/test/*.gcda wallet/test/*.gcno
 CLEANFILES += zmq/*.gcda zmq/*.gcno
 
+IMMER_DIST = immer
+
 DISTCLEANFILES = obj/build.h
 
 EXTRA_DIST = $(CTAES_DIST)
+EXTRA_DIST += $(IMMER_DIST)
 
 
 config/dms-config.h: config/stamp-h1

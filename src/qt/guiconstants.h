@@ -1,6 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Documentchain developers
+// Copyright (c) 2014-2018 The Dash Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -13,9 +12,8 @@ static const int MODEL_UPDATE_DELAY = 250;
 /* AskPassphraseDialog -- Maximum passphrase length */
 static const int MAX_PASSPHRASE_SIZE = 1024;
 
-/* GUI -- Size of icons in status bar */
+/* DMSGUI -- Size of icons in status bar */
 static const int STATUSBAR_ICONSIZE = 16;
-static const int STATUSBAR_ICONSIZE_HIRES = 24;
 
 static const bool DEFAULT_SPLASHSCREEN = true;
 
@@ -36,6 +34,8 @@ static const bool DEFAULT_SPLASHSCREEN = true;
 #define COLOR_TX_STATUS_DANGER QColor(200, 100, 100)
 /* Transaction list -- TX status decoration - default color */
 #define COLOR_BLACK QColor(0, 0, 0)
+/* Transaction list -- TX status decoration - LockedByInstantSend color */
+#define COLOR_TX_STATUS_LOCKED QColor(0, 128, 255)
 
 /* Tooltips longer than this (in characters) are converted into rich text,
    so that they can be word-wrapped.
@@ -50,7 +50,7 @@ static const int MAX_URI_LENGTH = 255;
 
 /* Number of frames in spinner animation */
 #define SPINNER_FRAMES 36
-/* for Registry path a.o. */
+
 #define QAPP_ORG_NAME "Krekeler"
 #define QAPP_ORG_DOMAIN "dms.cash"
 #define QAPP_APP_NAME_DEFAULT "DMS-Qt"

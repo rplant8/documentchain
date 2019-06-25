@@ -1,7 +1,5 @@
 // Copyright (c) 2014 BitPay Inc.
 // Copyright (c) 2014-2015 The Bitcoin Core developers
-// Copyright (c) 2018 The Documentchain developers
-
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -90,6 +88,15 @@ BOOST_AUTO_TEST_CASE(univalue_typecheck)
     BOOST_CHECK_EQUAL(v4.get_int(), 1000);
     BOOST_CHECK_THROW(v4.get_str(), std::runtime_error);
     BOOST_CHECK_EQUAL(v4.get_real(), 1000);
+    BOOST_CHECK_THROW(v4.get_array(), std::runtime_error);
+    BOOST_CHECK_THROW(v4.getKeys(), std::runtime_error);
+    BOOST_CHECK_THROW(v4.getValues(), std::runtime_error);
+    BOOST_CHECK_THROW(v4.get_obj(), std::runtime_error);
+    BOOST_CHECK(v4.setNumStr("2.01"));
+    BOOST_CHECK_THROW(v4.get_int(), std::runtime_error);
+    BOOST_CHECK_THROW(v4.get_int64(), std::runtime_error);
+    BOOST_CHECK_THROW(v4.get_str(), std::runtime_error);
+    BOOST_CHECK_EQUAL(v4.get_real(), 2.01);
     BOOST_CHECK_THROW(v4.get_array(), std::runtime_error);
     BOOST_CHECK_THROW(v4.getKeys(), std::runtime_error);
     BOOST_CHECK_THROW(v4.getValues(), std::runtime_error);

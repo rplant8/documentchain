@@ -1,7 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Documentchain developers
-
+// Copyright (c) 2014-2018 The Dash Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -41,24 +39,25 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) 
 
     // set reference point, paddings
     int paddingLeft             = 14;
-    int paddingTop              = 465;
-    int titleVersionVSpace      = 24;
-    int titleCopyrightVSpace    = 30;
+    int paddingTop              = 470;
+    int titleVersionVSpace      = 17;
+    int titleCopyrightVSpace    = 22;
+
+    float fontFactor            = 1.0;
 
     // define text to place
     QString titleText       = tr(PACKAGE_NAME);
-    QString versionText     = QString(tr("Version %1")).arg(QString::fromStdString(FormatFullVersion()) + " \"" + RELEASE_CODE_NAME + "\"");
+    QString versionText     = QString(tr("Version %1")).arg(QString::fromStdString(FormatFullVersion()));
     QString copyrightText   = QString::fromUtf8(CopyrightHolders("\xc2\xA9", 2014, COPYRIGHT_YEAR).c_str());
     QString titleAddText    = networkStyle->getTitleAddText();
     // networkstyle.cpp can't (yet) read themes, so we do it here to get the correct Splash-screen
-    QString theme = GUIUtil::getThemeName().remove("-hires");
-    QString splashScreenPath = ":/images/" + theme + "/splash";
+    QString splashScreenPath = ":/images/" + GUIUtil::getThemeName() + "/splash";
     if(GetBoolArg("-regtest", false))
-        splashScreenPath = ":/images/" + theme + "/splash_testnet";
+        splashScreenPath = ":/images/" + GUIUtil::getThemeName() + "/splash_testnet";
     if(GetBoolArg("-testnet", false))
-        splashScreenPath = ":/images/" + theme + "/splash_testnet";
+        splashScreenPath = ":/images/" + GUIUtil::getThemeName() + "/splash_testnet";
     if(IsArgSet("-devnet"))
-        splashScreenPath = ":/images/" + theme + "/splash_testnet";
+        splashScreenPath = ":/images/" + GUIUtil::getThemeName() + "/splash_testnet";
 
     QString font = QApplication::font().toString();
 
@@ -69,14 +68,17 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) 
     pixPaint.setPen(QColor(100,100,100));
 
     // check font size and drawing with
-    pixPaint.setFont(QFont(font, 28));
+    pixPaint.setFont(QFont(font, 28*fontFactor));
     QFontMetrics fm = pixPaint.fontMetrics();
-
-    int titleTextHeight = fm.height();
-    float fontFactor = 42.0 / titleTextHeight; // (96dpi height / current height) * 0.933
+    int titleTextWidth = fm.width(titleText);
+    if (titleTextWidth > 160) {
+        fontFactor = 0.75;
+    }
 
     pixPaint.setFont(QFont(font, 28*fontFactor));
-    pixPaint.drawText(paddingLeft,paddingTop, titleText);
+    fm = pixPaint.fontMetrics();
+    titleTextWidth  = fm.width(titleText);
+    pixPaint.drawText(paddingLeft,paddingTop,titleText);
 
     pixPaint.setFont(QFont(font, 15*fontFactor));
     pixPaint.drawText(paddingLeft,paddingTop+titleVersionVSpace,versionText);

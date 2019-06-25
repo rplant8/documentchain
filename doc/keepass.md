@@ -38,7 +38,7 @@ Sample initialization flow from _dms-qt_ console (this needs to be done only onc
  - Open console
  - Type "_keepass init_" in dms-qt console
  - Keepass pops up and asks for an association id, fill that in, for example, "_mydrkwallet_"
- - TODO: You should get a response like this "_Association successful. Id: mydrkwalletdash - Key: AgQkcs6cI7v9tlSYKjG/+s8wJrGALHl3jLosJpPLzUE=_"
+ - You should get a response like this "_Association successful. Id: mydrkwalletdms - Key: AgQkcs6cI7v9tlSYKjG/+s8wJrGALHl3jLosJpPLzUE=_"
  - Edit _dms.conf_ and fill in these values
 ```
 keepass=1
@@ -55,4 +55,4 @@ At this point, the association is made. The next action depends on your particul
 
 At this point, the passphrase is stored in KeePassHttp. When Unlocking the wallet, one can use _keepass_ as the passphrase to trigger retrieval of the password. This works from the RPC commands as well as the GUI.
 
-Extended guide with screenshots is also available: https://www.dash.org/forum/threads/keepass-integration.3620/
+Extended guide with screenshots is also available: https://dms.cash/forum/threads/keepass-integration.3620/

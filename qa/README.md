@@ -1,7 +1,7 @@
 The [pull-tester](/qa/pull-tester/) folder contains a script to call
 multiple tests from the [rpc-tests](/qa/rpc-tests/) folder.
 
-Every pull request to the documentchain repository is built and run through
+Every pull request to the DMS Core repository is built and run through
 the regression test suite. You can also run all or only individual
 tests locally.
 
@@ -16,7 +16,7 @@ The python3-zmq library is required. On Ubuntu or Debian it can be installed via
 sudo apt-get install python3-zmq
 ```
 
-macOS (OS X)
+OS X
 ------
 ```
 pip3 install pyzmq
@@ -39,18 +39,18 @@ Run the regression test suite with
 
 Run all possible tests with
 
-    qa/pull-tester/rpc-tests.py -extended
+    qa/pull-tester/rpc-tests.py --extended
 
 By default, tests will be run in parallel. To specify how many jobs to run,
-append `-parallel=n` (default n=4).
+append `--jobs=n` (default n=4).
 
-If you want to create a basic coverage report for the rpc test suite, append `--coverage`.
+If you want to create a basic coverage report for the RPC test suite, append `--coverage`.
 
 Possible options, which apply to each individual test run:
 
 ```
   -h, --help            show this help message and exit
-  --nocleanup           Leave dashds and test.* datadir on exit or error
+  --nocleanup           Leave dmsds and test.* datadir on exit or error
   --noshutdown          Don't stop dmsds after the test execution
   --srcdir=SRCDIR       Source directory containing dmsd/dms-cli
                         (default: ../../src)
@@ -83,5 +83,5 @@ killall dmsd
 Writing tests
 =============
 You are encouraged to write tests for new or existing features.
-Further information about the test framework and individual rpc
+Further information about the test framework and individual RPC
 tests is found in [qa/rpc-tests](/qa/rpc-tests).

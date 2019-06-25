@@ -1,7 +1,7 @@
-DMS Core
+DMS Core 0.14.0
 =====================
 
-This is the official reference wallet for DMS digital currency and comprises the backbone of the Documentchain peer-to-peer network. You can [download DMS Core](https://github.com/Krekeler/documentchain/releases) or [build it yourself](#building) using the guides below.
+This is the official reference wallet for DMS digital currency and comprises the backbone of the Documentchain peer-to-peer network. You can [download DMS Core](https://dms.cash/downloads/) or [build it yourself](#building) using the guides below.
 
 Running
 ---------------------
@@ -18,20 +18,20 @@ Unpack the files into a directory and run:
 
 Unpack the files into a directory, and then run dms-qt.exe.
 
-### macOS (formerly OS X)
+### OS X
 
 Drag DMS-Qt to your applications folder, and then run DMS-Qt.
 
 ### Need Help?
 
-* See the [Supportpages](https://dms.cash/support/) for help and more information
-* DMS is forked from Dash, see [Dash documentation](https://dashpay.atlassian.net/wiki/display/DOC)
+* See the [documentation](https://dms.cash/support)
+for help and more information.
 
 Building
 ---------------------
 The following are developer notes on how to build DMS Core on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
 
-- [macOS Build Notes](build-osx.md)
+- [OS X Build Notes](build-osx.md)
 - [Unix Build Notes](build-unix.md)
 - [Windows Build Notes](build-windows.md)
 - [OpenBSD Build Notes](build-openbsd.md)
@@ -42,8 +42,9 @@ Development
 The DMS Core repo's [root README](/README.md) contains relevant information on the development process and automated testing.
 
 - [Developer Notes](developer-notes.md)
-- Release Notes
+- [Release Notes](release-notes.md)
 - [Release Process](release-process.md)
+- Source Code Documentation ***TODO***
 - [Translation Process](translation_process.md)
 - [Translation Strings Policy](translation_strings_policy.md)
 - [Travis CI](travis-ci.md)

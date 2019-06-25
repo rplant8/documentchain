@@ -2,6 +2,14 @@
 # Copyright (c) 2015-2016 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
+"""Test block processing.
+
+This reimplements tests from the bitcoinj/FullBlockTestGenerator used
+by the pull-tester.
+
+We use the testing framework in which we expect a particular answer from
+each test.
+"""
 
 from test_framework.test_framework import ComparisonTestFramework
 from test_framework.util import *
@@ -15,14 +23,6 @@ class PreviousSpendableOutput(object):
     def __init__(self, tx = CTransaction(), n = -1):
         self.tx = tx
         self.n = n  # the output we're spending
-
-'''
-This reimplements tests from the bitcoinj/FullBlockTestGenerator used
-by the pull-tester.
-
-We use the testing framework in which we expect a particular answer from
-each test.
-'''
 
 #  Use this class for tests that require behavior other than normal "mininode" behavior.
 #  For now, it is used to serialize a bloated varint (b64).
@@ -61,6 +61,12 @@ class FullBlockTest(ComparisonTestFramework):
         self.tip = None
         self.blocks = {}
 
+    def setup_network(self):
+        # Must set '-dip3params=2000:2000' to create pre-dip3 blocks only
+        self.nodes = start_nodes(self.num_nodes, self.options.tmpdir,
+                                 extra_args=[['-whitelist=127.0.0.1', '-dip3params=2000:2000']],
+                                 binary=[self.options.testbinary])
+
     def add_options(self, parser):
         super().add_options(parser)
         parser.add_option("--runbarelyexpensive", dest="runbarelyexpensive", default=True)
@@ -69,7 +75,7 @@ class FullBlockTest(ComparisonTestFramework):
         self.test = TestManager(self, self.options.tmpdir)
         self.test.add_all_connections(self.nodes)
         NetworkThread().start() # Start up network handling in another thread
-        sync_masternodes(self.nodes)
+        sync_masternodes(self.nodes, True)
         self.test.run()
 
     def add_transactions_to_block(self, block, tx_list):
@@ -1239,7 +1245,7 @@ class FullBlockTest(ComparisonTestFramework):
         yield rejected()
 
 
-        #  Test re-org of a week's worth of blocks (1088 blocks)
+        #  Test re-org of a ~2 days' worth of blocks (1088 blocks)
         #  This test takes a minute or two and can be accomplished in memory
         #
         if self.options.runbarelyexpensive:

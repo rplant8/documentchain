@@ -1,1 +1,4 @@
 src/clientversion.cpp export-subst
+
+# convert line endings to LF
+text eol=lf

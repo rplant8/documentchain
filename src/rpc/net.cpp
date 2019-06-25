@@ -1,6 +1,5 @@
 // Copyright (c) 2009-2015 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Documentchain developers
+// Copyright (c) 2014-2018 The Dash Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -204,8 +203,8 @@ UniValue addnode(const JSONRPCRequest& request)
             "1. \"node\"     (string, required) The node (see getpeerinfo for nodes)\n"
             "2. \"command\"  (string, required) 'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once\n"
             "\nExamples:\n"
-            + HelpExampleCli("addnode", "\"192.168.0.6:41319\" \"onetry\"")
-            + HelpExampleRpc("addnode", "\"192.168.0.6:41319\", \"onetry\"")
+            + HelpExampleCli("addnode", "\"192.168.0.6:9999\" \"onetry\"")
+            + HelpExampleRpc("addnode", "\"192.168.0.6:9999\", \"onetry\"")
         );
 
     if(!g_connman)
@@ -243,8 +242,8 @@ UniValue disconnectnode(const JSONRPCRequest& request)
             "\nArguments:\n"
             "1. \"address\"     (string, required) The IP address/port of the node\n"
             "\nExamples:\n"
-            + HelpExampleCli("disconnectnode", "\"192.168.0.6:41319\"")
-            + HelpExampleRpc("disconnectnode", "\"192.168.0.6:41319\"")
+            + HelpExampleCli("disconnectnode", "\"192.168.0.6:9999\"")
+            + HelpExampleRpc("disconnectnode", "\"192.168.0.6:9999\"")
         );
 
     if(!g_connman)
@@ -273,7 +272,7 @@ UniValue getaddednodeinfo(const JSONRPCRequest& request)
             "    \"connected\" : true|false,          (boolean) If connected\n"
             "    \"addresses\" : [                    (list of objects) Only when connected = true\n"
             "       {\n"
-            "         \"address\" : \"192.168.0.201:41319\", (string) The dms server IP and port we're connected to\n"
+            "         \"address\" : \"192.168.0.201:9999\",  (string) The dms server IP and port we're connected to\n"
             "         \"connected\" : \"outbound\"           (string) connection, inbound or outbound\n"
             "       }\n"
             "     ]\n"
@@ -417,7 +416,7 @@ UniValue getnetworkinfo(const JSONRPCRequest& request)
             "  }\n"
             "  ,...\n"
             "  ],\n"
-            "  \"relayfee\": x.xxxxxxxx,                (numeric) minimum relay fee for non-free transactions in " + CURRENCY_UNIT + "/kB\n"
+            "  \"relayfee\": x.xxxxxxxx,                (numeric) minimum relay fee for transactions in " + CURRENCY_UNIT + "/kB\n"
             "  \"incrementalfee\": x.xxxxxxxx,          (numeric) minimum fee increment for mempool limiting or BIP 125 replacement in " + CURRENCY_UNIT + "/kB\n"
             "  \"localaddresses\": [                    (array) list of local addresses\n"
             "  {\n"
@@ -506,7 +505,7 @@ UniValue setban(const JSONRPCRequest& request)
         LookupSubNet(request.params[0].get_str().c_str(), subNet);
 
     if (! (isSubnet ? subNet.IsValid() : netAddr.IsValid()) )
-        throw JSONRPCError(RPC_CLIENT_NODE_ALREADY_ADDED, "Error: Invalid IP/Subnet");
+        throw JSONRPCError(RPC_CLIENT_INVALID_IP_OR_SUBNET, "Error: Invalid IP/Subnet");
 
     if (strCommand == "add")
     {
@@ -526,7 +525,7 @@ UniValue setban(const JSONRPCRequest& request)
     else if(strCommand == "remove")
     {
         if (!( isSubnet ? g_connman->Unban(subNet) : g_connman->Unban(netAddr) ))
-            throw JSONRPCError(RPC_MISC_ERROR, "Error: Unban failed");
+            throw JSONRPCError(RPC_CLIENT_INVALID_IP_OR_SUBNET, "Error: Unban failed. Requested address/subnet was not previously banned.");
     }
     return NullUniValue;
 }

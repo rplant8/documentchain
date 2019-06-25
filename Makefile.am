@@ -1,7 +1,6 @@
 # Copyright (c) 2013-2016 The Bitcoin Core developers
 # Copyright (c) 2014-2018 The Dash Core developers
-# Copyright (c) 2018 The Documentchain developers
-
+# Copyright (c) 2018-2019 The Documentchain developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -225,9 +224,6 @@ dist_noinst_SCRIPTS = autogen.sh
 EXTRA_DIST = $(top_srcdir)/share/genbuild.sh qa/pull-tester/rpc-tests.py qa/rpc-tests $(DIST_CONTRIB) $(DIST_DOCS) $(WINDOWS_PACKAGING) $(OSX_PACKAGING) $(BIN_CHECKS)
 
 CLEANFILES = $(OSX_DMG) $(BITCOIN_WIN_INSTALLER)
-
-# This file is problematic for out-of-tree builds if it exists.
-DISTCLEANFILES = qa/pull-tester/tests_config.pyc
 
 .INTERMEDIATE: $(COVERAGE_INFO)
 

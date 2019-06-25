@@ -1,6 +1,4 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2018-2019 The Documentchain developers
-
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -33,8 +31,6 @@ class WalletFrame;
 class WalletModel;
 class HelpMessageDialog;
 class ModalOverlay;
-class DocumentList;
-class MasternodeList;
 
 class CWallet;
 
@@ -92,7 +88,6 @@ private:
     QLabel *labelWalletHDStatusIcon;
     QLabel *labelConnectionsIcon;
     QLabel *labelBlocksIcon;
-    QLabel *labelMiningIcon;
     QLabel *progressBarLabel;
     QProgressBar *progressBar;
     QProgressDialog *progressDialog;
@@ -100,7 +95,6 @@ private:
     QMenuBar *appMenuBar;
     QAction *overviewAction;
     QAction *historyAction;
-    QAction *documentAction;
     QAction *masternodeAction;
     QAction *quitAction;
     QAction *sendCoinsAction;
@@ -120,13 +114,14 @@ private:
     QAction *unlockWalletAction;
     QAction *lockWalletAction;
     QAction *aboutQtAction;
+    QAction *openInfoAction;
     QAction *openRPCConsoleAction;
-    QAction *startMiningAction;
+    QAction *openGraphAction;
+    QAction *openPeersAction;
+    QAction *openRepairAction;
     QAction *openConfEditorAction;
-    QAction *openMNConfEditorAction;
     QAction *showBackupsAction;
     QAction *openAction;
-    QAction *openSupportWebsiteAction;
     QAction *showHelpMessageAction;
     QAction *showPrivateSendHelpAction;
 
@@ -167,15 +162,10 @@ private:
     void updateNetworkState();
 
     void updateHeadersSyncProgressLabel();
-#ifdef ENABLE_WALLET
-    void setMining(int nThreads);
-#endif // ENABLE_WALLET
 
 Q_SIGNALS:
-    /** Signal raised when a URI was entered */
+    /** Signal raised when a URI was entered or dragged to the GUI */
     void receivedURI(const QString &uri);
-    /** Signal raised when a file was dragged to the GUI */
-    void receivedFile(const QStringList &files);
     /** Restart handling */
     void requestedRestart(QStringList args);
 
@@ -201,9 +191,6 @@ public Q_SLOTS:
     void message(const QString &title, const QString &message, unsigned int style, bool *ret = NULL);
 
 #ifdef ENABLE_WALLET
-    /** Set the mining status as shown in the UI. **/
-    void setMiningStatus();
-	
     /** Set the hd-enabled status as shown in the UI.
      @param[in] status            current hd enabled status
      @see WalletModel::EncryptionStatus
@@ -228,8 +215,6 @@ private Q_SLOTS:
     void gotoOverviewPage();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
-    /** Switch to document page */
-    void gotoDocumentPage(const QStringList newFiles = QStringList());
     /** Switch to masternode page */
     void gotoMasternodePage();
     /** Switch to receive coins page */
@@ -244,8 +229,6 @@ private Q_SLOTS:
 
     /** Show open dialog */
     void openClicked();
-    /** ebable/disable mining **/
-    void setMiningUI();
 #endif // ENABLE_WALLET
     /** Show configuration dialog */
     void optionsClicked();
@@ -263,13 +246,9 @@ private Q_SLOTS:
 
     /** Open external (default) editor with dms.conf */
     void showConfEditor();
-    /** Open external (default) editor with masternode.conf */
-    void showMNConfEditor();
     /** Show folder with wallet backups in default file browser */
     void showBackups();
 
-	/** Open support website */
-	void openSupportWebsiteClicked();
     /** Show help message dialog */
     void showHelpMessageClicked();
     /** Show PrivateSend help message dialog */

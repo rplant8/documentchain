@@ -1,10 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=DMS Core
-Comment=P2P Documentchain and Cryptocurrency
-Comment[de]=Verbinde mit dem DMS peer-to-peer Netzwerk
-Comment[fr]=DMS, monnaie virtuelle cryptographique pair à pair
-Comment[tr]=DMS, eşten eşe kriptografik sanal para birimi
+Comment=DMS P2P Cryptocurrency
+Comment[de]=Verbinde mit dem Documentchain peer-to-peer Netzwerk
+Comment[fr]=Documentchain, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Documentchain, eşten eşe kriptografik sanal para birimi
 Exec=dms-qt %u
 Terminal=false
 Type=Application

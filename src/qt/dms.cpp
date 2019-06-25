@@ -1,7 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Documentchain developers
-
+// Copyright (c) 2014-2019 The Dash Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -28,11 +26,11 @@
 #include "paymentserver.h"
 #include "walletmodel.h"
 #endif
-#include "masternodeconfig.h"
 
 #include "init.h"
 #include "rpc/server.h"
 #include "scheduler.h"
+#include "stacktraces.h"
 #include "ui_interface.h"
 #include "util.h"
 #include "warnings.h"
@@ -101,6 +99,21 @@ static std::string Translate(const char* psz)
     return QCoreApplication::translate("dms-core", psz).toStdString();
 }
 
+static QString GetLangTerritory()
+{
+    QSettings settings;
+    // Get desired locale (e.g. "de_DE")
+    // 1) System default language
+    QString lang_territory = QLocale::system().name();
+    // 2) Language from QSettings
+    QString lang_territory_qsettings = settings.value("language", "").toString();
+    if(!lang_territory_qsettings.isEmpty())
+        lang_territory = lang_territory_qsettings;
+    // 3) -lang command line argument
+    lang_territory = QString::fromStdString(GetArg("-lang", lang_territory.toStdString()));
+    return lang_territory;
+}
+
 /** Set up translations */
 static void initTranslations(QTranslator &qtTranslatorBase, QTranslator &qtTranslator, QTranslator &translatorBase, QTranslator &translator)
 {
@@ -112,7 +125,7 @@ static void initTranslations(QTranslator &qtTranslatorBase, QTranslator &qtTrans
 
     // Get desired locale (e.g. "de_DE")
     // 1) System default language
-    QString lang_territory = GUIUtil::getLangTerritory();
+    QString lang_territory = GetLangTerritory();
 
     // Convert to "de" only by truncating "_DE"
     QString lang = lang_territory;
@@ -170,8 +183,8 @@ public Q_SLOTS:
     void restart(QStringList args);
 
 Q_SIGNALS:
-    void initializeResult(int retval);
-    void shutdownResult(int retval);
+    void initializeResult(bool success);
+    void shutdownResult();
     void runawayException(const QString &message);
 
 private:
@@ -179,7 +192,7 @@ private:
     CScheduler scheduler;
 
     /// Pass fatal exception message to UI thread
-    void handleRunawayException(const std::exception *e);
+    void handleRunawayException(const std::exception_ptr e);
 };
 
 /** Main DMS application object */
@@ -215,8 +228,8 @@ public:
     WId getMainWinId() const;
 
 public Q_SLOTS:
-    void initializeResult(int retval);
-    void shutdownResult(int retval);
+    void initializeResult(bool success);
+    void shutdownResult();
     /// Handle runaway exceptions. Shows a message box with the problem and quits the program.
     void handleRunawayException(const QString &message);
 
@@ -251,7 +264,7 @@ BitcoinCore::BitcoinCore():
 {
 }
 
-void BitcoinCore::handleRunawayException(const std::exception *e)
+void BitcoinCore::handleRunawayException(const std::exception_ptr e)
 {
     PrintExceptionContinue(e, "Runaway exception");
     Q_EMIT runawayException(QString::fromStdString(GetWarnings("gui")));
@@ -261,7 +274,7 @@ void BitcoinCore::initialize()
 {
     try
     {
-        qDebug() << __func__ << ": Running AppInit2 in thread";
+        qDebug() << __func__ << ": Running initialization in thread";
         if (!AppInitBasicSetup())
         {
             Q_EMIT initializeResult(false);
@@ -277,12 +290,10 @@ void BitcoinCore::initialize()
             Q_EMIT initializeResult(false);
             return;
         }
-        int rv = AppInitMain(threadGroup, scheduler);
+        bool rv = AppInitMain(threadGroup, scheduler);
         Q_EMIT initializeResult(rv);
-    } catch (const std::exception& e) {
-        handleRunawayException(&e);
     } catch (...) {
-        handleRunawayException(NULL);
+        handleRunawayException(std::current_exception());
     }
 }
 
@@ -300,15 +311,13 @@ void BitcoinCore::restart(QStringList args)
             StartRestart();
             PrepareShutdown();
             qDebug() << __func__ << ": Shutdown finished";
-            Q_EMIT shutdownResult(1);
+            Q_EMIT shutdownResult();
             CExplicitNetCleanup::callCleanup();
             QProcess::startDetached(QApplication::applicationFilePath(), args);
             qDebug() << __func__ << ": Restart initiated...";
             QApplication::quit();
-        } catch (std::exception& e) {
-            handleRunawayException(&e);
         } catch (...) {
-            handleRunawayException(NULL);
+            handleRunawayException(std::current_exception());
         }
     }
 }
@@ -322,11 +331,9 @@ void BitcoinCore::shutdown()
         threadGroup.join_all();
         Shutdown();
         qDebug() << __func__ << ": Shutdown finished";
-        Q_EMIT shutdownResult(1);
-    } catch (const std::exception& e) {
-        handleRunawayException(&e);
+        Q_EMIT shutdownResult();
     } catch (...) {
-        handleRunawayException(NULL);
+        handleRunawayException(std::current_exception());
     }
 }
 
@@ -424,8 +431,8 @@ void BitcoinApplication::startThread()
     executor->moveToThread(coreThread);
 
     /*  communication to and from thread */
-    connect(executor, SIGNAL(initializeResult(int)), this, SLOT(initializeResult(int)));
-    connect(executor, SIGNAL(shutdownResult(int)), this, SLOT(shutdownResult(int)));
+    connect(executor, SIGNAL(initializeResult(bool)), this, SLOT(initializeResult(bool)));
+    connect(executor, SIGNAL(shutdownResult()), this, SLOT(shutdownResult()));
     connect(executor, SIGNAL(runawayException(QString)), this, SLOT(handleRunawayException(QString)));
     connect(this, SIGNAL(requestedInitialize()), executor, SLOT(initialize()));
     connect(this, SIGNAL(requestedShutdown()), executor, SLOT(shutdown()));
@@ -477,14 +484,14 @@ void BitcoinApplication::requestShutdown()
     Q_EMIT requestedShutdown();
 }
 
-void BitcoinApplication::initializeResult(int retval)
+void BitcoinApplication::initializeResult(bool success)
 {
-    qDebug() << __func__ << ": Initialization result: " << retval;
-    // Set exit result: 0 if successful, 1 if failure
-    returnValue = retval ? 0 : 1;
-    if(retval)
+    qDebug() << __func__ << ": Initialization result: " << success;
+    // Set exit result.
+    returnValue = success ? EXIT_SUCCESS : EXIT_FAILURE;
+    if(success)
     {
-        // Log this only after AppInit2 finishes, as then logging setup is guaranteed complete
+        // Log this only after AppInitMain finishes, as then logging setup is guaranteed complete
         qWarning() << "Platform customization:" << platformStyle->getName();
 #ifdef ENABLE_WALLET
         PaymentServer::LoadRootCAs();
@@ -520,15 +527,13 @@ void BitcoinApplication::initializeResult(int retval)
 
 #ifdef ENABLE_WALLET
         // Now that initialization/startup is done, process any command-line
-        // dms: document import and URIs or payment requests:
+        // dms: URIs or payment requests:
         connect(paymentServer, SIGNAL(receivedPaymentRequest(SendCoinsRecipient)),
                          window, SLOT(handlePaymentRequest(SendCoinsRecipient)));
         connect(window, SIGNAL(receivedURI(QString)),
                          paymentServer, SLOT(handleURIOrFile(QString)));
         connect(paymentServer, SIGNAL(message(QString,QString,unsigned int)),
                          window, SLOT(message(QString,QString,unsigned int)));
-        connect(window, SIGNAL(receivedFile(QStringList)), window, 
-                        SLOT(gotoDocumentPage(QStringList)), Qt::QueuedConnection);
         QTimer::singleShot(100, paymentServer, SLOT(uiReady()));
 #endif
     } else {
@@ -536,9 +541,8 @@ void BitcoinApplication::initializeResult(int retval)
     }
 }
 
-void BitcoinApplication::shutdownResult(int retval)
+void BitcoinApplication::shutdownResult()
 {
-    qDebug() << __func__ << ": Shutdown result: " << retval;
     quit(); // Exit main loop after shutdown finished
 }
 
@@ -559,6 +563,9 @@ WId BitcoinApplication::getMainWinId() const
 #ifndef BITCOIN_QT_TEST
 int main(int argc, char *argv[])
 {
+    RegisterPrettyTerminateHander();
+    RegisterPrettySignalHandlers();
+
     SetupEnvironment();
 
     /// 1. Parse command-line options. These take precedence over anything else.
@@ -609,7 +616,7 @@ int main(int argc, char *argv[])
     QApplication::setOrganizationName(QAPP_ORG_NAME);
     QApplication::setOrganizationDomain(QAPP_ORG_DOMAIN);
     QApplication::setApplicationName(QAPP_APP_NAME_DEFAULT);
-    GUIUtil::SubstituteFonts();
+    GUIUtil::SubstituteFonts(GetLangTerritory());
 
     /// 4. Initialization of translations, so that intro dialog is in user's language
     // Now that QSettings are accessible, initialize translations
@@ -673,14 +680,6 @@ int main(int argc, char *argv[])
     initTranslations(qtTranslatorBase, qtTranslator, translatorBase, translator);
 
 #ifdef ENABLE_WALLET
-    /// 7a. parse masternode.conf
-    std::string strErr;
-    if(!masternodeConfig.read(strErr)) {
-        QMessageBox::critical(0, QObject::tr("DMS Core"),
-                              QObject::tr("Error reading masternode configuration file: %1").arg(strErr.c_str()));
-        return EXIT_FAILURE;
-    }
-
     /// 8. URI IPC sending
     // - Do this early as we don't want to bother initializing if we are just calling IPC
     // - Do this *after* setting up the data directory, as the data directory hash is used in the name
@@ -730,11 +729,8 @@ int main(int argc, char *argv[])
         app.exec();
         app.requestShutdown();
         app.exec();
-    } catch (const std::exception& e) {
-        PrintExceptionContinue(&e, "Runaway exception");
-        app.handleRunawayException(QString::fromStdString(GetWarnings("gui")));
     } catch (...) {
-        PrintExceptionContinue(NULL, "Runaway exception");
+        PrintExceptionContinue(std::current_exception(), "Runaway exception");
         app.handleRunawayException(QString::fromStdString(GetWarnings("gui")));
     }
     return app.getReturnValue();

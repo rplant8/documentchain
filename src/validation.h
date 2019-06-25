@@ -1,8 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Documentchain developers
-
+// Copyright (c) 2014-2018 The Dash Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -60,10 +58,10 @@ static const bool DEFAULT_WHITELISTFORCERELAY = true;
 /** Default for -minrelaytxfee, minimum relay fee for transactions */
 static const unsigned int DEFAULT_MIN_RELAY_TX_FEE = 1000;
 //! -maxtxfee default
-static const CAmount DEFAULT_TRANSACTION_MAXFEE = 0.2 * COIN; // "smallest denom" + X * "denom tails"
-//! Discourage users to set fees higher than this amount (in docz) per kB
+static const CAmount DEFAULT_TRANSACTION_MAXFEE = 0.1 * COIN;
+//! Discourage users to set fees higher than this amount (in duffs) per kB
 static const CAmount HIGH_TX_FEE_PER_KB = 0.01 * COIN;
-//! -maxtxfee will warn if called with a higher fee than this amount (in docz)
+//! -maxtxfee will warn if called with a higher fee than this amount (in duffs)
 static const CAmount HIGH_MAX_TX_FEE = 100 * HIGH_TX_FEE_PER_KB;
 /** Default for -limitancestorcount, max number of in-mempool ancestors */
 static const unsigned int DEFAULT_ANCESTOR_LIMIT = 25;
@@ -114,18 +112,18 @@ static const unsigned int AVG_LOCAL_ADDRESS_BROADCAST_INTERVAL = 24 * 24 * 60;
 /** Average delay between peer address broadcasts in seconds. */
 static const unsigned int AVG_ADDRESS_BROADCAST_INTERVAL = 30;
 /** Average delay between trickled inventory transmissions in seconds.
- *  Blocks and whitelisted receivers bypass this, outbound peers get half this delay. */
+ *  Blocks and whitelisted receivers bypass this, regular outbound peers get half this delay,
+ *  Masternode outbound peers get quarter this delay. */
 static const unsigned int INVENTORY_BROADCAST_INTERVAL = 5;
 /** Maximum number of inventory items to send per transmission.
- *  Limits the impact of low-fee transaction floods. */
-static const unsigned int INVENTORY_BROADCAST_MAX = 7 * INVENTORY_BROADCAST_INTERVAL;
+ *  Limits the impact of low-fee transaction floods.
+ *  We have 4 times smaller block times in DMS, so we need to push 4 times more invs per 1MB. */
+static const unsigned int INVENTORY_BROADCAST_MAX_PER_1MB_BLOCK = 4 * 7 * INVENTORY_BROADCAST_INTERVAL;
 /** Block download timeout base, expressed in millionths of the block interval (i.e. 2.5 min) */
 static const int64_t BLOCK_DOWNLOAD_TIMEOUT_BASE = 1000000;
 /** Additional block download timeout per parallel downloading peer (i.e. 1.25 min) */
 static const int64_t BLOCK_DOWNLOAD_TIMEOUT_PER_PEER = 500000;
 
-// static const unsigned int DEFAULT_LIMITFREERELAY = 0; 01.10.2018 Harald: limitfreerelay removed
-static const bool DEFAULT_RELAYPRIORITY = true;
 static const int64_t DEFAULT_MAX_TIP_AGE = 6 * 60 * 60; // ~144 blocks behind -> 2 x fork detection time, was 24 * 60 * 60 in bitcoin
 /** Maximum age of our tip in seconds for us to be considered current for fee estimation */
 static const int64_t MAX_FEE_ESTIMATION_TIP_AGE = 3 * 60 * 60;
@@ -139,9 +137,6 @@ static const bool DEFAULT_ADDRESSINDEX = false;
 static const bool DEFAULT_TIMESTAMPINDEX = false;
 static const bool DEFAULT_SPENTINDEX = false;
 static const unsigned int DEFAULT_BANSCORE_THRESHOLD = 100;
-
-/** Default for -mempoolreplacement */
-static const bool DEFAULT_ENABLE_REPLACEMENT = false;
 
 /** Maximum number of headers to announce when relaying blocks with headers message.*/
 static const unsigned int MAX_BLOCKS_TO_ANNOUNCE = 8;
@@ -160,7 +155,9 @@ extern CScript COINBASE_FLAGS;
 extern CCriticalSection cs_main;
 extern CTxMemPool mempool;
 typedef boost::unordered_map<uint256, CBlockIndex*, BlockHasher> BlockMap;
+typedef std::unordered_multimap<uint256, CBlockIndex*, BlockHasher> PrevBlockMap;
 extern BlockMap mapBlockIndex;
+extern PrevBlockMap mapPrevBlockIndex;
 extern uint64_t nLastBlockTx;
 extern uint64_t nLastBlockSize;
 extern const std::string strMessageMagic;
@@ -178,12 +175,11 @@ extern bool fCheckpointsEnabled;
 extern size_t nCoinCacheUsage;
 /** A fee rate smaller than this is considered zero fee (for relaying, mining and transaction creation) */
 extern CFeeRate minRelayTxFee;
-/** Absolute maximum transaction fee (in docz) used by wallet and mempool (rejects high fee in sendrawtransaction) */
+/** Absolute maximum transaction fee (in duffs) used by wallet and mempool (rejects high fee in sendrawtransaction) */
 extern CAmount maxTxFee;
 extern bool fAlerts;
 /** If the tip is older than this (in seconds), the node is considered to be in initial block download. */
 extern int64_t nMaxTipAge;
-extern bool fEnableReplacement;
 
 extern bool fLargeWorkForkFound;
 extern bool fLargeWorkInvalidChainFound;
@@ -291,7 +287,7 @@ bool GetTransaction(const uint256 &hash, CTransactionRef &tx, const Consensus::P
 bool ActivateBestChain(CValidationState& state, const CChainParams& chainparams, std::shared_ptr<const CBlock> pblock = std::shared_ptr<const CBlock>());
 
 double ConvertBitsToDouble(unsigned int nBits);
-CAmount GetBlockSubsidy(int nPrevBits, int nHeight, const Consensus::Params& consensusParams, bool fSuperblockPartOnly = false);
+CAmount GetBlockSubsidy(int nBits, int nHeight, const Consensus::Params& consensusParams, bool fSuperblockPartOnly = false);
 CAmount GetMasternodePayment(int nHeight, CAmount blockValue);
 
 /** Guess verification progress (as a fraction between 0.0=genesis and 1.0=current tip). */
@@ -333,16 +329,15 @@ void PruneAndFlush();
 /** Prune block files up to a given height */
 void PruneBlockFilesManual(int nPruneUpToHeight);
 
-/** (try to) add transaction to memory pool
- * plTxnReplaced will be appended to with all transactions replaced from mempool **/
+/** (try to) add transaction to memory pool */
 bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState &state, const CTransactionRef &tx, bool fLimitFree,
-                        bool* pfMissingInputs, std::list<CTransactionRef>* plTxnReplaced = NULL, bool fOverrideMempoolLimit=false,
+                        bool* pfMissingInputs, bool fOverrideMempoolLimit=false,
                         const CAmount nAbsurdFee=0, bool fDryRun=false);
 
 /** (try to) add transaction to memory pool with a specified acceptance time **/
 bool AcceptToMemoryPoolWithTime(CTxMemPool& pool, CValidationState &state, const CTransactionRef &tx, bool fLimitFree,
-                        bool* pfMissingInputs, int64_t nAcceptTime, std::list<CTransactionRef>* plTxnReplaced = NULL,
-                        bool fOverrideMempoolLimit=false, const CAmount nAbsurdFee=0, bool fDryRun=false);
+                                bool* pfMissingInputs, int64_t nAcceptTime, bool fOverrideMempoolLimit=false,
+                                const CAmount nAbsurdFee=0, bool fDryRun=false);
 
 bool GetUTXOCoin(const COutPoint& outpoint, Coin& coin);
 int GetUTXOHeight(const COutPoint& outpoint);
@@ -388,7 +383,7 @@ void UpdateCoins(const CTransaction& tx, CCoinsViewCache& inputs, int nHeight);
 /** Transaction validation functions */
 
 /** Context-independent validity checks */
-bool CheckTransaction(const CTransaction& tx, CValidationState& state, bool fCheckDuplicateInputs=true);
+bool CheckTransaction(const CTransaction& tx, CValidationState& state);
 
 namespace Consensus {
 
@@ -550,7 +545,7 @@ extern VersionBitsCache versionbitscache;
 /**
  * Determine what nVersion a new block should use.
  */
-int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Params& params, bool fAssumeMasternodeIsUpgraded = false);
+int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Params& params, bool fCheckMasternodesUpgraded = false);
 
 /**
  * Return true if hash can be found in chainActive at nBlockHeight height.

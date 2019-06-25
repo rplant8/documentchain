@@ -1,11 +1,10 @@
-TODO
 # Linearize
-Construct a linear, no-fork, best version of the Documentchain. The scripts
+Construct a linear, no-fork, best version of the DMS blockchain. The scripts
 run using Python 3 but are compatible with Python 2.
 
 ## Step 0: Install dms_hash
 
-https://github.com/dashpay/dash_hash
+https://github.com/Krekeler/documentchain_hash
 
 ## Step 1: Download hash list
 

@@ -1,6 +1,4 @@
 // Copyright (c) 2009-2015 The Bitcoin Core developers
-// Copyright (c) 2018-2019 The Documentchain developers
-
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -17,8 +15,8 @@
 
 //! These need to be macros, as clientversion.cpp's and dms*-res.rc's voodoo requires it
 #define CLIENT_VERSION_MAJOR 0
-#define CLIENT_VERSION_MINOR 12
-#define CLIENT_VERSION_REVISION 12
+#define CLIENT_VERSION_MINOR 14
+#define CLIENT_VERSION_REVISION 0
 #define CLIENT_VERSION_BUILD 1
 
 //! Set to true for release, false for prerelease or test build
@@ -28,12 +26,9 @@
  * Copyright year (2009-this)
  * Todo: update this when changing our copyright comments in the source
  */
-#define COPYRIGHT_YEAR 2019
+#define COPYRIGHT_YEAR 2018
 
 #endif //HAVE_CONFIG_H
-
-// Release code names: Alice 0.12.9, Bob 0.12.10, Carol 0.12.11, Dave 0.12.12
-#define RELEASE_CODE_NAME "Dave"
 
 /**
  * Converts the parameter X to a string after macro replacement on X has been performed.
@@ -43,8 +38,7 @@
 #define DO_STRINGIZE(X) #X
 
 //! Copyright string used in Windows .rc files
-//#define COPYRIGHT_STR "2009-" STRINGIZE(COPYRIGHT_YEAR) " The Bitcoin Core Developers, 2014-" STRINGIZE(COPYRIGHT_YEAR) " " COPYRIGHT_HOLDERS_FINAL
-#define COPYRIGHT_STR "2009-" STRINGIZE(COPYRIGHT_YEAR) " The Bitcoin Core Developers, 2014-" STRINGIZE(COPYRIGHT_YEAR) " The Dash Core Developers, 2018-" STRINGIZE(COPYRIGHT_YEAR) " " COPYRIGHT_HOLDERS_FINAL
+#define COPYRIGHT_STR "2009-" STRINGIZE(COPYRIGHT_YEAR) " The Bitcoin Core Developers, 2014-" STRINGIZE(COPYRIGHT_YEAR) " " COPYRIGHT_HOLDERS_FINAL
 
 /**
  * dmsd-res.rc includes this file, but it cannot cope with real c++ code.

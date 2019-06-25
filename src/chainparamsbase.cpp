@@ -34,7 +34,7 @@ class CBaseMainParams : public CBaseChainParams
 public:
     CBaseMainParams()
     {
-        nRPCPort = 41320;
+        nRPCPort = 9998;
     }
 };
 static CBaseMainParams mainParams;
@@ -47,7 +47,7 @@ class CBaseTestNetParams : public CBaseChainParams
 public:
     CBaseTestNetParams()
     {
-        nRPCPort = 41420;
+        nRPCPort = 19998;
         strDataDir = "testnet3";
     }
 };
@@ -61,7 +61,7 @@ class CBaseDevNetParams : public CBaseChainParams
 public:
     CBaseDevNetParams(const std::string &dataDir)
     {
-        nRPCPort = 41420;
+        nRPCPort = 19998;
         strDataDir = dataDir;
     }
 };
@@ -75,7 +75,7 @@ class CBaseRegTestParams : public CBaseChainParams
 public:
     CBaseRegTestParams()
     {
-        nRPCPort = 41432;
+        nRPCPort = 18332;
         strDataDir = "regtest";
     }
 };
@@ -109,7 +109,10 @@ void SelectBaseParams(const std::string& chain)
     if (chain == CBaseChainParams::DEVNET) {
         std::string devNetName = GetDevNetName();
         assert(!devNetName.empty());
-        devNetParams = new CBaseDevNetParams(devNetName);
+
+        devNetParams = (CBaseDevNetParams*)new uint8_t[sizeof(CBaseDevNetParams)];
+        memset(devNetParams, 0, sizeof(CBaseDevNetParams));
+        new (devNetParams) CBaseDevNetParams(devNetName);
     }
 
     pCurrentBaseParams = &BaseParams(chain);

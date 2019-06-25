@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#  dmsd The "Documentchain" Core server.
+#  dmsd The DMS Core server.
 #
 #
 # chkconfig: 345 80 20

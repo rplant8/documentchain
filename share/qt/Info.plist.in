@@ -17,7 +17,7 @@
   <string>APPL</string>
 
   <key>CFBundleGetInfoString</key>
-  <string>@CLIENT_VERSION_MAJOR@.@CLIENT_VERSION_MINOR@.@CLIENT_VERSION_REVISION@, Copyright © 2009-@COPYRIGHT_YEAR@ The Bitcoin Core developers, 2014-@COPYRIGHT_YEAR@ @COPYRIGHT_HOLDERS_FINAL@</string>
+  <string>@CLIENT_VERSION_MAJOR@.@CLIENT_VERSION_MINOR@.@CLIENT_VERSION_REVISION@.@CLIENT_VERSION_BUILD@, Copyright © 2009-@COPYRIGHT_YEAR@ The Bitcoin Core developers, 2014-@COPYRIGHT_YEAR@ @COPYRIGHT_HOLDERS_FINAL@</string>
 
   <key>CFBundleShortVersionString</key>
   <string>@CLIENT_VERSION_MAJOR@.@CLIENT_VERSION_MINOR@.@CLIENT_VERSION_REVISION@</string>
@@ -30,7 +30,7 @@
 
   <key>CFBundleExecutable</key>
   <string>DMS-Qt</string>
-  
+
   <key>CFBundleName</key>
   <string>DMS-Qt</string>
 
@@ -38,7 +38,7 @@
   <true/>
 
   <key>CFBundleIdentifier</key>
-  <string>org.dms.DMS-Qt</string>
+  <string>org.documentchain.DMS-Qt</string>
 
   <key>CFBundleURLTypes</key>
   <array>
@@ -46,7 +46,7 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-      <string>org.dms.DMSPayment</string>
+      <string>org.documentchain.DMSPayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
         <string>dms</string>
@@ -58,7 +58,7 @@
   <array>
     <dict>
       <key>UTTypeIdentifier</key>
-      <string>org.dms.paymentrequest</string>
+      <string>org.documentchain.paymentrequest</string>
       <key>UTTypeDescription</key>
       <string>DMS payment request</string>
       <key>UTTypeConformsTo</key>
@@ -84,7 +84,7 @@
       <string>Editor</string>
       <key>LSItemContentTypes</key>
       <array>
-        <string>org.dms.paymentrequest</string>
+        <string>org.documentchain.paymentrequest</string>
       </array>
       <key>LSHandlerRank</key>
       <string>Owner</string>
@@ -99,7 +99,10 @@
 
   <key>LSAppNapIsDisabled</key>
     <string>True</string>
-  
+
+  <key>NSRequiresAquaSystemAppearance</key>
+    <string>True</string>
+
   <key>LSApplicationCategoryType</key>
     <string>public.app-category.finance</string>
 </dict>

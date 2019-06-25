@@ -5,7 +5,7 @@ Upstart: dmsd.conf
 OpenRC:  dmsd.openrc
          dmsd.openrcconf
 CentOS:  dmsd.init
-macOS:   org.dms.dmsd.plist
+OS X:    org.documentchain.dmsd.plist
 
 have been made available to assist packagers in creating node packages here.
 

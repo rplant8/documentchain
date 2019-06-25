@@ -1,6 +1,4 @@
 // Copyright (c) 2009-2015 The Bitcoin Core developers
-// Copyright (c) 2018 The Documentchain developers
-
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -27,6 +25,8 @@
 
 #include <boost/algorithm/string.hpp>
 #include <boost/assign/list_of.hpp>
+
+#include "stacktraces.h"
 
 static bool fCreateBlank;
 static std::map<std::string,UniValue> registers;
@@ -774,7 +774,7 @@ static int CommandLineRawTx(int argc, char* argv[])
         nRet = EXIT_FAILURE;
     }
     catch (...) {
-        PrintExceptionContinue(NULL, "CommandLineRawTx()");
+        PrintExceptionContinue(std::current_exception(), "CommandLineRawTx()");
         throw;
     }
 
@@ -786,6 +786,9 @@ static int CommandLineRawTx(int argc, char* argv[])
 
 int main(int argc, char* argv[])
 {
+    RegisterPrettyTerminateHander();
+    RegisterPrettySignalHandlers();
+
     SetupEnvironment();
 
     try {
@@ -794,21 +797,15 @@ int main(int argc, char* argv[])
             return ret;
     }
     catch (const std::exception& e) {
-        PrintExceptionContinue(&e, "AppInitRawTx()");
-        return EXIT_FAILURE;
-    } catch (...) {
-        PrintExceptionContinue(NULL, "AppInitRawTx()");
+        PrintExceptionContinue(std::current_exception(), "AppInitRawTx()");
         return EXIT_FAILURE;
     }
 
     int ret = EXIT_FAILURE;
     try {
         ret = CommandLineRawTx(argc, argv);
-    }
-    catch (const std::exception& e) {
-        PrintExceptionContinue(&e, "CommandLineRawTx()");
     } catch (...) {
-        PrintExceptionContinue(NULL, "CommandLineRawTx()");
+        PrintExceptionContinue(std::current_exception(), "CommandLineRawTx()");
     }
     return ret;
 }

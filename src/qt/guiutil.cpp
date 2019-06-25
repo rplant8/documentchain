@@ -1,7 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018-2019 The Documentchain developers
-
+// Copyright (c) 2014-2019 The Dash Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -14,7 +12,6 @@
 
 #include "primitives/transaction.h"
 #include "init.h"
-#include "guiconstants.h"
 #include "policy/policy.h"
 #include "protocol.h"
 #include "script/script.h"
@@ -41,9 +38,7 @@
 
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
-#if BOOST_FILESYSTEM_VERSION >= 3
 #include <boost/filesystem/detail/utf8_codecvt_facet.hpp>
-#endif
 #include <boost/scoped_array.hpp>
 
 #include <QAbstractItemView>
@@ -71,9 +66,7 @@
 #include <QFontDatabase>
 #endif
 
-#if BOOST_FILESYSTEM_VERSION >= 3
 static boost::filesystem::detail::utf8_codecvt_facet utf8;
-#endif
 
 #if defined(Q_OS_MAC)
 extern double NSAppKitVersionNumber;
@@ -319,15 +312,6 @@ QList<QModelIndex> getEntryData(QAbstractItemView *view, int column)
     return view->selectionModel()->selectedRows(column);
 }
 
-QString getOSDocumentsDir()
-{
-#if QT_VERSION < 0x050000
-    return QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
-#else
-    return QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-#endif
-}
-
 QString getSaveFileName(QWidget *parent, const QString &caption, const QString &dir,
     const QString &filter,
     QString *selectedSuffixOut)
@@ -441,17 +425,6 @@ bool isObscured(QWidget *w)
         && checkPoint(QPoint(w->width() / 2, w->height() / 2), w));
 }
 
-void openDocumentFile(const QString fileName)
-{
-    QDesktopServices::openUrl(QUrl::fromLocalFile(fileName));
-}
-
-QString extractFileName(const QString fullFilePath)
-{
-  QFileInfo fileInfo(fullFilePath);
-  return fileInfo.fileName();
-}
-
 void openDebugLogfile()
 {
     boost::filesystem::path pathDebug = GetDataDir() / "debug.log";
@@ -470,15 +443,6 @@ void openConfigfile()
         QDesktopServices::openUrl(QUrl::fromLocalFile(boostPathToQString(pathConfig)));
 }
 
-void openMNConfigfile()
-{
-    boost::filesystem::path pathConfig = GetMasternodeConfigFile();
-
-    /* Open masternode.conf with the associated application */
-    if (boost::filesystem::exists(pathConfig))
-        QDesktopServices::openUrl(QUrl::fromLocalFile(boostPathToQString(pathConfig)));
-}
-
 void showBackups()
 {
     boost::filesystem::path backupsDir = GetBackupsDir();
@@ -488,7 +452,7 @@ void showBackups()
         QDesktopServices::openUrl(QUrl::fromLocalFile(boostPathToQString(backupsDir)));
 }
 
-void SubstituteFonts()
+void SubstituteFonts(const QString& language)
 {
 #if defined(Q_OS_MAC)
 // Background:
@@ -503,7 +467,6 @@ void SubstituteFonts()
 // Solution: If building with the 10.7 SDK or lower and the user's platform
 // is 10.9 or higher at runtime, substitute the correct font. This needs to
 // happen before the QApplication is created.
-    QString language = getLangTerritory();
 #if defined(MAC_OS_X_VERSION_MAX_ALLOWED) && MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_8
     if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_8)
     {
@@ -943,31 +906,6 @@ void restoreWindowGeometry(const QString& strSetting, const QSize& defaultSize, 
     }
 }
 
-// save app path to settings, used by DMS software on windows
-void saveAppPath()
-{
-    QSettings settings;
-    QString strAppPath = QCoreApplication::applicationFilePath();
-    settings.setValue("strAppPath", QDir::toNativeSeparators(strAppPath));
-}
-
-QString getLangTerritory()
-{
-    QSettings settings;
-    // Get desired locale (e.g. "de_DE")
-    // 1) System default language
-    QString lang_territory = QLocale::system().name();
-    // 2) Language from QSettings (e.g. "de")
-    QString lang_territory_qsettings = settings.value("language", "").toString();
-    if(!lang_territory_qsettings.isEmpty())
-        lang_territory = lang_territory_qsettings;
-    // 3) -lang command line argument
-    QString lang_territory_arg = QString::fromStdString(GetArg("-lang", ""));
-    if(!lang_territory_arg.isEmpty())
-        lang_territory = lang_territory_arg;
-    return lang_territory;
-}
-
 // Return name of current UI-theme or default theme if no theme was found
 QString getThemeName()
 {
@@ -978,19 +916,6 @@ QString getThemeName()
         return theme;
     }
     return QString("light");  
-}
-
-bool isHighresTheme()
-{
-    QSettings settings;
-    QString theme = settings.value("theme", "").toString();
-    return (theme.endsWith("-hires"));
-}
-
-// themed statusbar icon size
-int getIconSize()
-{
-    return isHighresTheme() ? STATUSBAR_ICONSIZE_HIRES : STATUSBAR_ICONSIZE;
 }
 
 // Open CSS when configured
@@ -1023,7 +948,6 @@ void setClipboard(const QString& str)
     QApplication::clipboard()->setText(str, QClipboard::Selection);
 }
 
-#if BOOST_FILESYSTEM_VERSION >= 3
 boost::filesystem::path qstringToBoostPath(const QString &path)
 {
     return boost::filesystem::path(path.toStdString(), utf8);
@@ -1033,18 +957,6 @@ QString boostPathToQString(const boost::filesystem::path &path)
 {
     return QString::fromStdString(path.string(utf8));
 }
-#else
-#warning Conversion between boost path and QString can use invalid character encoding with boost_filesystem v2 and older
-boost::filesystem::path qstringToBoostPath(const QString &path)
-{
-    return boost::filesystem::path(path.toStdString());
-}
-
-QString boostPathToQString(const boost::filesystem::path &path)
-{
-    return QString::fromStdString(path.string());
-}
-#endif
 
 QString formatDurationStr(int secs)
 {

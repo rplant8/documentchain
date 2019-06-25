@@ -1,13 +1,13 @@
 ---
-name: "documentchain-dmg-signer"
+name: "dms-dmg-signer"
 suites:
-- "trusty"
+- "bionic"
 architectures:
 - "amd64"
 packages:
 - "faketime"
 remotes:
-- "url": "https://github.com/Krekeler/documentchain.git"
+- "url": "https://github.com/Krekeler/documentchain-detached-sigs.git"
   "dir": "signature"
 files:
 - "dmscore-osx-unsigned.tar.gz"

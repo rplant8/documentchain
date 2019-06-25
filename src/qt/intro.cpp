@@ -1,7 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Documentchain developers
-
+// Copyright (c) 2014-2019 The Dash Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -26,7 +24,7 @@
 
 static const uint64_t GB_BYTES = 1000000000LL;
 /* Minimum free space (in GB) needed for data directory */
-static const uint64_t BLOCK_CHAIN_SIZE = 2;
+static const uint64_t BLOCK_CHAIN_SIZE = 10;
 /* Minimum free space (in GB) needed for data directory when pruned; Does not include prune target */
 static const uint64_t CHAIN_STATE_SIZE = 1;
 /* Total required space (in GB) depending on user choice (prune, not prune) */
@@ -127,16 +125,34 @@ Intro::Intro(QWidget *parent) :
     ui->setupUi(this);
     ui->welcomeLabel->setText(ui->welcomeLabel->text().arg(tr(PACKAGE_NAME)));
     ui->storageLabel->setText(ui->storageLabel->text().arg(tr(PACKAGE_NAME)));
+
+    ui->lblExplanation1->setText(ui->lblExplanation1->text()
+        .arg(tr(PACKAGE_NAME))
+        .arg(BLOCK_CHAIN_SIZE)
+        .arg(2014)
+        .arg("DMS")
+    );
+    ui->lblExplanation2->setText(ui->lblExplanation2->text().arg(tr(PACKAGE_NAME)));
+
     uint64_t pruneTarget = std::max<int64_t>(0, GetArg("-prune", 0));
     requiredSpace = BLOCK_CHAIN_SIZE;
+    QString storageRequiresMsg = tr("At least %1 GB of data will be stored in this directory, and it will grow over time.");
     if (pruneTarget) {
         uint64_t prunedGBs = std::ceil(pruneTarget * 1024 * 1024.0 / GB_BYTES);
         if (prunedGBs <= requiredSpace) {
             requiredSpace = prunedGBs;
+            storageRequiresMsg = tr("Approximately %1 GB of data will be stored in this directory.");
         }
+        ui->lblExplanation3->setVisible(true);
+    } else {
+        ui->lblExplanation3->setVisible(false);
     }
     requiredSpace += CHAIN_STATE_SIZE;
-    ui->sizeWarningLabel->setText(ui->sizeWarningLabel->text().arg(tr(PACKAGE_NAME)).arg(requiredSpace));
+    ui->sizeWarningLabel->setText(
+        tr("%1 will download and store a copy of the DMS block chain.").arg(tr(PACKAGE_NAME)) + " " +
+        storageRequiresMsg.arg(requiredSpace) + " " +
+        tr("The wallet will also be stored in this directory.")
+    );
     startThread();
 }
 

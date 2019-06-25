@@ -63,6 +63,7 @@ libconftest.dylib*
 *.o
 *.o-*
 *.patch
+!depends/patches/*/*.patch
 *.a
 *.pb.cc
 *.pb.h
@@ -109,6 +110,7 @@ linux-coverage-build
 linux-build
 win32-build
 qa/pull-tester/tests_config.py
+qa/pull-tester/tests_config.ini
 qa/cache/*
 
 !src/leveldb*/Makefile

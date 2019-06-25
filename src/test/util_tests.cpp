@@ -1,6 +1,4 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2018 The Documentchain developers
-
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -19,7 +17,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-extern std::map<std::string, std::string> mapArgs;
+extern std::unordered_map<std::string, std::string> mapArgs;
 
 BOOST_FIXTURE_TEST_SUITE(util_tests, BasicTestingSetup)
 
@@ -323,7 +321,7 @@ BOOST_AUTO_TEST_CASE(test_ParseInt32)
     BOOST_CHECK(ParseInt32("1234", &n) && n == 1234);
     BOOST_CHECK(ParseInt32("01234", &n) && n == 1234); // no octal
     BOOST_CHECK(ParseInt32("2147483647", &n) && n == 2147483647);
-    BOOST_CHECK(ParseInt32("-2147483648", &n) && n == -2147483648);
+    BOOST_CHECK(ParseInt32("-2147483648", &n) && n == (-2147483647 - 1)); // (-2147483647 - 1) equals INT_MIN
     BOOST_CHECK(ParseInt32("-1234", &n) && n == -1234);
     // Invalid values
     BOOST_CHECK(!ParseInt32("", &n));

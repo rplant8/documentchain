@@ -21,8 +21,9 @@
 #include "primitives/transaction.h"
 #include "sync.h"
 #include "random.h"
+#include "netaddress.h"
+#include "bls/bls.h"
 
-#undef foreach
 #include "boost/multi_index_container.hpp"
 #include "boost/multi_index/ordered_index.hpp"
 #include "boost/multi_index/hashed_index.hpp"
@@ -31,19 +32,6 @@
 
 class CAutoFile;
 class CBlockIndex;
-
-inline double AllowFreeThreshold()
-{
-    return COIN * 144 / 250;
-}
-
-inline bool AllowFree(double dPriority)
-{
-    // Large (in bytes) low-priority (new, small-coin) transactions
-    // need a fee.
-    return dPriority > AllowFreeThreshold();
-}
-
 
 /** Fake height value used in Coin to signify they are only in the memory pool (since 0.8) */
 static const uint32_t MEMPOOL_HEIGHT = 0x7FFFFFFF;
@@ -88,12 +76,9 @@ private:
     CTransactionRef tx;
     CAmount nFee;              //!< Cached to avoid expensive parent-transaction lookups
     size_t nTxSize;            //!< ... and avoid recomputing tx size
-    size_t nModSize;           //!< ... and modified size for priority
     size_t nUsageSize;         //!< ... and total memory usage
     int64_t nTime;             //!< Local time when entering the mempool
-    double entryPriority;      //!< Priority when entering the mempool
     unsigned int entryHeight;  //!< Chain height when entering the mempool
-    CAmount inChainInputValue; //!< Sum of all txin values that are already in blockchain
     bool spendsCoinbase;       //!< keep track of transactions that spend a coinbase
     unsigned int sigOpCount;   //!< Legacy sig ops plus P2SH sig op count
     int64_t feeDelta;          //!< Used for determining the priority of the transaction for mining in a block
@@ -116,19 +101,14 @@ private:
 
 public:
     CTxMemPoolEntry(const CTransactionRef& _tx, const CAmount& _nFee,
-                    int64_t _nTime, double _entryPriority, unsigned int _entryHeight,
-                    CAmount _inChainInputValue, bool spendsCoinbase,
+                    int64_t _nTime, unsigned int _entryHeight,
+                    bool spendsCoinbase,
                     unsigned int nSigOps, LockPoints lp);
 
     CTxMemPoolEntry(const CTxMemPoolEntry& other);
 
     const CTransaction& GetTx() const { return *this->tx; }
     CTransactionRef GetSharedTx() const { return this->tx; }
-    /**
-     * Fast calculation of lower bound of current priority as update
-     * from entry priority. Only inputs that were originally in-chain will age.
-     */
-    double GetPriority(unsigned int currentHeight) const;
     const CAmount& GetFee() const { return nFee; }
     size_t GetTxSize() const { return nTxSize; }
     int64_t GetTime() const { return nTime; }
@@ -160,6 +140,10 @@ public:
     unsigned int GetSigOpCountWithAncestors() const { return nSigOpCountWithAncestors; }
 
     mutable size_t vTxHashesIdx; //!< Index in mempool's vTxHashes
+
+    // If this is a proTx, this will be the hash of the key for which this ProTx was valid
+    mutable uint256 validForProTxKey;
+    mutable bool isKeyChangeProTx{false};
 };
 
 // Helpers for modifying CTxMemPool::mapTx, which is a boost multi_index.
@@ -347,7 +331,6 @@ enum class MemPoolRemovalReason {
     REORG,       //! Removed for reorganization
     BLOCK,       //! Removed for block
     CONFLICT,    //! Removed for conflict with in-block transaction
-    REPLACED     //! Removed for replacement
 };
 
 class SaltedTxidHasher
@@ -373,8 +356,7 @@ public:
  * example, the following new transactions will not be added to the mempool:
  * - a transaction which doesn't meet the minimum fee requirements.
  * - a new transaction that double-spends an input of a transaction already in
- * the pool where the new transaction does not meet the Replace-By-Fee
- * requirements as defined in BIP 125.
+ * the pool.
  * - a non-standard transaction.
  *
  * CTxMemPool::mapTx, and CTxMemPoolEntry bookkeeping:
@@ -534,6 +516,12 @@ private:
     typedef std::map<uint256, std::vector<CSpentIndexKey> > mapSpentIndexInserted;
     mapSpentIndexInserted mapSpentInserted;
 
+    std::multimap<uint256, uint256> mapProTxRefs; // proTxHash -> transaction (all TXs that refer to an existing proTx)
+    std::map<CService, uint256> mapProTxAddresses;
+    std::map<CKeyID, uint256> mapProTxPubKeyIDs;
+    std::map<uint256, uint256> mapProTxBlsPubKeyHashes;
+    std::map<COutPoint, uint256> mapProTxCollaterals;
+
     void UpdateParent(txiter entry, txiter parent, bool add);
     void UpdateChild(txiter entry, txiter child, bool add);
 
@@ -541,11 +529,11 @@ private:
 
 public:
     indirectmap<COutPoint, const CTransaction*> mapNextTx;
-    std::map<uint256, std::pair<double, CAmount> > mapDeltas;
+    std::map<uint256, CAmount> mapDeltas;
 
     /** Create a new CTxMemPool.
      */
-    CTxMemPool(const CFeeRate& _minReasonableRelayFee);
+    CTxMemPool();
     ~CTxMemPool();
 
     /**
@@ -576,6 +564,12 @@ public:
     void removeRecursive(const CTransaction &tx, MemPoolRemovalReason reason = MemPoolRemovalReason::UNKNOWN);
     void removeForReorg(const CCoinsViewCache *pcoins, unsigned int nMemPoolHeight, int flags);
     void removeConflicts(const CTransaction &tx);
+    void removeProTxPubKeyConflicts(const CTransaction &tx, const CKeyID &keyId);
+    void removeProTxPubKeyConflicts(const CTransaction &tx, const CBLSPublicKey &pubKey);
+    void removeProTxCollateralConflicts(const CTransaction &tx, const COutPoint &collateralOutpoint);
+    void removeProTxSpentCollateralConflicts(const CTransaction &tx);
+    void removeProTxKeyChangedConflicts(const CTransaction &tx, const uint256& proTxHash, const uint256& newKeyHash);
+    void removeProTxConflicts(const CTransaction &tx);
     void removeForBlock(const std::vector<CTransactionRef>& vtx, unsigned int nBlockHeight);
 
     void clear();
@@ -592,8 +586,8 @@ public:
     bool HasNoInputsOf(const CTransaction& tx) const;
 
     /** Affect CreateNewBlock prioritisation of transactions */
-    void PrioritiseTransaction(const uint256 hash, const std::string strHash, double dPriorityDelta, const CAmount& nFeeDelta);
-    void ApplyDeltas(const uint256 hash, double &dPriorityDelta, CAmount &nFeeDelta) const;
+    void PrioritiseTransaction(const uint256& hash, const CAmount& nFeeDelta);
+    void ApplyDelta(const uint256 hash, CAmount &nFeeDelta) const;
     void ClearPrioritisation(const uint256 hash);
 
 public:
@@ -641,7 +635,6 @@ public:
       *  would otherwise be half of this, it is set to 0 instead.
       */
     CFeeRate GetMinFee(size_t sizelimit) const;
-    void UpdateMinFee(const CFeeRate& _minReasonableRelayFee);
 
     /** Remove transactions from the mempool until its dynamic size is <= sizelimit.
       *  pvNoSpendsRemaining, if set, will be populated with the list of outpoints
@@ -684,6 +677,8 @@ public:
     TxMempoolInfo info(const uint256& hash) const;
     std::vector<TxMempoolInfo> infoAll() const;
 
+    bool existsProviderTxConflict(const CTransaction &tx) const;
+
     /** Estimate fee rate needed to get into the next nBlocks
      *  If no answer can be given at nBlocks, return an estimate
      *  at the lowest number of blocks where one can be given
@@ -693,20 +688,13 @@ public:
     /** Estimate fee rate needed to get into the next nBlocks */
     CFeeRate estimateFee(int nBlocks) const;
 
-    /** Estimate priority needed to get into the next nBlocks
-     *  If no answer can be given at nBlocks, return an estimate
-     *  at the lowest number of blocks where one can be given
-     */
-    double estimateSmartPriority(int nBlocks, int *answerFoundAtBlocks = NULL) const;
-
-    /** Estimate priority needed to get into the next nBlocks */
-    double estimatePriority(int nBlocks) const;
-    
     /** Write/Read estimates to disk */
     bool WriteFeeEstimates(CAutoFile& fileout) const;
     bool ReadFeeEstimates(CAutoFile& filein);
 
     size_t DynamicMemoryUsage() const;
+    // returns share of the used memory to maximum allowed memory
+    double UsedMemoryShare() const;
 
     boost::signals2::signal<void (CTransactionRef)> NotifyEntryAdded;
     boost::signals2::signal<void (CTransactionRef, MemPoolRemovalReason)> NotifyEntryRemoved;
@@ -762,19 +750,6 @@ protected:
 public:
     CCoinsViewMemPool(CCoinsView* baseIn, const CTxMemPool& mempoolIn);
     bool GetCoin(const COutPoint &outpoint, Coin &coin) const override;
-};
-
-// We want to sort transactions by coin age priority
-typedef std::pair<double, CTxMemPool::txiter> TxCoinAgePriority;
-
-struct TxCoinAgePriorityCompare
-{
-    bool operator()(const TxCoinAgePriority& a, const TxCoinAgePriority& b)
-    {
-        if (a.first == b.first)
-            return CompareTxMemPoolEntryByScore()(*(b.second), *(a.second)); //Reverse order to make sort less than
-        return a.first < b.first;
-    }
 };
 
 #endif // BITCOIN_TXMEMPOOL_H

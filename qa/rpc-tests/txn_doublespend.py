@@ -2,10 +2,7 @@
 # Copyright (c) 2014-2016 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-
-#
-# Test proper accounting with a double-spend conflict
-#
+"""Test the wallet accounts properly when there is a double-spend conflict."""
 
 from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import *
@@ -77,7 +74,7 @@ class TxnMallTest(BitcoinTestFramework):
         tx1 = self.nodes[0].gettransaction(txid1)
         tx2 = self.nodes[0].gettransaction(txid2)
 
-        # Node0's balance should be starting balance, plus 500DASH for another
+        # Node0's balance should be starting balance, plus 500DMS for another
         # matured block, minus 400, minus 200, and minus transaction fees:
         expected = starting_balance + fund_foo_tx["fee"] + fund_bar_tx["fee"]
         if self.options.mine_block: expected += 500
@@ -119,7 +116,7 @@ class TxnMallTest(BitcoinTestFramework):
         assert_equal(tx1["confirmations"], -2)
         assert_equal(tx2["confirmations"], -2)
 
-        # Node0's total balance should be starting balance, plus 1000DASH for
+        # Node0's total balance should be starting balance, plus 1000DMS for
         # two more matured blocks, minus 12400 for the double-spend, plus fees (which are
         # negative):
         expected = starting_balance + 1000 - 12400 + fund_foo_tx["fee"] + fund_bar_tx["fee"] + doublespend_fee
