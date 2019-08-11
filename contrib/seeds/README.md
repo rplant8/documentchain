@@ -16,3 +16,15 @@ The seeds compiled into the release are created from the current masternode list
 Ubuntu:
 
     sudo apt-get install python3-dnspython
+
+---
+	
+### Internal notice
+
+Compilation computer
+
+	cd ~/documentchain/contrib/seeds
+	vi nodes_main.txt
+	python3 generate-seeds.py ./
+
+Code computer: copy result to chainparamsseeds.h, copy node_main.txt

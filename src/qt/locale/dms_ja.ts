@@ -1007,7 +1007,7 @@
         <translation>おおむね%1GBのデータがこのディレクトリに保存されます。</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the DMS block chain.</source>
+        <source>%1 will download and store a copy of the Documentchain.</source>
         <translation>%1はDMSのブロックチェーンの複製をダウンロードし保存します。</translation>
     </message>
     <message>

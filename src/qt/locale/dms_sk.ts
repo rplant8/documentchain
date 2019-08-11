@@ -1022,7 +1022,7 @@
         <translation>V tomto adresári bude uložených približne %1 GB dát.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the DMS block chain.</source>
+        <source>%1 will download and store a copy of the Documentchain.</source>
         <translation>%1 stiahne a bude uchovávať kópiu DMS blockchainu.</translation>
     </message>
     <message>

@@ -11,6 +11,8 @@ MacOSX Cross-compilation
 Cross-compiling to MacOSX requires a few additional packages to be installed:
 
 ```bash
+$ sudo apt-get update
+$ sudo apt-get upgrade
 $ sudo apt-get install python3-setuptools libcap-dev zlib1g-dev libbz2-dev
 ```
 
@@ -40,6 +42,8 @@ Windows 64bit/32bit Cross-compilation
 Cross-compiling to Windows requires a few additional packages to be installed:
 
 ```bash
+$ sudo apt-get update
+$ sudo apt-get upgrade
 $ sudo apt-get install nsis wine-stable wine64 bc
 ```
 
@@ -79,6 +83,7 @@ ARM-Linux Cross-compilation
 Cross-compiling to ARM-Linux requires a few additional packages to be installed:
 
 ```bash
+$ sudo apt-get update
 $ sudo apt-get install g++-arm-linux-gnueabihf
 ```
 

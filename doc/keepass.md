@@ -54,5 +54,3 @@ At this point, the association is made. The next action depends on your particul
  - current wallet is already encrypted: use "_keepass setpassphrase_" to store the passphrase in KeePass.
 
 At this point, the passphrase is stored in KeePassHttp. When Unlocking the wallet, one can use _keepass_ as the passphrase to trigger retrieval of the password. This works from the RPC commands as well as the GUI.
-
-Extended guide with screenshots is also available: https://dms.cash/forum/threads/keepass-integration.3620/

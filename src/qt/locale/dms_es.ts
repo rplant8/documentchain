@@ -1022,8 +1022,8 @@
         <translation>Se almacenará aproximadamente %1 GB de datos en este directorio.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the DMS block chain.</source>
-        <translation>%1 descargará y almacenará una copia de la cadena de bloques de DMS.</translation>
+        <source>%1 will download and store a copy of the Documentchain.</source>
+        <translation>%1 descargará y almacenará una copia de la cadena de Documentchain.</translation>
     </message>
     <message>
         <source>The wallet will also be stored in this directory.</source>

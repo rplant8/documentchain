@@ -1023,8 +1023,8 @@ Der Mixing-Prozeß läuft nach dem Start vollständig im Hintergrund, d.h. es is
         <translation>Etwa %1 GB Daten werden in diesem Verzeichnis gespeichert.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the DMS block chain.</source>
-        <translation>%1 wird eine Kopie der DMS Blockchain herunterladen und speichern.</translation>
+        <source>%1 will download and store a copy of the Documentchain.</source>
+        <translation>%1 wird eine Kopie der Documentchain herunterladen und speichern.</translation>
     </message>
     <message>
         <source>The wallet will also be stored in this directory.</source>

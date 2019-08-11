@@ -1006,7 +1006,7 @@
         <translation>Aproximadamente %1 GB de dados irão ser guardados nesta pasta. </translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the DMS block chain.</source>
+        <source>%1 will download and store a copy of the Documentchain.</source>
         <translation>%1 irá descarregar e armazenar uma cópia da cadeia de blocos da DMS.</translation>
     </message>
     <message>

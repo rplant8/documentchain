@@ -1022,7 +1022,7 @@
         <translation>Arviolta %1 GB dataa tallennetaan tähän hakemistoon.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the DMS block chain.</source>
+        <source>%1 will download and store a copy of the Documentchain.</source>
         <translation>%1 lataa ja tallentaa kopion DMS lohkoketjusta.</translation>
     </message>
     <message>

@@ -1022,7 +1022,7 @@
         <translation>Approximativement %1 Go de données seront stockés dans ce répertoire.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the DMS block chain.</source>
+        <source>%1 will download and store a copy of the Documentchain.</source>
         <translation>%1 téléchargera et stockera une copie de la chaîne de blocs DMS.</translation>
     </message>
     <message>

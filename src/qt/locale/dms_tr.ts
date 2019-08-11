@@ -1002,7 +1002,7 @@
         <translation>Yaklaşık %1 GB veri bu dizinde depolanacak.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the DMS block chain.</source>
+        <source>%1 will download and store a copy of the Documentchain.</source>
         <translation>%1 lik DMS blok zinciri nin bir kopyasını indirecek ve depolayacak.</translation>
     </message>
     <message>

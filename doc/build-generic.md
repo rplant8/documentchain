@@ -15,12 +15,13 @@ Building the dependencies and DMS Core requires some essential build tools to be
 
 Building dependencies
 ---------------------
-DMS inherited the `depends` folder from Bitcoin, which contains all dependencies required to build DMS. These
-dependencies must be built before DMS can actually be built. To do so, perform the following:
+Documentchain inherited the `depends` folder from Dash and Bitcoin, which contains all dependencies required to build DMS Core. 
+These dependencies must be built before DMS Core can actually be built. To do so, perform the following:
 
 ```bash
 $ cd depends
-$ make -j4 # Choose a good -j value, depending on the number of CPU cores available
+$ # Choose a good -j value, depending on the number of CPU cores available
+$ make -j4 # or "make -j4 PATH=$(getconf PATH)" if building on WSL
 $ cd ..
 ```
 

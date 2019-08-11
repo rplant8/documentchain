@@ -1290,8 +1290,8 @@
     </message>
     <message>
         <location line="+8"/>
-        <source>%1 will download and store a copy of the DMS block chain.</source>
-        <translation>%1 will download and store a copy of the DMS block chain.</translation>
+        <source>%1 will download and store a copy of the Documentchain.</source>
+        <translation>%1 will download and store a copy of the Documentchain.</translation>
     </message>
     <message>
         <location line="+2"/>
