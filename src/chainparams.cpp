@@ -142,8 +142,8 @@ public:
         consensus.nMasternodeMinimumConfirmations = 15;  // Confirmations for initial Masternode transaction of 5000 DMS
         consensus.BIP34Height = 0; // 0=genesis block  // Bitcoin: 227931, Dash: 951;       
         consensus.BIP34Hash = uint256S("0x00000af4a21d6e8daa4026a5eafc7132089a7dbb9d3921b12c4fa39b78c9a010");
-        consensus.BIP65Height = 619382; // TODO    // 00000000000076d8fcea02ec0963de4abfd01e771fec0863f960c2c64fe6f357
-        consensus.BIP66Height = 245817; // TODO    // 00000000000b1fa2dfa312863570e13fae9ca7b5566cb27e55422620b469aefa
+        consensus.BIP65Height = 84100;
+        consensus.BIP66Height = 84000;
         consensus.DIP0001Height = 782208; // TODO    
         consensus.powLimit = uint256S("0000ffffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // PoW calculation 24 * 60 * 60;  1 day
@@ -252,7 +252,6 @@ public:
             (     0, uint256S("0x00000af4a21d6e8daa4026a5eafc7132089a7dbb9d3921b12c4fa39b78c9a010")) // 2018-Aug-26
             (   133, uint256S("0x00003c1aa0d920b6a665b71fb8ebde8dff0426ed02483a1f3165a1b9533f339f")) // 2018-Aug-27
             (  4600, uint256S("0x00003e6d58a4974170d74f8ccb55aca3afeca21fc6a25789c64a88ac3b44c239")) // 2018-Sep-14
-            (  8410, uint256S("0x000000dcc96e66827c73c603c96683bb53d536e878fa282ef3e1a30ee42c4121")) // 2018-Oct-01
             ( 15000, uint256S("0x0000024a04c4ac9eb28385fa0a18b6911b7ee22c64c3af476cd72bcf27fa136f")) // 2018-Oct-31
             ( 20013, uint256S("0x000000465d652bda5d5746ec620b0926de583a622011b61404af02fd07176236")) // 2018-Nov-24
             ( 26990, uint256S("0x00000ac7439f65441970eed887d5bad2ecf6a1bbde4f39a4a21f50aaa648d049")) // 2018-Dec-25
@@ -261,6 +260,8 @@ public:
             ( 51834, uint256S("0x00001617483dacc4cb349535a9d1806c0b749801111d705362d61d7df72269d7")) // 2019-Apr-13
             ( 59098, uint256S("0x0000062c9eeac8249ff40512763846be367c9404c2ebded2646309bb30a28f4a")) // 2019-May-15
             ( 68050, uint256S("0x000005c0ed9cec8cd6c2a23c673b3047bf2f3c205d85ca3843fb8ec4b53c27c9")) // 2019-Jun-23
+            ( 73989, uint256S("0x0000101d903ace244df2686ca8005bf605910ba3b521b5217ba8ada6fa12d79f")) // 2019-Jul-19
+            ( 79403, uint256S("0x00000295f0e654ec4c7ec2e4051acaca0eda31ae2ca2d7a38e56a7875cf457dd")) // 2019-Aug-12
         };
 
         chainTxData = ChainTxData{
@@ -297,8 +298,8 @@ public:
         consensus.nMasternodeMinimumConfirmations = 15; // = Main
         consensus.BIP34Height = 0; // = Main
         consensus.BIP34Hash = uint256S("0x00004399a114a034b2f8d742b8e7f018d3cfdec0b25150d0b7e271b63c9cd4ce");
-        consensus.BIP65Height = 2910; // = Main 619382
-        consensus.BIP66Height = 2900; // = Main 245817
+        consensus.BIP65Height = 2910; // = Main 84100
+        consensus.BIP66Height = 2900; // = Main 84000
         consensus.DIP0001Height = 2920; // = Main 782208
         consensus.powLimit = uint256S("000fffffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // = Main
