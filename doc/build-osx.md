@@ -18,7 +18,7 @@ Preparation
 Dependencies
 ----------------------
 
-    brew install automake berkeley-db4 libtool boost --c++11 miniupnpc openssl pkg-config protobuf qt libevent librsvg
+    brew install automake berkeley-db4 libtool boost miniupnpc openssl pkg-config protobuf qt libevent librsvg
 
 Build DMS Core
 ------------------------

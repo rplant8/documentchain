@@ -98,7 +98,7 @@ Ensure gitian-builder is up-to-date:
     wget -P inputs http://downloads.sourceforge.net/project/osslsigncode/osslsigncode/osslsigncode-1.7.1.tar.gz
     popd
 
-Create the OS X SDK tarball, see the [OS X readme](README_osx.md) for details, and copy it into the inputs directory.
+Create the OS X SDK tarball, see [macOS SDK](gitian-building-mac-os-sdk.md) and [OS X readme](README_osx.md) for details, and copy it into the inputs directory.
 
 ### Optional: Seed the Gitian sources cache and offline git repositories
 
