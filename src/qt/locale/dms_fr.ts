@@ -387,7 +387,7 @@
     </message>
     <message>
         <source>&amp;Unlock Wallet...</source>
-        <translation>&amp;Déverrouiller le portefeuille</translation>
+        <translation>&amp;Déverrouiller le portefeuille...</translation>
     </message>
     <message>
         <source>Unlock wallet</source>

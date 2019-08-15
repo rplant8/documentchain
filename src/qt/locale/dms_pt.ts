@@ -364,7 +364,7 @@
     </message>
     <message>
         <source>&amp;Unlock Wallet...</source>
-        <translation>&amp;Desbloquear Carteira</translation>
+        <translation>&amp;Desbloquear Carteira...</translation>
     </message>
     <message>
         <source>Unlock wallet</source>

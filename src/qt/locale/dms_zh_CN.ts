@@ -387,7 +387,7 @@
     </message>
     <message>
         <source>&amp;Unlock Wallet...</source>
-        <translation>解锁钱包(&amp;U)</translation>
+        <translation>解锁钱包(&amp;U)...</translation>
     </message>
     <message>
         <source>Unlock wallet</source>

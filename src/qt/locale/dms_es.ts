@@ -387,7 +387,7 @@
     </message>
     <message>
         <source>&amp;Unlock Wallet...</source>
-        <translation>Desbloquear Monedero</translation>
+        <translation>Desbloquear Monedero...</translation>
     </message>
     <message>
         <source>Unlock wallet</source>
