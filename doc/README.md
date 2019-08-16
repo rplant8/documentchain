@@ -16,16 +16,16 @@ Unpack the files into a directory and run:
 
 ### Windows
 
-Unpack the files into a directory, and then run dms-qt.exe.
+Run "dmscore-...-setup.exe" or unpack the ZIP file into a directory, and then run dms-qt.exe.
 
 ### macOS (formerly OS X)
 
-Drag DMS-Qt to your applications folder, and then run DMS-Qt.
+Open the .dmg file and drag DMS-Qt to your applications folder, and then run DMS-Qt.
 
 ### Need Help?
 
 * See the [Supportpages](https://dms.cash/support/) for help and more information
-* DMS is forked from Dash, see [Dash documentation](https://dashpay.atlassian.net/wiki/display/DOC)
+* DMS is forked from Dash, see [Dash documentation](https://docs.dash.org/en/stable/)
 
 Building
 ---------------------
