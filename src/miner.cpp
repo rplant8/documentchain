@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Documentchain developers
+// Copyright (c) 2018-2019 The Documentchain developers
 
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -683,13 +683,15 @@ void static BitcoinMiner(const CChainParams& chainparams, CConnman& connman, int
             }
             CBlock *pblock = &pblocktemplate->block;
             IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
-            LogPrintf("Miner -- Running miner with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
-                ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
             //
             // Search
             //
             int64_t nStart = GetTime();
             arith_uint256 hashTarget = arith_uint256().SetCompact(pblock->nBits);
+            LogPrintf("Miner -- Running miner with %u transactions in block (%u bytes, hashTarget: %s)\n",
+                      pblock->vtx.size(),
+                      ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION),
+                      hashTarget.GetHex());
             while (true)
             {
                 unsigned int nHashesDone = 0;
