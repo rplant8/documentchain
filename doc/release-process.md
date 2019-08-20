@@ -1,13 +1,11 @@
 DMS Release Process
 ====================
 
-* (Update translations, see [translation_process.md](https://github.com/Krekeler/documentchain/blob/master/doc/translation_process.md#synchronising-translations).)
-
-* (Update manpages, see [gen-manpages.sh](https://github.com/Krekeler/documentchain/blob/master/contrib/devtools/README.md#gen-manpagessh).)
-
 Before every minor and major release:
 
-* (Update [bips.md](bips.md) to account for changes since the last release.)
+* Update translations, see [translation_process.md](https://github.com/Krekeler/documentchain/blob/master/doc/translation_process.md#synchronising-translations)
+* Update manpages, see [gen-manpages.sh](https://github.com/Krekeler/documentchain/blob/master/contrib/devtools/README.md#gen-manpagessh)
+* Update [bips.md](bips.md) to account for changes since the last release
 * Update version in sources (see below)
 * Write release notes (see below)
 * Update `src/chainparams.cpp`
@@ -240,22 +238,9 @@ rm SHA256SUMS
 (the digest algorithm is forced to sha256 to avoid confusion of the `Hash:` header that GPG adds with the SHA256 used for the files)
 Note: check that SHA256SUMS itself doesn't end up in SHA256SUMS, which is a spurious/nonsensical entry.
 
-TODO:
+### Announce the release:
 
-- Upload zips and installers, as well as `SHA256SUMS.asc` from last step, to the dash.org server
-
-- Update dash.org
-
-- Announce the release:
-
-  - Release on Dash forum: https://www.dash.org/forum/topic/official-announcements.54/
-
-  - Optionally Discord, twitter, reddit /r/Dashpay, ... but this will usually sort out itself
-
-  - Notify flare so that he can start building [the PPAs](https://launchpad.net/~dash.org/+archive/ubuntu/dash)
-
-  - Archive release notes for the new version to `doc/release-notes/` (branch `master` and branch of the release)
-
-  - Create a [new GitHub release](https://github.com/Krekeler/documentchain/releases/new) with a link to the archived release notes.
-
-  - Celebrate
+* Update news and timeline on dms.cash
+* Archive release notes for the new version to `doc/release-notes/dms/` (branch `master` and branch of the release)
+* Create a [new GitHub release](https://github.com/Krekeler/documentchain/releases/new) with a link to the archived release notes
+* Discord, twitter, press report, ...

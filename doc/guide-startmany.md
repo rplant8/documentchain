@@ -8,7 +8,7 @@
 2. Click the Receive tab.
 3. Fill in the form to request a payment.
     * Label: mn01
-    * Amount: 1000 (optional)
+    * Amount: 5000 (optional)
     * Click *Request payment* button
 5. Click the *Copy Address* button
 
@@ -16,9 +16,9 @@ Create a new wallet address for each Masternode.
 
 Close your QT Wallet.
 
-### Send 1000 DMS to New Addresses
+### Send 5000 DMS to New Addresses
 
-Send exactly 1000 DMS to each new address created above.
+Send exactly 5000 DMS to each new address created above.
 
 ### Create New Masternode Private Keys
 
@@ -38,9 +38,9 @@ Remember... this is local. Make sure your QT is not running.
 
 Create the `masternode.conf` file in the same directory as your `wallet.dat`.
 
-Copy the masternode private key and correspondig collateral output transaction that holds the 1000 DMS.
+Copy the masternode private key and correspondig collateral output transaction that holds the 5000 DMS.
 
-*Note: The masternode priviate key is **not** the same as a wallet private key. **Never** put your wallet private key in the masternode.conf file. That is almost equivalent to putting your 1000 DMS on the remote server and defeats the purpose of a hot/cold setup.*
+*Note: The masternode priviate key is **not** the same as a wallet private key. **Never** put your wallet private key in the masternode.conf file. That is almost equivalent to putting your 5000 DMS on the remote server and defeats the purpose of a hot/cold setup.*
 
 ### Get the collateral output
 
@@ -72,7 +72,7 @@ mn02 127.0.0.2:41319 93WaAb3htPJEV8E9aQcN23Jt97bPex7YvWfgMDTUdWJvzmrMqey aa9f103
 
 If you generated a new masternode private key, you will need to update the remote `dms.conf` files.
 
-Shut down the daemon and then edit the file.
+Shut down the daemon and then edit the file. [Example](https://dms.cash/support/guides/masternode.html#dmsconf)
 
 ```nano .dmscore/dms.conf```
 
@@ -89,7 +89,7 @@ You can confirm that remote server is on the correct block by issuing
 
 ```dms-cli getinfo```
 
-and comparing with the official explorer at https://explorer.dash.org/chain/Dash (TODO)
+and comparing with the official explorer at https://explorer.dms.cash/
 
 ### Local
 
@@ -120,14 +120,8 @@ dms-cli masternode status
 {
     "outpoint" : "<collateral_output>-<collateral_output_index>",
     "service" : "<ipaddress>:<port>",
-    "pubkey" : "<1000 DMS address>",
+    "pubkey" : "<5000 DMS address>",
     "status" : "Masternode successfully started"
 }
 ```
 Command output should have "_Masternode successfully started_" in its `status` field now. If it says "_not capable_" instead, you should check your config again.
-
-### Local
-
-Search your Masternodes on https://dashninja.pl/masternodes.html
-
-_Hint: Bookmark it, you definitely will be using this site a lot._
