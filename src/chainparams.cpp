@@ -153,7 +153,7 @@ public:
         consensus.nPowKGWHeight = 0; // 15200;
         consensus.nPowDGWHeight = 0; // 34140;
         consensus.nRuleChangeActivationThreshold = 1916; // 95% of 2016
-        consensus.nMinerConfirmationWindow = 2016; // relevant to BIP 9 soft fork, see params.h
+        consensus.nMinerConfirmationWindow = 2016; //relevant to BIP 9 soft fork, see params.h
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // Dash: January 1, 2008
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // Dash: December 31, 2008
@@ -281,52 +281,52 @@ class CTestNetParams : public CChainParams {
 public:
     CTestNetParams() {
         strNetworkID = "test";
-        consensus.nSubsidyDecreaseStart = 4001; // Main: 44001
-        consensus.nMasternodePaymentsStartBlock = 1000; // Main: 5000
-        consensus.nMasternodePaymentsIncreaseBlock = 5000; // Main: 60000
-        consensus.nMasternodePaymentsIncreasePeriod = 7000; // = Main
-        consensus.nInstantSendConfirmationsRequired = 2; // Main: 6
-        consensus.nInstantSendKeepLock = 6; // Main: 24
-        consensus.nBudgetPaymentsStartBlock = 100000000; // >1000 years: DMS does not use this yet
-        consensus.nBudgetPaymentsCycleBlocks = 50;
-        consensus.nBudgetPaymentsWindowBlocks = 10;
-        consensus.nSuperblockStartBlock = 100000000; // >1000 years // NOTE: Should satisfy nSuperblockStartBlock > nBudgetPeymentsStartBlock
-        consensus.nSuperblockStartHash = uint256S("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");  // Hash of first Superblock
-        consensus.nSuperblockCycle = 24; // Superblocks can be issued hourly on testnet
-        consensus.nGovernanceMinQuorum = 1; // Main: 10
-        consensus.nGovernanceFilterElements = 500; // Main: 20000
-        consensus.nMasternodeMinimumConfirmations = 15; // = Main
-        consensus.BIP34Height = 0; // = Main
-        consensus.BIP34Hash = uint256S("0x00004399a114a034b2f8d742b8e7f018d3cfdec0b25150d0b7e271b63c9cd4ce");
-        consensus.BIP65Height = 2910; // = Main 84100
-        consensus.BIP66Height = 2900; // = Main 84000
-        consensus.DIP0001Height = 2920; // = Main 782208
+        consensus.nSubsidyDecreaseStart = 44001;
+        consensus.nMasternodePaymentsStartBlock = 5000;
+        consensus.nMasternodePaymentsIncreaseBlock = 60000;
+        consensus.nMasternodePaymentsIncreasePeriod = 7000;
+        consensus.nInstantSendConfirmationsRequired = 6;
+        consensus.nInstantSendKeepLock = 24;
+        consensus.nBudgetPaymentsStartBlock = 100000000;
+        consensus.nBudgetPaymentsCycleBlocks = 7200;
+        consensus.nBudgetPaymentsWindowBlocks = 100;
+        consensus.nSuperblockStartBlock = 100000000;
+        consensus.nSuperblockStartHash = uint256S("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        consensus.nSuperblockCycle = 7200;
+        consensus.nGovernanceMinQuorum = 10;
+        consensus.nGovernanceFilterElements = 20000;
+        consensus.nMasternodeMinimumConfirmations = 15;
+        consensus.BIP34Height = 0;
+        consensus.BIP34Hash = uint256S("0x00000af4a21d6e8daa4026a5eafc7132089a7dbb9d3921b12c4fa39b78c9a010");
+        consensus.BIP65Height = 84100;
+        consensus.BIP66Height = 84000;
+        consensus.DIP0001Height = 782208;
         consensus.powLimit = uint256S("000fffffff000000000000000000000000000000000000000000000000000000");
-        consensus.nPowTargetTimespan = 24 * 60 * 60; // = Main
-        consensus.nPowTargetSpacing = 6 * 60; // = Main
+        consensus.nPowTargetTimespan = 24 * 60 * 60;
+        consensus.nPowTargetSpacing = 30; // TODO set to 6 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true; // Main: false
         consensus.fPowNoRetargeting = false;
-        consensus.nPowKGWHeight = 0; // = Main
-        consensus.nPowDGWHeight = 0; // = Main
-        consensus.nRuleChangeActivationThreshold = 1512; // 75% for testchains, Main: 1916
-        consensus.nMinerConfirmationWindow = 2016; // = Main
+        consensus.nPowKGWHeight = 0;
+        consensus.nPowDGWHeight = 0;
+        consensus.nRuleChangeActivationThreshold = 1916;
+        consensus.nMinerConfirmationWindow = 2016;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
-        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // = Main, January 1, 2008
-        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // = Main, December 31, 2008
+        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601;
+        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999;
 
-        // Deployment of BIP68, BIP112, and BIP113.  = Main
+        // Deployment of BIP68, BIP112, and BIP113.
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 0;
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1486252800;
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1517788800;
 
-        // Deployment of DIP0001  = Main
+        // Deployment of DIP0001
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].bit = 1;
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nStartTime = 1508025600;
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nTimeout = 1539561600;
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nWindowSize = 4032;
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 3226; // 80% of 4032
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 3226;
 
-        // Deployment of BIP147  = Main
+        // Deployment of BIP147
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].bit = 2;
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nStartTime = 1524477600;
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nTimeout = 1556013600;
@@ -337,7 +337,7 @@ public:
         consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000100010");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x0000000004f5aef732d572ff514af99a995702c92e4452c7af10858231668b1f");
+        consensus.defaultAssumeValid = uint256S("0x00004399a114a034b2f8d742b8e7f018d3cfdec0b25150d0b7e271b63c9cd4ce");
 
         pchMessageStart[0] = 0xce;  // same as Dash Testnet
         pchMessageStart[1] = 0x44;  // D
@@ -346,7 +346,7 @@ public:
 
         vAlertPubKey = ParseHex("044475fa13008cc94f15aa1d7cc5920bfd7db8afa71227bdb879ab2ac329e8ca0e2dcf4d55e7ebcdd72206453b9ff6453d4defb40bd7be33ce7251df71f218d919");
         nDefaultPort = 41419;
-        nPruneAfterHeight = 1000; // Main: 100000
+        nPruneAfterHeight = 100000;
 
         genesis = CreateGenesisBlock(1559127600, 17832, 0x1f0fffff, 1, 10 * COIN); // 29.05.2019 13:00:00
         consensus.hashGenesisBlock = genesis.GetHash();
@@ -383,7 +383,7 @@ public:
         // Testnet Dash BIP44 coin type is '1' (All coin's testnet default)
         nExtCoinType = 1;
 
-        vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_test, pnSeed6_test + ARRAYLEN(pnSeed6_test));
+        vFixedSeeds.clear(); // TODO: vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_test, pnSeed6_test + ARRAYLEN(pnSeed6_test));
 
         fMiningRequiresPeers = false;
         fDefaultConsistencyChecks = false;
@@ -399,9 +399,6 @@ public:
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
             (      0, uint256S("0x00004399a114a034b2f8d742b8e7f018d3cfdec0b25150d0b7e271b63c9cd4ce"))
-            (    490, uint256S("0x00007564d828bf5407ed4aa40dce016f31582156789c885d0045090ebe877c5e"))
-            (   1497, uint256S("0x0000191cde93168929bd0de462cf12385fbcbe5eefdb97f01b049818eabdf0dd"))
-            (   2672, uint256S("0x0000a425da471cecde3d95ff3e58b1f52ff3cf1119836751bffa20f462d388cd"))
         };
         chainTxData = ChainTxData{        
             1559127600, // * UNIX timestamp of last known number of transactions
