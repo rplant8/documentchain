@@ -303,7 +303,7 @@ public:
         consensus.DIP0001Height = 782208;
         consensus.powLimit = uint256S("000fffffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 24 * 60 * 60;
-        consensus.nPowTargetSpacing = 30; // TODO set to 6 * 60;
+        consensus.nPowTargetSpacing = 6 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true; // Main: false
         consensus.fPowNoRetargeting = false;
         consensus.nPowKGWHeight = 0;
@@ -383,7 +383,7 @@ public:
         // Testnet Dash BIP44 coin type is '1' (All coin's testnet default)
         nExtCoinType = 1;
 
-        vFixedSeeds.clear(); // TODO: vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_test, pnSeed6_test + ARRAYLEN(pnSeed6_test));
+        vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_test, pnSeed6_test + ARRAYLEN(pnSeed6_test));
 
         fMiningRequiresPeers = false;
         fDefaultConsistencyChecks = false;
@@ -398,7 +398,19 @@ public:
         strSporkAddress = "t9Q5m4qupg9gmPh5dRvaTotcyuoaeE5ZZH";
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (      0, uint256S("0x00004399a114a034b2f8d742b8e7f018d3cfdec0b25150d0b7e271b63c9cd4ce"))
+            (     0, uint256S("0x00004399a114a034b2f8d742b8e7f018d3cfdec0b25150d0b7e271b63c9cd4ce"))
+            (   133, uint256S("0x00093b270f3e8b798c6463821fc660583002778ee09d96e6ff99b64d1200f9aa"))
+            (  4600, uint256S("0x00024d5b6d0aa1cfda1f78360cc85d246bab6c08b9a4684094adfbfc14afee8d"))
+            ( 15000, uint256S("0x0006adc6713cbbdbcb4dfe4de2c6197a5ccfa061aab8abc93c6b12c161197245"))
+            ( 20013, uint256S("0x000db2f24a22ad664156f89734b09326a7b93e824d29d14d7ce9b41b4f4ac2d3"))
+            ( 26990, uint256S("0x0001cb86d69f2fc9c519c5cf7f31b4d86fa55114efc7762b69f969c71f190141"))
+            ( 35993, uint256S("0x000863c9516358586c31e98a9922d269dcb60a8399b9ed755bf563c9302d9489"))
+            ( 46096, uint256S("0x0007ef30042db8f9dc736b2026681de15eccb8436358b47fee137a253c97ef03"))
+            ( 51834, uint256S("0x000973fbae114480c80fb9a0a72f4d6eb3704a69080fa8bfd9ca26f1b8f116a3"))
+            ( 59098, uint256S("0x0007131704fbceda251f397072bd55ab8f36f534e66330dc2d30b9c3efb87951"))
+            ( 68050, uint256S("0x00055754a80e12e666d0ace953812acbf703eb1adf5a741096dda8a3cd55161a"))
+            ( 73989, uint256S("0x0003ecfd52a44d853c3e9967764482a10e6f16dacb0a634dd62d993ef2b22cf8"))
+            ( 79403, uint256S("0x00063e2483bfcd77de79e03771af425e81890130ed1c882cbb4f088031ee1973"))
         };
         chainTxData = ChainTxData{        
             1559127600, // * UNIX timestamp of last known number of transactions
@@ -438,7 +450,7 @@ public:
         consensus.DIP0001Height = 2; // DIP0001 activated immediately on devnet
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 1
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Dash: 1 day
-        consensus.nPowTargetSpacing = 4 * 60;
+        consensus.nPowTargetSpacing = 6 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
         consensus.nPowKGWHeight = 4001; // nPowKGWHeight >= nPowDGWHeight means "no KGW"
@@ -569,7 +581,7 @@ public:
         consensus.DIP0001Height = 2000;
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 1
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Dash: 1 day
-        consensus.nPowTargetSpacing = 4 * 60;
+        consensus.nPowTargetSpacing = 6 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = true;
         consensus.nPowKGWHeight = 15200; // same as mainnet
