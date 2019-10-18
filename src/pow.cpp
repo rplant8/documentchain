@@ -87,6 +87,14 @@ unsigned int static DarkGravityWave(const CBlockIndex* pindexLast, const CBlockH
     /* current difficulty formula, dash - DarkGravity v3, written by Evan Duffield - evan@dash.org */
     const arith_uint256 bnPowLimit = UintToArith256(params.powLimit);
     int64_t nPastBlocks = 24;
+    int64_t nPowTargetSpacing;
+
+    if (pindexLast->nHeight + 1 >= params.nPowNTSHeight) {
+        nPowTargetSpacing = params.nPowTargetSpacing; // normal block interval
+    }
+    else {
+        nPowTargetSpacing = 30; // fast testnet 0..95936
+    }
 
     // make sure we have at least (nPastBlocks + 1) blocks, otherwise just return powLimit
     if (!pindexLast || pindexLast->nHeight < nPastBlocks) {
@@ -98,8 +106,8 @@ unsigned int static DarkGravityWave(const CBlockIndex* pindexLast, const CBlockH
         if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + 2 * 60 * 60) {
             return bnPowLimit.GetCompact();
         }
-        // recent block is more than 10 minutes old
-        if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing * 4) {
+        // recent block is more than 24 minutes old
+        if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + nPowTargetSpacing * 4) {
             arith_uint256 bnNew = arith_uint256().SetCompact(pindexLast->nBits) * 10;
             if (bnNew > bnPowLimit) {
                 bnNew = bnPowLimit;
@@ -130,7 +138,7 @@ unsigned int static DarkGravityWave(const CBlockIndex* pindexLast, const CBlockH
 
     int64_t nActualTimespan = pindexLast->GetBlockTime() - pindex->GetBlockTime();
     // NOTE: is this accurate? nActualTimespan counts it for (nPastBlocks - 1) blocks only...
-    int64_t nTargetTimespan = nPastBlocks * params.nPowTargetSpacing;
+    int64_t nTargetTimespan = nPastBlocks * nPowTargetSpacing;
 
     if (nActualTimespan < nTargetTimespan/3)
         nActualTimespan = nTargetTimespan/3;

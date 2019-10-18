@@ -150,8 +150,7 @@ public:
         consensus.nPowTargetSpacing = 6 * 60; // DMS 6 minutes (initial 4 minutes); Bitcoin 10 minutes; Dash 2.5 minutes
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
-        consensus.nPowKGWHeight = 0; // 15200;
-        consensus.nPowDGWHeight = 0; // 34140;
+        consensus.nPowNTSHeight = 0;
         consensus.nRuleChangeActivationThreshold = 1916; // 95% of 2016
         consensus.nMinerConfirmationWindow = 2016; //relevant to BIP 9 soft fork, see params.h
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
@@ -262,6 +261,8 @@ public:
             ( 68050, uint256S("0x000005c0ed9cec8cd6c2a23c673b3047bf2f3c205d85ca3843fb8ec4b53c27c9")) // 2019-Jun-23
             ( 73989, uint256S("0x0000101d903ace244df2686ca8005bf605910ba3b521b5217ba8ada6fa12d79f")) // 2019-Jul-19
             ( 79403, uint256S("0x00000295f0e654ec4c7ec2e4051acaca0eda31ae2ca2d7a38e56a7875cf457dd")) // 2019-Aug-12
+            ( 86998, uint256S("0x0000000d6ca0904b7ec849283a177b7a25b0ed3c23413c14d9e564bfa4d2514a")) // 2019-Sep-14
+            ( 94707, uint256S("0x000000d52750d7b5cf3e682106b258de7f9c0f66e011e7cf0699b6526a05339d")) // 2019-Oct-18
         };
 
         chainTxData = ChainTxData{
@@ -306,8 +307,7 @@ public:
         consensus.nPowTargetSpacing = 6 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true; // Main: false
         consensus.fPowNoRetargeting = false;
-        consensus.nPowKGWHeight = 0;
-        consensus.nPowDGWHeight = 0;
+        consensus.nPowNTSHeight = 95937; // fast testnet, blocks 0..95936 
         consensus.nRuleChangeActivationThreshold = 1916;
         consensus.nMinerConfirmationWindow = 2016;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
@@ -337,7 +337,7 @@ public:
         consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000100010");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x00004399a114a034b2f8d742b8e7f018d3cfdec0b25150d0b7e271b63c9cd4ce");
+        consensus.defaultAssumeValid = uint256S("0x00011741fd5041f21e6309f6479ca5af3dc077516344df8640faf4fd7b948e89");
 
         pchMessageStart[0] = 0xce;  // same as Dash Testnet
         pchMessageStart[1] = 0x44;  // D
@@ -410,7 +410,9 @@ public:
             ( 59098, uint256S("0x0007131704fbceda251f397072bd55ab8f36f534e66330dc2d30b9c3efb87951"))
             ( 68050, uint256S("0x00055754a80e12e666d0ace953812acbf703eb1adf5a741096dda8a3cd55161a"))
             ( 73989, uint256S("0x0003ecfd52a44d853c3e9967764482a10e6f16dacb0a634dd62d993ef2b22cf8"))
-            ( 79403, uint256S("0x00063e2483bfcd77de79e03771af425e81890130ed1c882cbb4f088031ee1973"))
+            ( 86998, uint256S("0x0007fc0bf4654559a160911cb8cabf494ffb1010867a6141ee48bd130812cea0"))
+            ( 94707, uint256S("0x000b602b64a3d1ef2d001bbcb5466ab68a1536e1bcddb193311c64ef14ac628d"))
+            ( 96078, uint256S("0x00011741fd5041f21e6309f6479ca5af3dc077516344df8640faf4fd7b948e89"))
         };
         chainTxData = ChainTxData{        
             1559127600, // * UNIX timestamp of last known number of transactions
@@ -453,8 +455,7 @@ public:
         consensus.nPowTargetSpacing = 6 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
-        consensus.nPowKGWHeight = 4001; // nPowKGWHeight >= nPowDGWHeight means "no KGW"
-        consensus.nPowDGWHeight = 4001;
+        consensus.nPowNTSHeight = 0;
         consensus.nRuleChangeActivationThreshold = 1512; // 75% for testchains
         consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
@@ -584,8 +585,7 @@ public:
         consensus.nPowTargetSpacing = 6 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = true;
-        consensus.nPowKGWHeight = 15200; // same as mainnet
-        consensus.nPowDGWHeight = 34140; // same as mainnet
+        consensus.nPowNTSHeight = 0;
         consensus.nRuleChangeActivationThreshold = 108; // 75% for testchains
         consensus.nMinerConfirmationWindow = 144; // Faster than normal for regtest (144 instead of 2016)
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
