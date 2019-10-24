@@ -642,6 +642,9 @@ static bool ProcessBlockFound(const CBlock* pblock, const CChainParams& chainpar
         return error("ProcessBlockFound -- ProcessNewBlock() failed, block not accepted");
     return true;
 }
+int64_t nLastHasrateCalc = 0;
+double dTotalHashrate = 0.0; // global
+
 // ***TODO*** that part changed in bitcoin, we are using a mix with old one here for now
 void static BitcoinMiner(const CChainParams& chainparams, CConnman& connman, int nPause)
 {
@@ -721,6 +724,29 @@ void static BitcoinMiner(const CChainParams& chainparams, CConnman& connman, int
                     if (nPause > 0)
                         boost::this_thread::sleep(boost::posix_time::milliseconds(nPause));
                 }
+
+                // calculate hashrate (all threads) every 8 sec
+                static int64_t nSumThreadHashes;
+                if (nLastHasrateCalc == 0) {
+                    nLastHasrateCalc = GetTimeMillis();
+                    nSumThreadHashes = 0;
+                } else
+                    nSumThreadHashes += nHashesDone;
+                if (GetTimeMillis() - nLastHasrateCalc > 8000) {
+                    static CCriticalSection cs;
+                    {
+                        LOCK(cs);
+                        dTotalHashrate = 1000.0 * nSumThreadHashes / (GetTimeMillis() - nLastHasrateCalc);
+                        nLastHasrateCalc = GetTimeMillis();
+                        nSumThreadHashes = 0;
+                        static int64_t nLastLogTime;
+                        if (GetTime() - nLastLogTime > 20 * 60) {
+                            nLastLogTime = GetTime();
+                            LogPrintf("Miner -- total hashrate %.0f H/s\n", dTotalHashrate);
+                        }
+                    }
+                }
+
                 // Check for stop or if block needs to be rebuilt
                 boost::this_thread::interruption_point();
                 // Regtest mode doesn't require peers

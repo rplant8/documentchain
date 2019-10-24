@@ -1147,7 +1147,7 @@ void BitcoinGUI::setAdditionalDataSyncProgress(double nSyncProgress)
         labelBlocksIcon->setPixmap(QIcon(":/icons/" + theme + "/synced").pixmap(iconSize, iconSize));
         QSettings settings;
         int genproc = settings.value("nGenProc", 0).toInt();
-        if (genproc > 0)
+        if (genproc != 0)
             setMining(genproc);
     } else {
 
@@ -1348,7 +1348,7 @@ bool BitcoinGUI::handlePaymentRequest(const SendCoinsRecipient& recipient)
 
 void BitcoinGUI::setMining(int nThreads)
 {
-    bool fGenerate = (nThreads > 0);
+    bool fGenerate = (nThreads != 0);
     ForceSetArg("-gen", (fGenerate ? "1" : "0"));
     ForceSetArg("-genproclimit", itostr(nThreads));
     GenerateBitcoins(true, nThreads, Params(), *g_connman);
@@ -1363,11 +1363,9 @@ void BitcoinGUI::setMiningUI()
     bool ok;
     int nThreads = (int)GetArg("-genproclimit", DEFAULT_GENERATE_THREADS);
     int maxThreads = boost::thread::hardware_concurrency();
-    if (maxThreads > 2)
-		maxThreads--;
     nThreads = QInputDialog::getInt(this, tr("Mining"), 
                                     tr("Mining threads (0-%1)").arg(maxThreads),
-                                    nThreads, 0, maxThreads, 1, &ok);
+                                    nThreads, -3, maxThreads, 1, &ok);
     if (ok)
     {
         setMining(nThreads);
@@ -1380,6 +1378,9 @@ void BitcoinGUI::setMiningStatus()
 {
     QString theme = GUIUtil::getThemeName().remove("-hires");
     int iconSize = GUIUtil::getIconSize();
+    int nThreads = 0;
+    QString strHashrate;
+    QString strMining;
   //QString mininginfo = "<br>Network: " + GetNetworkHashPS(120, -1) + " H/s";
 
     if (!masternodeSync.IsSynced())
@@ -1389,25 +1390,38 @@ void BitcoinGUI::setMiningStatus()
     }
     else if (GetBoolArg("-gen", DEFAULT_GENERATE))
     {
+        static CCriticalSection cs;
+        {
+            LOCK(cs);
+            strHashrate = dTotalHashrate > 0 ? QString("Hashrate: %1 H/s").arg(dTotalHashrate, 1, 'f', 1) : "Hashrate...";
+        }
+
         labelMiningIcon->setPixmap(QIcon(":/icons/" + theme + "/mining").pixmap(iconSize, iconSize));
-        int nThreads = GetArg("-genproclimit", DEFAULT_GENERATE_THREADS);
+        nThreads = GetArg("-genproclimit", DEFAULT_GENERATE_THREADS);
         switch (nThreads) {
             case -1:
-                labelMiningIcon->setToolTip(tr("<b>Unlimited mining</b>"));
+                strMining = tr("<b>Unlimited mining</b>");
                 break;
             case -2:
             case -3:
-                labelMiningIcon->setToolTip(tr("Weak <b>mining</b>"));
+                strMining = tr("Weak <b>mining</b>");
                 break;
             default:
-                labelMiningIcon->setToolTip(tr("<b>Mining</b> on %n thread(s)", "", nThreads));
+                strMining = tr("<b>Mining</b> on %n thread(s)", "", nThreads);
         }
+        labelMiningIcon->setToolTip(strMining + "<br>" + strHashrate);
     }
     else
     {
         labelMiningIcon->setPixmap(QIcon(":/icons/" + theme + "/notmining").pixmap(iconSize, iconSize));
         labelMiningIcon->setToolTip(tr("Mining is not active.<br>Click here to generate Coins."));
     }
+#ifdef ENABLE_WALLET
+        if(walletFrame)
+        {
+            walletFrame->showMiningInfo(nThreads != 0, strMining + ", " + strHashrate);
+        }
+#endif
 }
 
 void BitcoinGUI::setHDStatus(int hdEnabled)

@@ -36,6 +36,7 @@ public:
     void setClientModel(ClientModel *clientModel);
     void setWalletModel(WalletModel *walletModel);
     void showOutOfSyncWarning(bool fShow);
+    void showMiningInfo(const bool bVisible, const QString &strText);
 
 public Q_SLOTS:
     void privateSendStatus();

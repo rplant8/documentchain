@@ -57,6 +57,7 @@ public:
     bool handlePaymentRequest(const SendCoinsRecipient& recipient);
 
     void showOutOfSyncWarning(bool fShow);
+    void showMiningInfo(const bool bVisible, const QString &strText);
 
 private:
     ClientModel *clientModel;

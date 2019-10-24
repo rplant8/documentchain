@@ -396,6 +396,29 @@
         <translation>Generate coins</translation>
     </message>
     <message>
+        <source>Please wait.</source>
+        <translation>Please wait.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Unlimited mining&lt;/b&gt;</source>
+        <translation>&lt;b&gt;Unlimited mining&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Weak &lt;b&gt;mining&lt;/b&gt;</source>
+        <translation>Weak &lt;b&gt;mining&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Mining is not active.&lt;br&gt;Click here to generate Coins.</source>
+        <translation>Mining is not active.&lt;br&gt;Click here to generate Coins.</translation>
+    </message>
+    <message numerus="yes">
+        <source>&lt;b&gt;Mining&lt;/b&gt; on %n thread(s)</source>
+        <translation>
+            <numerusform>&lt;b&gt;Mining&lt;/b&gt; on %n thread</numerusform>
+            <numerusform>&lt;b&gt;Mining&lt;/b&gt; on %n threads</numerusform>
+        </translation>
+    </message>
+    <message>
         <location line="+13"/>
         <source>&amp;Masternodes</source>
         <translation>&amp;Masternodes</translation>

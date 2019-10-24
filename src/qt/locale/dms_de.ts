@@ -311,7 +311,30 @@
     </message>
     <message>
         <source>Generate coins</source>
-        <translation>Coins generieren</translation>
+        <translation>Coins erzeugen</translation>
+    </message>
+    <message>
+        <source>Please wait.</source>
+        <translation>Bitte warten.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Unlimited mining&lt;/b&gt;</source>
+        <translation>&lt;b&gt;Unbegrenztes Schürfen&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Weak &lt;b&gt;mining&lt;/b&gt;</source>
+        <translation>Schwaches &lt;b&gt;Schürfen&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Mining is not active.&lt;br&gt;Click here to generate Coins.</source>
+        <translation>Mining ist deaktiviert.&lt;br&gt;Hier klicken, um Coins zu schürfen.</translation>
+    </message>
+    <message numerus="yes">
+        <source>&lt;b&gt;Mining&lt;/b&gt; on %n thread(s)</source>
+        <translation>
+            <numerusform>&lt;b&gt;Schürfe&lt;/b&gt; mit %n Thread</numerusform>
+            <numerusform>&lt;b&gt;Schürfe&lt;/b&gt; mit %n Threads</numerusform>
+        </translation>
     </message>
     <message>
         <source>&amp;Masternodes</source>

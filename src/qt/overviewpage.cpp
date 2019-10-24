@@ -140,6 +140,8 @@ OverviewPage::OverviewPage(const PlatformStyle *platformStyle, QWidget *parent) 
     ui->setupUi(this);
     QString theme = GUIUtil::getThemeName().remove("-hires");
 
+    ui->labelMiningInfo->setVisible(false);
+
     // Recent transactions
     ui->listTransactions->setItemDelegate(txdelegate);
     ui->listTransactions->setIconSize(QSize(DECORATION_SIZE, DECORATION_SIZE));
@@ -338,6 +340,12 @@ void OverviewPage::showOutOfSyncWarning(bool fShow)
     ui->labelWalletStatus->setVisible(fShow);
     ui->labelPrivateSendSyncStatus->setVisible(fShow);
     ui->labelTransactionsStatus->setVisible(fShow);
+}
+
+void OverviewPage::showMiningInfo(const bool bVisible, const QString &strText)
+{
+    ui->labelMiningInfo->setVisible(bVisible);
+    ui->labelMiningInfo->setText(strText);
 }
 
 void OverviewPage::updatePrivateSendProgress()
