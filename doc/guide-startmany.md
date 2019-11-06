@@ -72,7 +72,7 @@ mn02 127.0.0.2:41319 93WaAb3htPJEV8E9aQcN23Jt97bPex7YvWfgMDTUdWJvzmrMqey aa9f103
 
 If you generated a new masternode private key, you will need to update the remote `dms.conf` files.
 
-Shut down the daemon and then edit the file. [Example](https://dms.cash/support/guides/masternode.html#dmsconf)
+Shut down the daemon and then edit the file. [Example](https://documentchain.org/support/masternodes/#dmsconf)
 
 ```nano .dmscore/dms.conf```
 
@@ -89,7 +89,7 @@ You can confirm that remote server is on the correct block by issuing
 
 ```dms-cli getinfo```
 
-and comparing with the official explorer at https://explorer.dms.cash/
+and comparing with the official explorer at https://explorer.documentchain.org/
 
 ### Local
 

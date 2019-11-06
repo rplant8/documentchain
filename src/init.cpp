@@ -613,7 +613,7 @@ std::string HelpMessage(HelpMessageMode mode)
 std::string LicenseInfo()
 {
     const std::string URL_SOURCE_CODE = "<https://github.com/Krekeler/documentchain>";
-    const std::string URL_WEBSITE = "<https://dms.cash>";
+    const std::string URL_WEBSITE = "<https://documentchain.org>";
 
     return CopyrightHolders(_("Copyright (C)"), 2014, COPYRIGHT_YEAR) + "\n" +
            "\n" +
@@ -626,7 +626,7 @@ std::string LicenseInfo()
            "\n\n" +
 		   "Publisher/Impressum:\n" +
 		   "Softwarebüro Krekeler, Friedrich-Engels-Str. 45, 15712 Königs Wusterhausen, Germany\n" +
-		   "Phone +49 3375 203631, Fax +49 3375 203622, mail@dms.cash, VAT ID/USt-IdNr. DE136377489\n" +
+		   "Phone +49 3375 203631, Fax +49 3375 203622, mail@documentchain.org, VAT ID/USt-IdNr. DE136377489\n" +
 		   "Verantwortlicher i. S. d. § 55 Abs: 2 RStV: Harald Krekeler (Anschrift s. o.)\n" +
            "\n" +
            _("This is experimental software.") + "\n" +

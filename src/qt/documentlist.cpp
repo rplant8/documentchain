@@ -326,7 +326,7 @@ QString Document::writeToBlockchain()
         // 3. calc change amount and get address
         // RPC: Post('{"jsonrpc":"1.0","id":"YourAppName","method":"getrawchangeaddress"}');
         double change = usedamount - minDocRevFee;
-        if (change > minDocRevFee / 100) {  // lower change goes to miner
+        if (change > minDocRevFee / 100) {  // lower change goes to miner, or us IsDust / GetDustThreshold
             RPCConsole::RPCExecuteCommandLine(result, "getrawchangeaddress", &filtered);
             changetx = strprintf("\\\"%s\\\":%f, ", result, change);
         }

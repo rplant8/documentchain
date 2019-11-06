@@ -18,4 +18,4 @@ However, it downloads and stores the entire history of DMS transactions;
 depending on the speed of your computer and network connection, the synchronization
 process can take anywhere from a few hours to a day or more.
 
-See the Wallet support page at: https://dms.cash/support/wallet/
+See the Wallet support page at: https://documentchain.org/support/wallet/

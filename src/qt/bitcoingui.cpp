@@ -875,7 +875,7 @@ void BitcoinGUI::showBackups()
 
 void BitcoinGUI::openSupportWebsiteClicked()
 {
-    QString supporturl = QString::fromStdString("https://dms.cash/redirect/wallet/openSupportWebsite-")
+    QString supporturl = QString::fromStdString("https://documentchain.org/redirect/wallet/openSupportWebsite-")
                        + GUIUtil::getLangTerritory();
     QDesktopServices::openUrl(supporturl);
 }
@@ -1400,14 +1400,14 @@ void BitcoinGUI::setMiningStatus()
         nThreads = GetArg("-genproclimit", DEFAULT_GENERATE_THREADS);
         switch (nThreads) {
             case -1:
-                strMining = tr("<b>Unlimited mining</b>");
+                strMining = tr("<b>Unlimited Mining</b>");
                 break;
             case -2:
             case -3:
-                strMining = tr("Weak <b>mining</b>");
+                strMining = tr("Weak <b>Mining</b>");
                 break;
             default:
-                strMining = tr("<b>Mining</b> on %n thread(s)", "", nThreads);
+                strMining = tr("<b>Mining</b> on %n Thread(s)", "", nThreads);
         }
         labelMiningIcon->setToolTip(strMining + "<br>" + strHashrate);
     }

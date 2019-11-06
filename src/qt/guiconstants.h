@@ -52,7 +52,7 @@ static const int MAX_URI_LENGTH = 255;
 #define SPINNER_FRAMES 36
 /* for Registry path a.o. */
 #define QAPP_ORG_NAME "Krekeler"
-#define QAPP_ORG_DOMAIN "dms.cash"
+#define QAPP_ORG_DOMAIN "documentchain.org"
 #define QAPP_APP_NAME_DEFAULT "DMS-Qt"
 #define QAPP_APP_NAME_TESTNET "DMS-Qt-testnet"
 #define QAPP_APP_NAME_DEVNET "DMS-Qt-%s"

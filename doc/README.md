@@ -24,7 +24,7 @@ Open the .dmg file and drag DMS-Qt to your applications folder, and then run DMS
 
 ### Need Help?
 
-* See the [Supportpages](https://dms.cash/support/) for help and more information
+* See the [Supportpages](https://documentchain.org/support/) for help and more information
 * DMS is forked from Dash, see [Dash documentation](https://docs.dash.org/en/stable/)
 
 Building

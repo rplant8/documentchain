@@ -310,6 +310,25 @@
         <translation>Generate coins</translation>
     </message>
     <message>
+        <source>&lt;b&gt;Unlimited Mining&lt;/b&gt;</source>
+        <translation>&lt;b&gt;Unlimited Mining&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Weak &lt;b&gt;Mining&lt;/b&gt;</source>
+        <translation>Weak &lt;b&gt;Mining&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Mining is not active.&lt;br&gt;Click here to generate Coins.</source>
+        <translation>Mining is not active.&lt;br&gt;Click here to generate Coins.</translation>
+    </message>
+    <message numerus="yes">
+        <source>&lt;b&gt;Mining&lt;/b&gt; on %n Thread(s)</source>
+        <translation>
+            <numerusform>&lt;b&gt;Mining&lt;/b&gt; on %n Thread</numerusform>
+            <numerusform>&lt;b&gt;Mining&lt;/b&gt; on %n Threads</numerusform>
+        </translation>
+    </message>
+    <message>
         <source>Browse transaction history</source>
         <translation>Navegar pelo histórico de transações</translation>
     </message>
