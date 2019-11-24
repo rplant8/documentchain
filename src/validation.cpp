@@ -1330,7 +1330,7 @@ CAmount GetMasternodePayment(int nHeight, CAmount blockValue)
     if(nHeight > nMNPIBlock+(nMNPIPeriod* 3)) ret += blockValue / 40; //  81000 - 37.5% ~ 2019-08-19
     if(nHeight > nMNPIBlock+(nMNPIPeriod* 4)) ret += blockValue / 40; //  88000 - 40.0% ~ 2019-09-18
     if(nHeight > nMNPIBlock+(nMNPIPeriod* 5)) ret += blockValue /100; //  95000 - 41.0% ~ 2019-10-19
-    if(nHeight > nMNPIBlock+(nMNPIPeriod* 6)) ret += blockValue /100; // 102000 - 42.0% ~ 2019-11
+    if(nHeight > nMNPIBlock+(nMNPIPeriod* 6)) ret += blockValue /100; // 102000 - 42.0% ~ 2019-11-19
     if(nHeight > nMNPIBlock+(nMNPIPeriod* 7)) ret += blockValue /100; // 109000 - 43.0% ~ 2019-12
     if(nHeight > nMNPIBlock+(nMNPIPeriod* 8)) ret += blockValue /100; // 116000 - 44.0% ~ 2020-01
     if(nHeight > nMNPIBlock+(nMNPIPeriod* 9)) ret += blockValue /100; // 123000 - 45.0% ~ 2020-02
@@ -3394,6 +3394,7 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
 {
     const int nHeight = pindexPrev == NULL ? 0 : pindexPrev->nHeight + 1;
     // Check proof of work
+    /*  Dash specific, not used in DMS
     if(Params().NetworkIDString() == CBaseChainParams::MAIN && nHeight <= 68589){
         // architecture issues with DGW v1 and v2)
         unsigned int nBitsNext = GetNextWorkRequired(pindexPrev, &block, consensusParams);
@@ -3407,6 +3408,11 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
         if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))
             return state.DoS(100, false, REJECT_INVALID, "bad-diffbits", false, strprintf("incorrect proof of work at %d", nHeight));
     }
+    */
+    unsigned int nGnwr = GetNextWorkRequired(pindexPrev, &block, consensusParams);
+  //LogPrintf("DEBUG %s at %d (%d: %d , %d)\n", __func__, nHeight, pindexPrev->nHeight, block.nBits, nGnwr); //  starts with: nHeight = 1 and pindexPrev->nHeight = 0
+    if (block.nBits != nGnwr)
+        return state.DoS(100, false, REJECT_INVALID, "bad-diffbits", false, strprintf("incorrect proof of work at %d (%d != %d)", nHeight, block.nBits, nGnwr));
 
     // Check timestamp against prev
     if (block.GetBlockTime() <= pindexPrev->GetMedianTimePast())

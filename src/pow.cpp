@@ -93,7 +93,12 @@ unsigned int static DarkGravityWave(const CBlockIndex* pindexLast, const CBlockH
         nPowTargetSpacing = params.nPowTargetSpacing; // normal block interval
     }
     else {
-        nPowTargetSpacing = 30; // fast testnet 0..95936
+        if (Params().NetworkIDString() == CBaseChainParams::MAIN)
+            nPowTargetSpacing = 4*60; // 4min 0..4793 
+        else if (Params().NetworkIDString() == CBaseChainParams::TESTNET)
+            nPowTargetSpacing = 30;   // fast testnet 0..95936
+        else
+            params.nPowTargetSpacing;
     }
 
     // make sure we have at least (nPastBlocks + 1) blocks, otherwise just return powLimit

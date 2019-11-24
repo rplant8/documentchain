@@ -150,7 +150,7 @@ public:
         consensus.nPowTargetSpacing = 6 * 60; // DMS 6 minutes (initial 4 minutes); Bitcoin 10 minutes; Dash 2.5 minutes
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
-        consensus.nPowNTSHeight = 0;
+        consensus.nPowNTSHeight = 4794; // see commit df04016c84ee09eb716605a962cf05064c7eea9f
         consensus.nRuleChangeActivationThreshold = 1916; // 95% of 2016
         consensus.nMinerConfirmationWindow = 2016; //relevant to BIP 9 soft fork, see params.h
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
@@ -177,10 +177,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nThreshold = 3226; // 80% of 4032
 
         // The best chain should have at least this much work. Backport "assumed valid blocks" feature from Bitcoin 0.13 https://github.com/dashpay/dash/commit/ccee103a0e6f568f545c4e6b06f6a3e565cdbcb1#diff-64cbe1ad5465e13bc59ee8bb6f3de2e7
-        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000100010"); // TODO
+        consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000000000000045e8fe4cec");
                                                 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x00000295f0e654ec4c7ec2e4051acaca0eda31ae2ca2d7a38e56a7875cf457dd"); // 79403
+        consensus.defaultAssumeValid = uint256S("0x0000000c15de23b822043f7fd7ff4ace4761ec455da710442ef6c1e5035a14d1"); // 103260
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -263,13 +263,15 @@ public:
             ( 79403, uint256S("0x00000295f0e654ec4c7ec2e4051acaca0eda31ae2ca2d7a38e56a7875cf457dd")) // 2019-Aug-12
             ( 86998, uint256S("0x0000000d6ca0904b7ec849283a177b7a25b0ed3c23413c14d9e564bfa4d2514a")) // 2019-Sep-14
             ( 94707, uint256S("0x000000d52750d7b5cf3e682106b258de7f9c0f66e011e7cf0699b6526a05339d")) // 2019-Oct-18
+            (100000, uint256S("0x00000095a23b6cc9ec9c0d7385bf4c3705220271d425a203af41163b4600e96d")) // 2019-Nov-10
+            (103260, uint256S("0x0000000c15de23b822043f7fd7ff4ace4761ec455da710442ef6c1e5035a14d1")) // 2019-Nov-24
         };
 
         chainTxData = ChainTxData{
-            1535270400, // * UNIX timestamp of last known number of transactions
-            0,    // * total number of transactions between genesis and that timestamp
-                        //   (the tx=... number in the SetBestChain debug.log lines)
-            0.1   // * estimated number of transactions per second after that timestamp        https://github.com/dashpay/dash/commit/658479355e298307e7d087893c4fd545ab61a0cc#diff-64cbe1ad5465e13bc59ee8bb6f3de2e7
+            1574599910, // * UNIX timestamp of last known number of transactions
+            141893,     // * total number of transactions between genesis and that timestamp
+                        //   (the tx=... number in the UpdateTip debug.log lines)
+            0.01        // * estimated number of transactions per second after that timestamp
         };
     }
 };
@@ -334,10 +336,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nThreshold = 3226;
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000100010");
+        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000023f5f791");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x00011741fd5041f21e6309f6479ca5af3dc077516344df8640faf4fd7b948e89");
+        consensus.defaultAssumeValid = uint256S("0x00003f6631657d5cbad67f3da00c7c3ed5d43d969c419026b32ffd73412348c4"); // 104960
 
         pchMessageStart[0] = 0xce;  // same as Dash Testnet
         pchMessageStart[1] = 0x44;  // D
@@ -399,7 +401,6 @@ public:
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
             (     0, uint256S("0x00004399a114a034b2f8d742b8e7f018d3cfdec0b25150d0b7e271b63c9cd4ce"))
-            (   133, uint256S("0x00093b270f3e8b798c6463821fc660583002778ee09d96e6ff99b64d1200f9aa"))
             (  4600, uint256S("0x00024d5b6d0aa1cfda1f78360cc85d246bab6c08b9a4684094adfbfc14afee8d"))
             ( 15000, uint256S("0x0006adc6713cbbdbcb4dfe4de2c6197a5ccfa061aab8abc93c6b12c161197245"))
             ( 20013, uint256S("0x000db2f24a22ad664156f89734b09326a7b93e824d29d14d7ce9b41b4f4ac2d3"))
@@ -412,13 +413,14 @@ public:
             ( 73989, uint256S("0x0003ecfd52a44d853c3e9967764482a10e6f16dacb0a634dd62d993ef2b22cf8"))
             ( 86998, uint256S("0x0007fc0bf4654559a160911cb8cabf494ffb1010867a6141ee48bd130812cea0"))
             ( 94707, uint256S("0x000b602b64a3d1ef2d001bbcb5466ab68a1536e1bcddb193311c64ef14ac628d"))
-            ( 96078, uint256S("0x00011741fd5041f21e6309f6479ca5af3dc077516344df8640faf4fd7b948e89"))
+            (100000, uint256S("0x00001db74c7881d3294ed79f695085086e80c17c7d042555a569b4440f734e9d"))
+            (104960, uint256S("0x00003f6631657d5cbad67f3da00c7c3ed5d43d969c419026b32ffd73412348c4"))
         };
         chainTxData = ChainTxData{        
-            1559127600, // * UNIX timestamp of last known number of transactions
-            0,    // * total number of transactions between genesis and that timestamp
-                        //   (the tx=... number in the SetBestChain debug.log lines)
-            0.01        // * estimated number of transactions per second after that timestamp
+            1574600128, // * UNIX timestamp of last known number of transactions
+            105776,     // * total number of transactions between genesis and that timestamp
+                        //   (the tx=... number in the UpdateTip debug.log lines)
+            0.003       // * estimated number of transactions per second after that timestamp
         };
     }
 };
