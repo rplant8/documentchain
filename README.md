@@ -7,11 +7,9 @@ https://documentchain.org/
 What is DMS?
 ---------------------
 
-The main task of Documentchain is to store document information for a tamper-proof 
-document revision. DMS is the project-own coin used to pay the storage fees.
+The main task of Documentchain is to store document information for a tamper-proof document revision. DMS is the project-own coin used to pay the storage fees.
 
-DMS is an experimental digital currency forked from Dash
-DMS Core is the name of the open source software which enables the use of this currency.
+DMS is an experimental digital currency forked from Dash. DMS Core is the name of the open source software which enables the use of this currency.
 
 Help and Support
 ---------------------
@@ -19,6 +17,7 @@ Help and Support
 * User interface https://dms.cash/support/wallet/
 * Document revision https://documentchain.org/support/revision/
 * Masternode setup https://documentchain.org/support/masternodes/
+* Block explorer (coin and documents) https://documentchain.org/explorer/
 
 License
 ---------------------

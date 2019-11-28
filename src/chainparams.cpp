@@ -176,8 +176,8 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nWindowSize = 4032;
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nThreshold = 3226; // 80% of 4032
 
-        // The best chain should have at least this much work. Backport "assumed valid blocks" feature from Bitcoin 0.13 https://github.com/dashpay/dash/commit/ccee103a0e6f568f545c4e6b06f6a3e565cdbcb1#diff-64cbe1ad5465e13bc59ee8bb6f3de2e7
-        consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000000000000045e8fe4cec");
+        // The best chain should have at least this much work.
+        consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000000000000045eb877ed3"); // 103260
                                                 
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0x0000000c15de23b822043f7fd7ff4ace4761ec455da710442ef6c1e5035a14d1"); // 103260

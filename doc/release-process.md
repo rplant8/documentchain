@@ -9,12 +9,12 @@ Before every minor and major release:
 * Update version in sources (see below)
 * Write release notes (see below)
 * Update `src/chainparams.cpp`
-  - nMinimumChainWork with information from the getblockchaininfo rpc.
   - Add checkpointData
   - Set defaultAssumeValid to latest checkpoint (with information from the getblockhash rpc).
      The selected value must not be orphaned so it may be useful to set the value two blocks back from the tip.
      Testnet should be set some tens of thousands back from the tip due to reorgs there.
      This update should be reviewed with a reindex-chainstate with assumevalid=0 to catch any defect that causes rejection of blocks in the past history.
+  - Set nMinimumChainWork to "chainwork" from block "defaultAssumeValid", rpc "getblock (hash)"
 * Update hardcoded [seeds](/contrib/seeds/README.md) with stable Masternodes.
 * Update [`BLOCK_CHAIN_SIZE`](/src/qt/intro.cpp) to the current size plus some overhead.
 
