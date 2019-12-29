@@ -28,6 +28,7 @@
 #include "utilitydialog.h"
 
 #ifdef ENABLE_WALLET
+#include "documentlist.h"
 #include "walletframe.h"
 #include "walletmodel.h"
 #endif // ENABLE_WALLET
@@ -40,7 +41,6 @@
 #include "init.h"
 #include "ui_interface.h"
 #include "util.h"
-#include "documentlist.h"
 #include "masternode-sync.h"
 #include "masternodelist.h"
 

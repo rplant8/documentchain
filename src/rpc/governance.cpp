@@ -996,12 +996,12 @@ UniValue getsuperblockbudget(const JSONRPCRequest& request)
 static const CRPCCommand commands[] =
 { //  category              name                      actor (function)         okSafe argNames
   //  --------------------- ------------------------  -----------------------  ------ ----------
-    /* DMS features */
-    { "dms",               "getgovernanceinfo",      &getgovernanceinfo,      true,  {} },
+    /* Dash features */
+    { "masternode",         "getgovernanceinfo",      &getgovernanceinfo,      true,  {} },
   /*DMS does not use superblocks (see params.h struct Params)
-    { "dms",               "getsuperblockbudget",    &getsuperblockbudget,    true,  {"index"} },*/
-    { "dms",               "gobject",                &gobject,                true,  {} },
-    { "dms",               "voteraw",                &voteraw,                true,  {} },
+    { "masternode",         "getsuperblockbudget",    &getsuperblockbudget,    true,  {"index"} },*/
+    { "masternode",         "gobject",                &gobject,                true,  {} },
+    { "masternode",         "voteraw",                &voteraw,                true,  {} },
 
 };
 
