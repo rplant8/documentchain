@@ -33,7 +33,7 @@ public:
     void loadDescription();
     QString documentRevision();
     QString getInformationHtml();
-    QString writeToBlockchain();
+    QString writeToBlockchain(const QString &comprguid, const QString &filehash, const QString &attrhash);
 private:
     QString guid;
     QString filehash;

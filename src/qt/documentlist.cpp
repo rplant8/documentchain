@@ -220,7 +220,7 @@ QString Document::documentRevision()
             revlog.append(QString("<b>%1</b>: <span style=\"color:green\">%2</span><br>").arg(trAttrHash, accordance));
         else
             revlog.append(QString("<b>%1</b>: <span style=\"color:red\">%2</span><br>")
-                         .arg(trAttrHash, deviation.arg(compressGuid(guid), bcguid)));
+                         .arg(trAttrHash, deviation.arg(attrhash, bcattrhash)));
         if (filehash == bcfilehash) {
             revlog.append(QString("<b>%1</b>: <span style=\"color:green\">%2</span>").arg(trFileHash, accordance));
             if (confirmations >= minConfirms)
@@ -229,7 +229,7 @@ QString Document::documentRevision()
         }
         else
             revlog.append(QString("<b>%1</b>: <span style=\"color:red\">%2</span>")
-                         .arg(trFileHash, deviation.arg(compressGuid(guid), bcguid)));
+                         .arg(trFileHash, deviation.arg(filehash, bcfilehash)));
 
         revlog.append("</p><p><b>" + tr("Blockchain confirmations") 
             + "</b>: " + QString::number(confirmations) 
@@ -264,7 +264,7 @@ QString Document::getInformationHtml()
 /** we are using RPC functions to create the transaction
  * developer can use this as template in there document management system
  */
-QString Document::writeToBlockchain()
+QString Document::writeToBlockchain(const QString &comprguid, const QString &filehash, const QString &attrhash)
 {
     std::string result;
     std::string filtered;
@@ -275,119 +275,83 @@ QString Document::writeToBlockchain()
     QString txid = "";
     int vout = -1; 
 
-    try {
-        // 1. read description file "../data/documents/desc/filename.desc"
-        QSettings descFile(descfilename, QSettings::IniFormat);
-        descFile.beginGroup("blockchain");
-        if (descFile.value("txid", "").toString() != "") {
-            QMessageBox::critical(NULL, tr("Rejected"), 
-                tr("This file information has already been stored in Documentchain."));
-            return "";
-        }
-        descFile.endGroup();
-
-        descFile.beginGroup("docfile");
-        QString comprguid = compressGuid(descFile.value("GUID", "").toString());
-        QString filehash = descFile.value("filehash", "").toString();
-        QString attrhash = descFile.value("attrhash", "").toString();
-        descFile.endGroup();
-        if ( comprguid.length() != 32 || filehash.length() != 32 || attrhash.length() != 32 ) {
-            QMessageBox::critical(NULL, "Desc File", tr("Invalid document description."));
-            return "";
-        }
-
-        // 2. searching the lowest input to pay the fee
-        // RPC: Post('{"jsonrpc":"1.0","id":"YourAppName","method":"listunspent"}');
-        RPCConsole::RPCExecuteCommandLine(result, "listunspent", &filtered);
-        QJsonDocument jdoc = QJsonDocument::fromJson(QByteArray::fromStdString(result));
-        QJsonArray jary = jdoc.array();
-        BOOST_FOREACH (const QJsonValue & jarval, jary) {
-            QJsonObject jobj = jarval.toObject();
-            tmpamount = jobj.value("amount").toDouble();
-            if(jobj.value("spendable").toBool()
-          //the following would prevent a revision with recently received InstandSend
-          //&& jobj.value("confirmations").toInt() >= TransactionRecord::RecommendedNumConfirmations
-            && tmpamount <= 55  // max input is just a safety value to avoid loss of change
-            && tmpamount >= minDocRevFee
-            && tmpamount <  mininput) {
-                txid = jobj.value("txid").toString();
-                vout = jobj.value("vout").toInt();
-                usedamount = tmpamount;
-                mininput = tmpamount;
-            }
-        }
-        if (txid.isEmpty()) {  // TODO: remove the 55 DMS limit above
-            QMessageBox::critical(NULL, tr("Input"), 
-                   "No matching credit (input) found. At least one input with a credit "
-                   "between 0.1 and 55 coins and 6 confirmation required.");
-            return "";
-        }
-
-        // 3. calc change amount and get address
-        // RPC: Post('{"jsonrpc":"1.0","id":"YourAppName","method":"getrawchangeaddress"}');
-        double change = usedamount - minDocRevFee;
-        if (change > minDocRevFee / 100) {  // lower change goes to miner, or us IsDust / GetDustThreshold
-            RPCConsole::RPCExecuteCommandLine(result, "getrawchangeaddress", &filtered);
-            changetx = strprintf("\\\"%s\\\":%f, ", result, change);
-        }
-
-        // 4. format document revision hex data 
-        //  0..5  : "444D24" = 'DM$', the magic chars for document revision
-        //  6..9  : "0001"   = blockchain data version
-        // 10..13 : "04D2"   = app-defined typ/version (OM DMS uses "0001", DMS Core "0002", use another ID)
-        // 14..45 : document GUID without {} and -
-        // 46..77 : file hash
-        // 78..109: attribute hash
-        // 110..  : (optional) encoded document attributes like number, name, receiptdate
-        std::string docrevdata = "444D2400010002" 
-                               + comprguid.toStdString()
-                               + filehash.toStdString()
-                               + attrhash.toStdString();
-
-        // 5. create raw transaction
-        // RPC: Post('{"jsonrpc":"1.0","id":"YourAppName","method":"createrawtransaction","params":'
-        //         + '[[{"txid":"%1","vout":%2}], {%3"data":"%4"}]}');
-        //         %1=txid, %2=vout, %3=changetx, 4=docrevdata
-        std::string command = strprintf(
-            "createrawtransaction \"[{\\\"txid\\\":\\\"%s\\\",\\\"vout\\\":%d}]\" \"{%s\\\"data\\\":\\\"%s\\\"}\"",
-            txid.toStdString(), vout, changetx, docrevdata);
-        RPCConsole::RPCExecuteCommandLine(result, command, &filtered);
-
-        // 6. sign raw transaction
-        // RPC: Post('{"jsonrpc":"1.0","id":"YourAppName","method":"signrawtransaction","params":["%1"]}');
-        command = "signrawtransaction " + result;
-        RPCConsole::RPCExecuteCommandLine(result, command, &filtered);
-        jdoc = QJsonDocument::fromJson(QByteArray::fromStdString(result));
-        if (!jdoc.object().value("complete").toBool()) {
-            QMessageBox::critical(NULL, tr("Signing"), tr("Could not sign transaction."));
-            return "";
-        }
-        QString signedtrans = jdoc.object().value("hex").toString();
-
-        // 7. send raw transaction
-        // RPC: Post('{"jsonrpc":"1.0","id":"YourAppName","method":"sendrawtransaction","params":["%1"]});
-        // this returns the transaction id, save it together with the document in your document archive
-        command = "sendrawtransaction " + signedtrans.toStdString();
-        RPCConsole::RPCExecuteCommandLine(result, command, &filtered);
-        txid = QString::fromStdString(result);
-
-        // 8. store transaction id together with the document in description file
-        descFile.beginGroup("blockchain");
-        descFile.setValue("txid", txid);
-        descFile.setValue("systemtime", QDateTime::currentDateTime());
-        descFile.endGroup();
-        descFile.sync();
-
-        // finished
-        return txid;
-
-    } catch (const std::exception& e) {
-        QMessageBox::critical(NULL, tr("RPC Error"), QString::fromStdString(e.what()));
-        return "";
-    } catch (...) {
-        QMessageBox::critical(NULL, tr("RPC Error"), tr("Unknown error."));
-        return "";
+    // 1. validate params
+    if ( comprguid.length() != 32 || filehash.length() != 32 || attrhash.length() != 32 ) {
+        throw std::runtime_error("Invalid document description.");
     }
+
+    // 2. searching the lowest input to pay the fee
+    // RPC: Post('{"jsonrpc":"1.0","id":"YourAppName","method":"listunspent"}');
+    RPCConsole::RPCExecuteCommandLine(result, "listunspent", &filtered);
+    QJsonDocument jdoc = QJsonDocument::fromJson(QByteArray::fromStdString(result));
+    QJsonArray jary = jdoc.array();
+    BOOST_FOREACH (const QJsonValue & jarval, jary) {
+        QJsonObject jobj = jarval.toObject();
+        tmpamount = jobj.value("amount").toDouble();
+        if(jobj.value("spendable").toBool()
+        && tmpamount <= 55  // max input is just a safety value to avoid loss of change
+        && tmpamount >= minDocRevFee
+        && tmpamount <  mininput) {
+            txid = jobj.value("txid").toString();
+            vout = jobj.value("vout").toInt();
+            usedamount = tmpamount;
+            mininput = tmpamount;
+        }
+    }
+    if (txid.isEmpty()) {
+        throw std::runtime_error(
+           "No matching credit (input) found. At least one input with a credit "
+           "between 0.1 and 55 coins and 6 confirmation required.");
+    }
+
+    // 3. calc change amount and get address
+    // RPC: Post('{"jsonrpc":"1.0","id":"YourAppName","method":"getrawchangeaddress"}');
+    double change = usedamount - minDocRevFee;
+    if (change > minDocRevFee / 100) {  // lower change goes to miner, or us IsDust / GetDustThreshold
+        RPCConsole::RPCExecuteCommandLine(result, "getrawchangeaddress", &filtered);
+        changetx = strprintf("\\\"%s\\\":%f, ", result, change);
+    }
+
+    // 4. format document revision hex data 
+    //  0..5  : "444D24" = 'DM$', the magic chars for document revision
+    //  6..9  : "0001"   = blockchain data version
+    // 10..13 : "04D2"   = app-defined typ/version (OM DMS uses "0001", DMS Core "0002", use another ID)
+    // 14..45 : document GUID without {} and -
+    // 46..77 : file hash
+    // 78..109: attribute hash
+    // 110..  : (optional) encoded document attributes like number, name, receiptdate
+    std::string docrevdata = "444D2400010002" 
+                           + comprguid.toStdString()
+                           + filehash.toStdString()
+                           + attrhash.toStdString();
+
+    // 5. create raw transaction
+    // RPC: Post('{"jsonrpc":"1.0","id":"YourAppName","method":"createrawtransaction","params":'
+    //         + '[[{"txid":"%1","vout":%2}], {%3"data":"%4"}]}');
+    //         %1=txid, %2=vout, %3=changetx, 4=docrevdata
+    std::string command = strprintf(
+        "createrawtransaction \"[{\\\"txid\\\":\\\"%s\\\",\\\"vout\\\":%d}]\" \"{%s\\\"data\\\":\\\"%s\\\"}\"",
+        txid.toStdString(), vout, changetx, docrevdata);
+    RPCConsole::RPCExecuteCommandLine(result, command, &filtered);
+
+    // 6. sign raw transaction
+    // RPC: Post('{"jsonrpc":"1.0","id":"YourAppName","method":"signrawtransaction","params":["%1"]}');
+    command = "signrawtransaction " + result;
+    RPCConsole::RPCExecuteCommandLine(result, command, &filtered);
+    jdoc = QJsonDocument::fromJson(QByteArray::fromStdString(result));
+    if (!jdoc.object().value("complete").toBool()) {
+        throw std::runtime_error("Could not sign transaction.");
+    }
+    QString signedtrans = jdoc.object().value("hex").toString();
+
+    // 7. send raw transaction
+    // RPC: Post('{"jsonrpc":"1.0","id":"YourAppName","method":"sendrawtransaction","params":["%1"]});
+    // this returns the transaction id, save it together with the document in your document archive
+    command = "sendrawtransaction " + signedtrans.toStdString();
+    RPCConsole::RPCExecuteCommandLine(result, command, &filtered);
+
+    // finished
+    return QString::fromStdString(result);
 }
 
 /** DocumentList
@@ -541,12 +505,35 @@ QString DocumentList::addFile(const QString srcName)
 
     docFileName = QDir::toNativeSeparators(docFileName);
 
-    // create desc file
+    // create object and description file
     QString txid = "";
     Document doc(docFileName);
 
+    // read description file "../data/documents/desc/filename.desc"
+    QSettings descFile(doc.descfilename, QSettings::IniFormat);
+    descFile.beginGroup("blockchain");
+    if (descFile.value("txid", "").toString() != "") {
+        QMessageBox::critical(NULL, tr("Rejected"), 
+            tr("This file information has already been stored in Documentchain."));
+        return "";
+    }
+    descFile.endGroup();
+    descFile.beginGroup("docfile");
+    QString comprguid = compressGuid(descFile.value("GUID", "").toString());
+    QString filehash = descFile.value("filehash", "").toString();
+    QString attrhash = descFile.value("attrhash", "").toString();
+    descFile.endGroup();
+
     // store document information in blockchain
-    txid = doc.writeToBlockchain();
+    try {
+        txid = doc.writeToBlockchain(comprguid, filehash, attrhash);
+    } catch (const std::exception& e) {
+        QMessageBox::critical(NULL, tr("RPC Error"), QString::fromStdString(e.what()));
+        txid = "";
+    } catch (...) {
+        QMessageBox::critical(NULL, tr("RPC Error"), tr("Unknown error."));
+        txid = "";
+    }
 
     // delete document file if it has not been saved in blockchain
     if (txid.isEmpty()) {
@@ -556,9 +543,9 @@ QString DocumentList::addFile(const QString srcName)
     }
 
     // add blockchain info to description file
-    QSettings descFile(doc.descfilename, QSettings::IniFormat);
     descFile.beginGroup("blockchain");
     descFile.setValue("txid", txid);
+    descFile.setValue("systemtime", QDateTime::currentDateTime());
     descFile.endGroup();
     descFile.sync();
 
