@@ -1,6 +1,6 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018-2019 The Documentchain developers
+// Copyright (c) 2018-2020 The Documentchain developers
 
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -457,7 +457,8 @@ void BitcoinGUI::createActions()
     showBackupsAction->setStatusTip(tr("Show automatically created wallet backups"));
     // initially disable the debug window and mining menu items
     openRPCConsoleAction->setEnabled(false);
-    startMiningAction->setEnabled(false);
+    if (Params().MiningRequiresPeers())
+        startMiningAction->setEnabled(false);
 
     usedSendingAddressesAction = new QAction(QIcon(":/icons/" + theme + "/address-book"), tr("&Sending addresses..."), this);
     usedSendingAddressesAction->setStatusTip(tr("Show the list of used sending addresses and labels"));
@@ -1357,7 +1358,7 @@ void BitcoinGUI::setMining(int nThreads)
 
 void BitcoinGUI::setMiningUI()
 {
-    if (!masternodeSync.IsSynced())
+    if ( (Params().MiningRequiresPeers()) && (!masternodeSync.IsSynced()) )
         return;
 
     bool ok;
@@ -1383,7 +1384,7 @@ void BitcoinGUI::setMiningStatus()
     QString strMining;
   //QString mininginfo = "<br>Network: " + GetNetworkHashPS(120, -1) + " H/s";
 
-    if (!masternodeSync.IsSynced())
+    if ( (Params().MiningRequiresPeers()) && (!masternodeSync.IsSynced()) ) 
     {
         labelMiningIcon->setPixmap(QIcon(":/icons/" + theme + "/notmining").pixmap(iconSize, iconSize));
         labelMiningIcon->setToolTip(tr("Please wait.") + "<br>" + progressBarLabel->text());
