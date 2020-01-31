@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
+// Copyright (c) 2020 The Documentchain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -53,6 +54,28 @@ CTxOut::CTxOut(const CAmount& nValueIn, CScript scriptPubKeyIn)
     nValue = nValueIn;
     scriptPubKey = scriptPubKeyIn;
     nRounds = -10;
+}
+
+bool CTxOut::GetDocument(std::string& docType, std::string& docGuid, std::string& docFilehash, std::string& docAttrhash) const
+{
+    if (scriptPubKey[0] != OP_RETURN)
+        return false;
+
+    std::string rawDocument = HexStr(scriptPubKey.begin(), scriptPubKey.end());
+    /* 6a37444d240001000297ffa0e6b0f045f39069ae377062d719f3e88a7c013bd4e33fa5e7a72595d0cefef6a9f48f7c433b00716471585e60a3 */
+    std::transform(rawDocument.begin(), rawDocument.end(), rawDocument.begin(), ::toupper);
+
+    if (rawDocument.length() < 82) // up to file hash
+        return false;
+    if (rawDocument.substr(4, 6) != "444D24")
+        return false;
+
+    docType = rawDocument.substr(14, 4);
+    docGuid = strprintf("{%s-%s-%s-%s-%s}", rawDocument.substr(18, 8), rawDocument.substr(26, 4), 
+                 rawDocument.substr(30, 4), rawDocument.substr(34, 4), rawDocument.substr(38, 12));
+    docFilehash = rawDocument.substr(50, 32);
+    docAttrhash = rawDocument.substr(82, 32);
+    return true;
 }
 
 std::string CTxOut::ToString() const
