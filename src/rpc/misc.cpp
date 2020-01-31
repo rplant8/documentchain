@@ -1,7 +1,7 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Documentchain developers
+// Copyright (c) 2018-2020 The Documentchain developers
 
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -121,7 +121,7 @@ UniValue debug(const JSONRPCRequest& request)
 {
     if (request.fHelp || request.params.size() != 1)
         throw std::runtime_error(
-            "debug ( 0|1|addrman|alert|bench|coindb|db|lock|rand|rpc|selectcoins|mempool"
+            "debug ( 0|1|addrman|alert|bench|coindb|db|document|lock|rand|rpc|selectcoins|mempool"
             "|mempoolrej|net|proxy|prune|http|libevent|tor|zmq|"
             "dms|privatesend|instantsend|masternode|spork|keepass|mnpayments|gobject )\n"
             "Change debug category on the fly. Specify single category or use '+' to specify many.\n"
@@ -1031,6 +1031,64 @@ UniValue getaddresstxids(const JSONRPCRequest& request)
 
 }
 
+UniValue getdocumentcount(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() != 0)
+        throw std::runtime_error(
+            "getdocumentcount\n"
+            "\nReturns the total number of documents archived (requires documentindex to be enabled).\n"
+            "\nResult:\n"
+            "n    (numeric) The current document count\n"
+            "\nExamples:\n"
+            + HelpExampleCli("getdocumentcount", "")
+            + HelpExampleRpc("getdocumentcount", "")
+        );
+
+    int totalCount;
+    if (!GetDocumentCount(totalCount))
+        throw JSONRPCError(RPC_MISC_ERROR, "Document index not enabled");
+
+    return totalCount;
+}
+
+UniValue listdocuments(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() > 1)
+        throw std::runtime_error(
+            "listdocuments ( \"filehash\" )\n"
+            "\nList documents archived (requires documentindex to be enabled).\n"
+            "If 'filehash' is specified, only documents with this hash are listed.\n"
+            "\nArguments:\n"
+            "1. \"filehash\"        (string, optional) The file hash used as filter.\n"
+            "\nResult:\n"
+            "{\n"
+            "  \"filehash\": \"tx\",       (string) The file hash and the transaction id\n"
+            "  ,...\n"
+            "}\n"
+            "\nExamples:\n"
+            + HelpExampleCli("listdocuments", "")
+            + HelpExampleRpc("listdocuments", "")
+        );
+
+    std::string strHashfilter;
+    if (request.params.size() > 0) {
+        strHashfilter = request.params[0].get_str();
+        if (strHashfilter.length() != 32)
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, strHashfilter + " is not a file hash");
+    }
+
+    std::vector<std::pair<CDocumentIndexKey, std::string> > documentList;
+    if (!GetDocumentList(documentList, strHashfilter))
+        throw JSONRPCError(RPC_MISC_ERROR, "Document index not enabled");
+
+    UniValue result(UniValue::VOBJ);
+    for (std::vector<std::pair<CDocumentIndexKey, std::string> >::iterator it = documentList.begin(); it != documentList.end(); it++) {
+        result.push_back(Pair(it->first.fileHash(), it->second));
+    }
+
+    return result;
+}
+
 UniValue getspentinfo(const JSONRPCRequest& request)
 {
     if (request.fHelp || request.params.size() != 1 || !request.params[0].isObject())
@@ -1155,6 +1213,10 @@ static const CRPCCommand commands[] =
     /* Dash features */
     { "masternode",         "mnsync",                 &mnsync,                 true,  {} },
     { "masternode",         "spork",                  &spork,                  true,  {"value"} },
+
+    /* Document index */
+    { "documentindex",      "getdocumentcount",       &getdocumentcount,       true,  {} },
+    { "documentindex",      "listdocuments",          &listdocuments,          true,  {"filehash"} },
 
     /* Not shown in help */
     { "hidden",             "setmocktime",            &setmocktime,            true,  {"timestamp"}},

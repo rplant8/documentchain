@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
+// Copyright (c) 2020 The Documentchain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -369,5 +370,81 @@ struct CAddressIndexIteratorHeightKey {
     }
 };
 
+struct CDocumentIndexKey {
+private:
+    uint128 hashBytes;
+public:
+    int blockHeight;
+    unsigned int txindex;
+
+    size_t GetSerializeSize() const {
+        return 24;
+    }
+    template<typename Stream>
+    void Serialize(Stream& s) const {
+        hashBytes.Serialize(s);
+        ser_writedata32be(s, blockHeight);
+        ser_writedata32be(s, txindex);
+    }
+    template<typename Stream>
+    void Unserialize(Stream& s) {
+        hashBytes.Unserialize(s);
+        blockHeight = ser_readdata32be(s);
+        txindex = ser_readdata32be(s);
+    }
+
+    CDocumentIndexKey(std::string& sFileHash, int height, int blockindex) {
+        hashBytes.SetHex(sFileHash);
+        blockHeight = height;
+        txindex = blockindex;
+    }
+
+    CDocumentIndexKey() {
+        SetNull();
+    }
+
+    void SetNull() {
+        hashBytes.SetNull();
+        blockHeight = 0;
+        txindex = 0;
+    }
+
+    std::string fileHash() const {
+        return hashBytes.ToString();
+    }
+};
+
+struct CDocumentIndexIteratorKey {
+private:
+    uint128 hashBytes;
+public:
+    size_t GetSerializeSize() const {
+        return 16;
+    }
+    template<typename Stream>
+    void Serialize(Stream& s) const {
+        hashBytes.Serialize(s);
+    }
+    template<typename Stream>
+    void Unserialize(Stream& s) {
+        hashBytes.Unserialize(s);
+    }
+
+    CDocumentIndexIteratorKey(const std::string& sFileHash) {
+        hashBytes.SetHex(sFileHash);
+    }
+
+    CDocumentIndexIteratorKey() {
+        SetNull();
+    }
+
+    void SetNull() {
+        hashBytes.SetNull();
+    }
+
+    std::string fileHash() const {
+        return hashBytes.ToString();
+    }
+};
 
 #endif // BITCOIN_SPENTINDEX_H

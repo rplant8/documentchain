@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018-2019 The Documentchain developers
+// Copyright (c) 2018-2020 The Documentchain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -74,6 +74,7 @@ std::atomic_bool fImporting(false);
 bool fReindex = false;
 bool fTxIndex = true;
 bool fAddressIndex = false;
+bool fDocumentIndex = false;
 bool fTimestampIndex = false;
 bool fSpentIndex = false;
 bool fHavePruned = false;
@@ -1137,6 +1138,22 @@ bool GetAddressUnspent(uint160 addressHash, int type,
     return true;
 }
 
+bool GetDocumentCount(int &totalCount) {
+    if (!fDocumentIndex)
+        return error("document index not enabled");
+
+    totalCount = pblocktree->ReadDocumentCount();
+    return true;
+}
+
+bool GetDocumentList(std::vector<std::pair<CDocumentIndexKey, std::string> > &documentList,
+                     const std::string& hashFilter) {
+    if (!fDocumentIndex)
+        return error("document index not enabled");
+
+    return pblocktree->ReadDocumentIndex(documentList, hashFilter);
+}
+
 /** Return transaction in txOut, and if it was found inside a block, its hash is placed in hashBlock */
 bool GetTransaction(const uint256 &hash, CTransactionRef &txOut, const Consensus::Params& consensusParams, uint256 &hashBlock, bool fAllowSlow)
 {
@@ -2155,8 +2172,11 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     std::vector<std::pair<CAddressIndexKey, CAmount> > addressIndex;
     std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue> > addressUnspentIndex;
     std::vector<std::pair<CSpentIndexKey, CSpentIndexValue> > spentIndex;
+    std::vector<std::pair<CDocumentIndexKey, std::string> > documentIndex;
 
     bool fDIP0001Active_context = pindex->nHeight >= Params().GetConsensus().DIP0001Height;
+
+    LogPrintf("** fDocumentIndex (show for all blocks): %d\n", fDocumentIndex);  // TODO entfernen
 
     for (unsigned int i = 0; i < block.vtx.size(); i++)
     {
@@ -2228,6 +2248,22 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
 
             }
 
+            if (fDocumentIndex)
+            {
+                for (size_t j = 0; j < tx.vout.size(); j++) {
+                    const CTxOut output = tx.vout[j];
+                    std::string docType;
+                    std::string docGuid;
+                    std::string docFilehash;
+                    std::string docAttrhash;
+                    if (output.GetDocument(docType, docGuid, docFilehash, docAttrhash)) {
+                        LogPrintf("**** output.GetDocument: %s, %s, %s, %s, %s\n", docType, docGuid, docFilehash, docAttrhash, txhash.ToString()); // TODO entfernen
+                        LogPrint("document", "ConnectBlock WriteDocumentIndex " + docFilehash);
+                        documentIndex.push_back(std::make_pair(CDocumentIndexKey(docFilehash, pindex->nHeight, i), txhash.ToString()));
+                    }
+                }
+            }
+
             if (fStrictPayToScriptHash)
             {
                 // Add in sigops done by pay-to-script-hash inputs;
@@ -2247,7 +2283,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
                 return error("ConnectBlock(): CheckInputs on %s failed with %s",
                     tx.GetHash().ToString(), FormatStateMessage(state));
             control.Add(vChecks);
-        }
+        } // if (!tx.IsCoinBase())
 
         if (fAddressIndex) {
             for (unsigned int k = 0; k < tx.vout.size(); k++) {
@@ -2353,6 +2389,12 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
 
         if (!pblocktree->UpdateAddressUnspentIndex(addressUnspentIndex)) {
             return AbortNode(state, "Failed to write address unspent index");
+        }
+    }
+
+    if (fDocumentIndex) {
+        if (!pblocktree->WriteDocumentIndex(documentIndex)) {
+            return AbortNode(state, "Failed to write document index");
         }
     }
 
@@ -3994,6 +4036,10 @@ bool static LoadBlockIndexDB(const CChainParams& chainparams)
     pblocktree->ReadFlag("addressindex", fAddressIndex);
     LogPrintf("%s: address index %s\n", __func__, fAddressIndex ? "enabled" : "disabled");
 
+    // Check whether we have an document index
+    pblocktree->ReadFlag("documentindex", fDocumentIndex);
+    LogPrintf("%s: document index %s\n", __func__, fDocumentIndex ? "enabled" : "disabled");
+
     // Check whether we have a timestamp index
     pblocktree->ReadFlag("timestampindex", fTimestampIndex);
     LogPrintf("%s: timestamp index %s\n", __func__, fTimestampIndex ? "enabled" : "disabled");
@@ -4190,6 +4236,10 @@ bool InitBlockIndex(const CChainParams& chainparams)
     // Use the provided setting for -addressindex in the new database
     fAddressIndex = GetBoolArg("-addressindex", DEFAULT_ADDRESSINDEX);
     pblocktree->WriteFlag("addressindex", fAddressIndex);
+
+    // Use the provided setting for -documentindex in the new database
+    fDocumentIndex = GetBoolArg("-documentindex", DEFAULT_DOCUMENTINDEX);
+    pblocktree->WriteFlag("documentindex", fDocumentIndex);
 
     // Use the provided setting for -timestampindex in the new database
     fTimestampIndex = GetBoolArg("-timestampindex", DEFAULT_TIMESTAMPINDEX);

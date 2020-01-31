@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Documentchain developers
+// Copyright (c) 2018-2020 The Documentchain developers
 
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -431,6 +431,7 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageOpt("-txindex", strprintf(_("Maintain a full transaction index, used by the getrawtransaction rpc call (default: %u)"), DEFAULT_TXINDEX));
 
     strUsage += HelpMessageOpt("-addressindex", strprintf(_("Maintain a full address index, used to query for the balance, txids and unspent outputs for addresses (default: %u)"), DEFAULT_ADDRESSINDEX));
+    strUsage += HelpMessageOpt("-documentindex", strprintf(_("Maintain a full document index, used to query for the file hash for documents (default: %u)"), DEFAULT_DOCUMENTINDEX));
     strUsage += HelpMessageOpt("-timestampindex", strprintf(_("Maintain a timestamp index for block hashes, used to query blocks hashes by a range of timestamps (default: %u)"), DEFAULT_TIMESTAMPINDEX));
     strUsage += HelpMessageOpt("-spentindex", strprintf(_("Maintain a full spent index, used to query the spending txid and input index for an outpoint (default: %u)"), DEFAULT_SPENTINDEX));
 
@@ -924,6 +925,7 @@ void InitParameterInteraction()
     // (we must reconnect blocks whenever we disconnect them for these indexes to work)
     bool fAdditionalIndexes =
         GetBoolArg("-addressindex", DEFAULT_ADDRESSINDEX) ||
+        GetBoolArg("-documentindex", DEFAULT_DOCUMENTINDEX) ||
         GetBoolArg("-spentindex", DEFAULT_SPENTINDEX) ||
         GetBoolArg("-timestampindex", DEFAULT_TIMESTAMPINDEX);
 

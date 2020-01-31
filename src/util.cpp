@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018 The Documentchain developers
+// Copyright (c) 2018-2020 The Documentchain developers
 
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -279,8 +279,8 @@ bool LogAcceptCategory(const char* category)
                 const std::vector<std::string>& categories = mapMultiArgs.at("-debug");
                 ptrCategory.reset(new std::set<std::string>(categories.begin(), categories.end()));
                 // thread_specific_ptr automatically deletes the set when the thread ends.
-                // "dms" is a composite category enabling all DMS-related debug output
-                if(ptrCategory->count(std::string("dms"))) {
+                // "dash" is a composite category enabling all Dash-related debug output
+                if(ptrCategory->count(std::string("dash"))) {
                     ptrCategory->insert(std::string("privatesend"));
                     ptrCategory->insert(std::string("instantsend"));
                     ptrCategory->insert(std::string("masternode"));

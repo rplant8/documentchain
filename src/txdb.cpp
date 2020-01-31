@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
+// Copyright (c) 2020 The Documentchain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -22,6 +23,7 @@ static const char DB_BLOCK_FILES = 'f';
 static const char DB_TXINDEX = 't';
 static const char DB_ADDRESSINDEX = 'a';
 static const char DB_ADDRESSUNSPENTINDEX = 'u';
+static const char DB_DOCUMENTINDEX = 'd';
 static const char DB_TIMESTAMPINDEX = 's';
 static const char DB_SPENTINDEX = 'p';
 static const char DB_BLOCK_INDEX = 'b';
@@ -299,6 +301,99 @@ bool CBlockTreeDB::ReadAddressIndex(uint160 addressHash, int type,
                 return error("failed to get address index value");
             }
         } else {
+            break;
+        }
+    }
+
+    return true;
+}
+
+bool CBlockTreeDB::WriteDocumentIndex(const std::vector<std::pair<CDocumentIndexKey, std::string> >&vect) {
+    CDBBatch batch(*this);
+    for (std::vector<std::pair<CDocumentIndexKey, std::string> >::const_iterator it=vect.begin(); it!=vect.end(); it++) {
+        batch.Write(std::make_pair(DB_DOCUMENTINDEX, it->first), it->second);
+    }
+    bool ret = WriteBatch(batch);
+/*
+    int nTotal;
+    const std::string sTotal = "total";
+    if (ret) {
+        if (!Read(std::make_pair(DB_DOCUMENTINDEX, sTotal), nTotal))
+            nTotal = 0;
+        nTotal++;
+        Write(std::make_pair(DB_DOCUMENTINDEX, sTotal), nTotal);
+        LogPrintf("***** CBlockTreeDB::WriteDocumentIndex total count, nTotal=%d\n");
+    }
+*/
+    return ret;
+}
+
+/*
+bool CBlockTreeDB::ReadDocument(const std::string &fileHash, std::string &tx) {
+    return Read(std::make_pair(DB_DOCUMENTINDEX, fileHash), tx);
+}
+*/
+
+int CBlockTreeDB::ReadDocumentCount() {
+/*
+    int nTotal;
+    const std::string sTotal = "total";
+    if (!Read(std::make_pair(DB_DOCUMENTINDEX, sTotal), nTotal)) {
+        nTotal = 0;
+    }
+    LogPrintf("***** CBlockTreeDB::ReadDocumentCount, nTotal=%d\n", nTotal);
+    return nTotal;
+*/
+    int nTotal = 0;
+    std::unique_ptr<CDBIterator> pcursor(NewIterator());
+
+    pcursor->Seek(DB_DOCUMENTINDEX);
+
+    while (pcursor->Valid()) {
+        boost::this_thread::interruption_point();
+        std::pair<char, CDocumentIndexKey> key;
+        if (pcursor->GetKey(key) && key.first == DB_DOCUMENTINDEX) {
+            nTotal++;
+            pcursor->Next();
+        } 
+        else {
+            break;
+        }
+    }
+
+    return nTotal;
+}
+
+bool CBlockTreeDB::ReadDocumentIndex(std::vector<std::pair<CDocumentIndexKey, std::string> > &documentIndex,
+                                     const std::string& hashFilter) {
+
+    std::unique_ptr<CDBIterator> pcursor(NewIterator());
+    std::string sValue;
+
+    if (hashFilter.empty())
+        pcursor->Seek(DB_DOCUMENTINDEX);
+    else
+        pcursor->Seek(std::make_pair(DB_DOCUMENTINDEX, CDocumentIndexIteratorKey(hashFilter)));
+
+    while (pcursor->Valid()) {
+        boost::this_thread::interruption_point();
+        std::pair<char, CDocumentIndexKey> key;
+        if ( (pcursor->GetKey(key) && key.first == DB_DOCUMENTINDEX) && 
+             (hashFilter.empty() || (hashFilter == key.second.fileHash())) )
+        {
+            /*
+            if (key.second == "total") {
+            }
+            else*/
+            if (pcursor->GetValue(sValue)) {
+                documentIndex.push_back(std::make_pair(key.second, sValue));
+            } 
+            else {
+                return error("failed to get document index value");
+            }
+            pcursor->Next();
+        } 
+        else {
             break;
         }
     }

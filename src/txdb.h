@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
+// Copyright (c) 2020 The Documentchain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -134,6 +135,10 @@ public:
     bool ReadAddressIndex(uint160 addressHash, int type,
                           std::vector<std::pair<CAddressIndexKey, CAmount> > &addressIndex,
                           int start = 0, int end = 0);
+    bool WriteDocumentIndex(const std::vector<std::pair<CDocumentIndexKey, std::string> >&vect);
+    int  ReadDocumentCount();
+    bool ReadDocumentIndex(std::vector<std::pair<CDocumentIndexKey, std::string> > &documentIndex,
+                           const std::string& hashFilter = "");
     bool WriteTimestampIndex(const CTimestampIndexKey &timestampIndex);
     bool ReadTimestampIndex(const unsigned int &high, const unsigned int &low, std::vector<uint256> &vect);
     bool WriteFlag(const std::string &name, bool fValue);
