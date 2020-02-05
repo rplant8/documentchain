@@ -89,6 +89,7 @@ uint64_t nPruneTarget = 0;
 bool fAlerts = DEFAULT_ALERTS;
 int64_t nMaxTipAge = DEFAULT_MAX_TIP_AGE;
 bool fEnableReplacement = DEFAULT_ENABLE_REPLACEMENT;
+int fDocumentCount = -1;
 
 std::atomic<bool> fDIP0001ActiveAtTip{false};
 
@@ -1142,7 +1143,10 @@ bool GetDocumentCount(int &totalCount) {
     if (!fDocumentIndex)
         return error("document index not enabled");
 
-    totalCount = pblocktree->ReadDocumentCount();
+    if (fDocumentCount < 0)
+        fDocumentCount = pblocktree->ReadDocumentCount();
+
+    totalCount = fDocumentCount;
     return true;
 }
 
@@ -2176,8 +2180,6 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
 
     bool fDIP0001Active_context = pindex->nHeight >= Params().GetConsensus().DIP0001Height;
 
-    LogPrintf("** fDocumentIndex (show for all blocks): %d\n", fDocumentIndex);  // TODO entfernen
-
     for (unsigned int i = 0; i < block.vtx.size(); i++)
     {
         const CTransaction &tx = *(block.vtx[i]);
@@ -2257,8 +2259,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
                     std::string docFilehash;
                     std::string docAttrhash;
                     if (output.GetDocument(docType, docGuid, docFilehash, docAttrhash)) {
-                        LogPrintf("**** output.GetDocument: %s, %s, %s, %s, %s\n", docType, docGuid, docFilehash, docAttrhash, txhash.ToString()); // TODO entfernen
-                        LogPrint("document", "ConnectBlock WriteDocumentIndex " + docFilehash);
+                        fDocumentCount = -1;
                         documentIndex.push_back(std::make_pair(CDocumentIndexKey(docFilehash, pindex->nHeight, i), txhash.ToString()));
                     }
                 }
@@ -2392,7 +2393,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
         }
     }
 
-    if (fDocumentIndex) {
+    if (fDocumentIndex && !documentIndex.empty()) {
         if (!pblocktree->WriteDocumentIndex(documentIndex)) {
             return AbortNode(state, "Failed to write document index");
         }
