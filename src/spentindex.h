@@ -393,7 +393,8 @@ public:
         txindex = ser_readdata32be(s);
     }
 
-    CDocumentIndexKey(std::string& sFileHash, int height, int blockindex) {
+    CDocumentIndexKey(std::string sFileHash, int height, int blockindex) {
+        std::transform(sFileHash.begin(), sFileHash.end(), sFileHash.begin(), ::tolower);
         hashBytes.SetHex(sFileHash);
         blockHeight = height;
         txindex = blockindex;
@@ -430,7 +431,8 @@ public:
         hashBytes.Unserialize(s);
     }
 
-    CDocumentIndexIteratorKey(const std::string& sFileHash) {
+    CDocumentIndexIteratorKey(std::string sFileHash) {
+        std::transform(sFileHash.begin(), sFileHash.end(), sFileHash.begin(), ::tolower);
         hashBytes.SetHex(sFileHash);
     }
 

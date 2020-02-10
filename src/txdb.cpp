@@ -313,19 +313,7 @@ bool CBlockTreeDB::WriteDocumentIndex(const std::vector<std::pair<CDocumentIndex
     for (std::vector<std::pair<CDocumentIndexKey, std::string> >::const_iterator it=vect.begin(); it!=vect.end(); it++) {
         batch.Write(std::make_pair(DB_DOCUMENTINDEX, it->first), it->second);
     }
-    bool ret = WriteBatch(batch);
-/*
-    int nTotal;
-    const std::string sTotal = "total";
-    if (ret) {
-        if (!Read(std::make_pair(DB_DOCUMENTINDEX, sTotal), nTotal))
-            nTotal = 0;
-        nTotal++;
-        Write(std::make_pair(DB_DOCUMENTINDEX, sTotal), nTotal);
-        LogPrintf("***** CBlockTreeDB::WriteDocumentIndex total count, nTotal=%d\n");
-    }
-*/
-    return ret;
+    return WriteBatch(batch);
 }
 
 /*
@@ -335,15 +323,6 @@ bool CBlockTreeDB::ReadDocument(const std::string &fileHash, std::string &tx) {
 */
 
 int CBlockTreeDB::ReadDocumentCount() {
-/*
-    int nTotal;
-    const std::string sTotal = "total";
-    if (!Read(std::make_pair(DB_DOCUMENTINDEX, sTotal), nTotal)) {
-        nTotal = 0;
-    }
-    LogPrintf("***** CBlockTreeDB::ReadDocumentCount, nTotal=%d\n", nTotal);
-    return nTotal;
-*/
     int nTotal = 0;
     std::unique_ptr<CDBIterator> pcursor(NewIterator());
 
@@ -365,10 +344,11 @@ int CBlockTreeDB::ReadDocumentCount() {
 }
 
 bool CBlockTreeDB::ReadDocumentIndex(std::vector<std::pair<CDocumentIndexKey, std::string> > &documentIndex,
-                                     const std::string& hashFilter) {
+                                     std::string hashFilter) {
 
     std::unique_ptr<CDBIterator> pcursor(NewIterator());
     std::string sValue;
+    std::transform(hashFilter.begin(), hashFilter.end(), hashFilter.begin(), ::tolower);
 
     if (hashFilter.empty())
         pcursor->Seek(DB_DOCUMENTINDEX);
@@ -381,10 +361,6 @@ bool CBlockTreeDB::ReadDocumentIndex(std::vector<std::pair<CDocumentIndexKey, st
         if ( (pcursor->GetKey(key) && key.first == DB_DOCUMENTINDEX) && 
              (hashFilter.empty() || (hashFilter == key.second.fileHash())) )
         {
-            /*
-            if (key.second == "total") {
-            }
-            else*/
             if (pcursor->GetValue(sValue)) {
                 documentIndex.push_back(std::make_pair(key.second, sValue));
             } 

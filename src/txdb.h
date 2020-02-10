@@ -138,7 +138,7 @@ public:
     bool WriteDocumentIndex(const std::vector<std::pair<CDocumentIndexKey, std::string> >&vect);
     int  ReadDocumentCount();
     bool ReadDocumentIndex(std::vector<std::pair<CDocumentIndexKey, std::string> > &documentIndex,
-                           const std::string& hashFilter = "");
+                           std::string hashFilter = "");
     bool WriteTimestampIndex(const CTimestampIndexKey &timestampIndex);
     bool ReadTimestampIndex(const unsigned int &high, const unsigned int &low, std::vector<uint256> &vect);
     bool WriteFlag(const std::string &name, bool fValue);
