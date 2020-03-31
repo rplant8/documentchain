@@ -786,6 +786,10 @@
         <translation>Khoá khoản chưa tiêu</translation>
     </message>
     <message>
+        <source>Lock permanently</source>
+        <translation>Khóa vĩnh viễn</translation>
+    </message>
+    <message>
         <source>Unlock unspent</source>
         <translation>Mở khoản chưa tiêu</translation>
     </message>
@@ -1120,8 +1124,8 @@
         <translation>Các Masternode của tôi</translation>
     </message>
     <message>
-        <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect.&lt;br /&gt;Always wait for wallet to sync additional data and then double check from another node&lt;br /&gt;if your masternode should be running but you still do not see "ENABLED" in "Status" field.</source>
-        <translation>Chú ý: Trạng thái của các masternode của bạn ở ví cục bộ có thể có tiềm năng hơi không chính xác. &lt;br /&gt;Luôn luôn đợi ví của bạn đồng bộ dữ liệu thêm và sau đó kiểm tra kém nút khác&lt;br /&gt;nếu masternode của bạn đang chạy nhưng bạn vẫn không thấy nó "ENABLED" trong trường "Trạng thái".</translation>
+        <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect. Always wait for wallet to sync additional data and then double check from &lt;a href=&quot;https://documentchain.org/explorer/?search=masternodelist&quot;&gt;another node&lt;/a&gt; if your masternode should be running but you still do not see &quot;ENABLED&quot; in &quot;Status&quot; field.&lt;br /&gt;Operating a Masternode requires 5,000 DMS as collateral, see also &lt;a href=&quot;https://documentchain.org/support/masternodes/&quot;&gt;instructions&lt;/a&gt; and &lt;a href=&quot;https://documentchain.org/news/shared-masternodes/&quot;&gt;shared masternodes&lt;/a&gt;.</source>
+        <translation>Chú ý: Trạng thái của các masternode của bạn ở ví cục bộ có thể có tiềm năng hơi không chính xác. Luôn luôn đợi ví của bạn đồng bộ dữ liệu thêm và sau đó kiểm tra kém nút khác nếu masternode của bạn đang chạy nhưng bạn vẫn không thấy nó "ENABLED" trong trường "Trạng thái".&lt;br /&gt;Operating a Masternode requires 5,000 DMS as collateral, see also &lt;a href=&quot;https://documentchain.org/support/masternodes/&quot;&gt;instructions&lt;/a&gt; and &lt;a href=&quot;https://documentchain.org/news/shared-masternodes/&quot;&gt;shared masternodes&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>Alias</source>

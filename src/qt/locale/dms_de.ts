@@ -809,6 +809,10 @@
         <translation>Nicht ausgegebenen Betrag sperren</translation>
     </message>
     <message>
+        <source>Lock permanently</source>
+        <translation>Dauerhaft sperren</translation>
+    </message>
+    <message>
         <source>Unlock unspent</source>
         <translation>Nicht ausgegebenen Betrag entsperren</translation>
     </message>
@@ -1143,8 +1147,8 @@
         <translation>Meine Masternodes</translation>
     </message>
     <message>
-        <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect.&lt;br /&gt;Always wait for wallet to sync additional data and then double check from another node&lt;br /&gt;if your masternode should be running but you still do not see "ENABLED" in "Status" field.</source>
-        <translation>Achtung: der Status Ihrer Masternodes kann während des Synchronisationsvorgangs zeitweilig falsch angezeigt werden&lt;br /&gt; Daher sollten Sie immer das Ende des Synchronisationsvorgangs abwarten, und falls Ihr Masternode nicht den Status "ENABLED" hat &lt;br /&gt; im Zweifelsfalle den Status von einer anderen Geldbörse aus überprüfen.</translation>
+        <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect. Always wait for wallet to sync additional data and then double check from &lt;a href=&quot;https://documentchain.org/explorer/?search=masternodelist&quot;&gt;another node&lt;/a&gt; if your masternode should be running but you still do not see &quot;ENABLED&quot; in &quot;Status&quot; field.&lt;br /&gt;Operating a Masternode requires 5,000 DMS as collateral, see also &lt;a href=&quot;https://documentchain.org/support/masternodes/&quot;&gt;instructions&lt;/a&gt; and &lt;a href=&quot;https://documentchain.org/news/shared-masternodes/&quot;&gt;shared masternodes&lt;/a&gt;.</source>
+        <translation>Achtung: der Status Ihrer Masternodes kann während des Synchronisationsvorgangs zeitweilig falsch angezeigt werden. Daher sollten Sie immer das Ende der Synchronisierung abwarten und, falls Ihr Masternode nicht den Status "ENABLED" hat, im Zweifelsfall den Status von einer &lt;a href=&quot;https://documentchain.org/explorer/?search=masternodelist&quot;&gt;anderen Node&lt;/a&gt; aus überprüfen.&lt;br /&gt;Um ein Masternode zu betreiben, wird ein Pfand im Höhe von 5.000 DMS benötigt, siehe auch &lt;a href=&quot;https://documentchain.org/support/masternodes/&quot;&gt;Anleitung&lt;/a&gt; und &lt;a href=&quot;https://documntchain.org/news/shared-masternodes/&quot;&gt;Shared Masternodes&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>Alias</source>

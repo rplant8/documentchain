@@ -809,6 +809,10 @@
         <translation>Заключи неизхарченото</translation>
     </message>
     <message>
+        <source>Lock permanently</source>
+        <translation>Заключи за постоянно</translation>
+    </message>
+    <message>
         <source>Unlock unspent</source>
         <translation>Отключи неизхарченото</translation>
     </message>
@@ -1143,8 +1147,8 @@
         <translation>Моите Masternodes</translation>
     </message>
     <message>
-        <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect.&lt;br /&gt;Always wait for wallet to sync additional data and then double check from another node&lt;br /&gt;if your masternode should be running but you still do not see "ENABLED" in "Status" field.</source>
-        <translation>Бележка: Статуса на вашите masternodes в портфейла ви може потенциално да бъде леко некоректен.&lt;br /&gt;Винаги изчаквайте портфейлът да синхронизира допълнителната информация и тогава направете двойна проверка от друг възел&lt;br /&gt;ако вашият masternode би трябвало да работи, но все още не виждате надпис "ENABLED" в полето "Статус".</translation>
+        <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect. Always wait for wallet to sync additional data and then double check from &lt;a href=&quot;https://documentchain.org/explorer/?search=masternodelist&quot;&gt;another node&lt;/a&gt; if your masternode should be running but you still do not see &quot;ENABLED&quot; in &quot;Status&quot; field.&lt;br /&gt;Operating a Masternode requires 5,000 DMS as collateral, see also &lt;a href=&quot;https://documentchain.org/support/masternodes/&quot;&gt;instructions&lt;/a&gt; and &lt;a href=&quot;https://documentchain.org/news/shared-masternodes/&quot;&gt;shared masternodes&lt;/a&gt;.</source>
+        <translation>Бележка: Статуса на вашите masternodes в портфейла ви може потенциално да бъде леко некоректен. Винаги изчаквайте портфейлът да синхронизира допълнителната информация и тогава направете двойна проверка от друг възел ако вашият masternode би трябвало да работи, но все още не виждате надпис "ENABLED" в полето "Статус".&lt;br /&gt;Operating a Masternode requires 5,000 DMS as collateral, see also &lt;a href=&quot;https://documentchain.org/support/masternodes/&quot;&gt;instructions&lt;/a&gt; and &lt;a href=&quot;https://documentchain.org/news/shared-masternodes/&quot;&gt;shared masternodes&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>Alias</source>

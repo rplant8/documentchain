@@ -809,6 +809,10 @@
         <translation>鎖定未動用資金</translation>
     </message>
     <message>
+        <source>Lock permanently</source>
+        <translation>Lock permanently</translation>
+    </message>
+    <message>
         <source>Unlock unspent</source>
         <translation>解鎖未動用資金</translation>
     </message>
@@ -1143,8 +1147,8 @@
         <translation>我的主節點</translation>
     </message>
     <message>
-        <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect.&lt;br /&gt;Always wait for wallet to sync additional data and then double check from another node&lt;br /&gt;if your masternode should be running but you still do not see "ENABLED" in "Status" field.</source>
-        <translation>注意: 本地錢包中的主節點狀態可能略有不正確。&lt;br /&gt;總是等待錢包同步額外的數據，然後再從另一個節點多檢查一次&lt;br /&gt;如果您的主節點應該已經運行，但您仍然在“狀態”欄看不到“ENABLED” 的字樣的話。</translation>
+        <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect. Always wait for wallet to sync additional data and then double check from &lt;a href=&quot;https://documentchain.org/explorer/?search=masternodelist&quot;&gt;another node&lt;/a&gt; if your masternode should be running but you still do not see &quot;ENABLED&quot; in &quot;Status&quot; field.&lt;br /&gt;Operating a Masternode requires 5,000 DMS as collateral, see also &lt;a href=&quot;https://documentchain.org/support/masternodes/&quot;&gt;instructions&lt;/a&gt; and &lt;a href=&quot;https://documentchain.org/news/shared-masternodes/&quot;&gt;shared masternodes&lt;/a&gt;.</source>
+        <translation>注意: 本地錢包中的主節點狀態可能略有不正確。 總是等待錢包同步額外的數據，然後再從另一個節點多檢查一次 如果您的主節點應該已經運行，但您仍然在“狀態”欄看不到“ENABLED” 的字樣的話。&lt;br /&gt;Operating a Masternode requires 5,000 DMS as collateral, see also &lt;a href=&quot;https://documentchain.org/support/masternodes/&quot;&gt;instructions&lt;/a&gt; and &lt;a href=&quot;https://documentchain.org/news/shared-masternodes/&quot;&gt;shared masternodes&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>Alias</source>

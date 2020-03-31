@@ -809,6 +809,10 @@
         <translation>锁定未花费</translation>
     </message>
     <message>
+        <source>Lock permanently</source>
+        <translation>永久锁定</translation>
+    </message>
+    <message>
         <source>Unlock unspent</source>
         <translation>解锁未花费</translation>
     </message>
@@ -1143,8 +1147,8 @@
         <translation>我的主节点</translation>
     </message>
     <message>
-        <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect.&lt;br /&gt;Always wait for wallet to sync additional data and then double check from another node&lt;br /&gt;if your masternode should be running but you still do not see "ENABLED" in "Status" field.</source>
-        <translation>注意：本地钱包中的主节点状态可能会稍有误差。&lt;br /&gt;总是等待钱包同步完额外的数据后再从另一个节点重新检查&lt;br /&gt;如果您的主节点应该已经运行，但您仍然在“状态”栏看不到“启用”的话。</translation>
+        <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect. Always wait for wallet to sync additional data and then double check from &lt;a href=&quot;https://documentchain.org/explorer/?search=masternodelist&quot;&gt;another node&lt;/a&gt; if your masternode should be running but you still do not see &quot;ENABLED&quot; in &quot;Status&quot; field.&lt;br /&gt;Operating a Masternode requires 5,000 DMS as collateral, see also &lt;a href=&quot;https://documentchain.org/support/masternodes/&quot;&gt;instructions&lt;/a&gt; and &lt;a href=&quot;https://documentchain.org/news/shared-masternodes/&quot;&gt;shared masternodes&lt;/a&gt;.</source>
+        <translation>注意：本地钱包中的主节点状态可能会稍有误差。 总是等待钱包同步完额外的数据后再从另一个节点重新检查 如果您的主节点应该已经运行，但您仍然在“状态”栏看不到“启用”的话。&lt;br /&gt;Operating a Masternode requires 5,000 DMS as collateral, see also &lt;a href=&quot;https://documentchain.org/support/masternodes/&quot;&gt;instructions&lt;/a&gt; and &lt;a href=&quot;https://documentchain.org/news/shared-masternodes/&quot;&gt;shared masternodes&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>Alias</source>

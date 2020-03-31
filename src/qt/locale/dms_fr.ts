@@ -809,6 +809,10 @@
         <translation>Verrouiller ce qui n'est pas dépensé</translation>
     </message>
     <message>
+        <source>Lock permanently</source>
+        <translation>Verrouiller en permanence</translation>
+    </message>
+    <message>
         <source>Unlock unspent</source>
         <translation>Déverrouiller ce qui n'est pas dépensé</translation>
     </message>
@@ -1143,8 +1147,8 @@
         <translation>Mes masternodes</translation>
     </message>
     <message>
-        <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect.&lt;br /&gt;Always wait for wallet to sync additional data and then double check from another node&lt;br /&gt;if your masternode should be running but you still do not see "ENABLED" in "Status" field.</source>
-        <translation>À noter : l'état de vos masternodes dans ce portefeuille local peut être légèrement erroné.&lt;br /&gt;Veuillez toujours attendre que votre portefeuille soit synchronisé au réseau, et vérifiez votre masternode depuis un autre nœud&lt;br /&gt;s'il est censé tourner mais que vous ne voyez toujours pas "ENABLED" dans le champ "État".</translation>
+        <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect. Always wait for wallet to sync additional data and then double check from &lt;a href=&quot;https://documentchain.org/explorer/?search=masternodelist&quot;&gt;another node&lt;/a&gt; if your masternode should be running but you still do not see &quot;ENABLED&quot; in &quot;Status&quot; field.&lt;br /&gt;Operating a Masternode requires 5,000 DMS as collateral, see also &lt;a href=&quot;https://documentchain.org/support/masternodes/&quot;&gt;instructions&lt;/a&gt; and &lt;a href=&quot;https://documentchain.org/news/shared-masternodes/&quot;&gt;shared masternodes&lt;/a&gt;.</source>
+        <translation>À noter : l'état de vos masternodes dans ce portefeuille local peut être légèrement erroné. Veuillez toujours attendre que votre portefeuille soit synchronisé au réseau, et vérifiez votre masternode depuis un autre nœud s'il est censé tourner mais que vous ne voyez toujours pas "ENABLED" dans le champ "État".&lt;br /&gt;Operating a Masternode requires 5,000 DMS as collateral, see also &lt;a href=&quot;https://documentchain.org/support/masternodes/&quot;&gt;instructions&lt;/a&gt; and &lt;a href=&quot;https://documentchain.org/news/shared-masternodes/&quot;&gt;shared masternodes&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>Alias</source>

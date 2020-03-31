@@ -805,6 +805,10 @@
         <translation>Заблокировать непотраченное</translation>
     </message>
     <message>
+        <source>Lock permanently</source>
+        <translation>Зафиксировать навсегда</translation>
+    </message>
+    <message>
         <source>Unlock unspent</source>
         <translation>Разблокировать непотраченное</translation>
     </message>
@@ -1139,8 +1143,8 @@
         <translation>Мои мастерноды</translation>
     </message>
     <message>
-        <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect.&lt;br /&gt;Always wait for wallet to sync additional data and then double check from another node&lt;br /&gt;if your masternode should be running but you still do not see "ENABLED" in "Status" field.</source>
-        <translation>Примечание: Статус Ваших мастернод в локальном кошельке может быть не совсем корректным.&lt;br /&gt;Всегда дожидайтесь окончания синхронизации дополнительных данных и перепроверяйте с другой ноды,&lt;br /&gt;если Ваша ьастернода должна быть активна, но Вы ее статус все равно не отображается как "ENABLED".</translation>
+        <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect. Always wait for wallet to sync additional data and then double check from &lt;a href=&quot;https://documentchain.org/explorer/?search=masternodelist&quot;&gt;another node&lt;/a&gt; if your masternode should be running but you still do not see &quot;ENABLED&quot; in &quot;Status&quot; field.&lt;br /&gt;Operating a Masternode requires 5,000 DMS as collateral, see also &lt;a href=&quot;https://documentchain.org/support/masternodes/&quot;&gt;instructions&lt;/a&gt; and &lt;a href=&quot;https://documentchain.org/news/shared-masternodes/&quot;&gt;shared masternodes&lt;/a&gt;.</source>
+        <translation>Примечание: Статус Ваших мастернод в локальном кошельке может быть не совсем корректным. Всегда дожидайтесь окончания синхронизации дополнительных данных и перепроверяйте с другой ноды, если Ваша ьастернода должна быть активна, но Вы ее статус все равно не отображается как "ENABLED".&lt;br /&gt;Operating a Masternode requires 5,000 DMS as collateral, see also &lt;a href=&quot;https://documentchain.org/support/masternodes/&quot;&gt;instructions&lt;/a&gt; and &lt;a href=&quot;https://documentchain.org/news/shared-masternodes/&quot;&gt;shared masternodes&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>Alias</source>

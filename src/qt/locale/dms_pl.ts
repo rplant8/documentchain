@@ -809,6 +809,10 @@
         <translation>Zablokuj</translation>
     </message>
     <message>
+        <source>Lock permanently</source>
+        <translation>Zablokuj na stałe</translation>
+    </message>
+    <message>
         <source>Unlock unspent</source>
         <translation>Odblokuj</translation>
     </message>
@@ -1143,8 +1147,8 @@
         <translation>Moje masternody</translation>
     </message>
     <message>
-        <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect.&lt;br /&gt;Always wait for wallet to sync additional data and then double check from another node&lt;br /&gt;if your masternode should be running but you still do not see "ENABLED" in "Status" field.</source>
-        <translation>Uwaga! Status twoich masternodów w lokalnym portfelu potencjalnie może być niezupełnie poprawny.&lt;br /&gt;Jeżeli twój masternode powinien być uruchomiony, ale nadal nie widzisz słowa "WŁĄCZONY" w polu "Status", &lt;br /&gt;zawsze poczekaj na zsynchronizowanie danych dodatkowych i porównaj z danymi z innego węzła.</translation>
+        <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect. Always wait for wallet to sync additional data and then double check from &lt;a href=&quot;https://documentchain.org/explorer/?search=masternodelist&quot;&gt;another node&lt;/a&gt; if your masternode should be running but you still do not see &quot;ENABLED&quot; in &quot;Status&quot; field.&lt;br /&gt;Operating a Masternode requires 5,000 DMS as collateral, see also &lt;a href=&quot;https://documentchain.org/support/masternodes/&quot;&gt;instructions&lt;/a&gt; and &lt;a href=&quot;https://documentchain.org/news/shared-masternodes/&quot;&gt;shared masternodes&lt;/a&gt;.</source>
+        <translation>Uwaga! Status twoich masternodów w lokalnym portfelu potencjalnie może być niezupełnie poprawny. Jeżeli twój masternode powinien być uruchomiony, ale nadal nie widzisz słowa "WŁĄCZONY" w polu "Status", zawsze poczekaj na zsynchronizowanie danych dodatkowych i porównaj z danymi z innego węzła.&lt;br /&gt;Operating a Masternode requires 5,000 DMS as collateral, see also &lt;a href=&quot;https://documentchain.org/support/masternodes/&quot;&gt;instructions&lt;/a&gt; and &lt;a href=&quot;https://documentchain.org/news/shared-masternodes/&quot;&gt;shared masternodes&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>Alias</source>

@@ -809,6 +809,10 @@
         <translation>Blokeer ongebruikte</translation>
     </message>
     <message>
+        <source>Lock permanently</source>
+        <translation>Blokkeer permanent</translation>
+    </message>
+    <message>
         <source>Unlock unspent</source>
         <translation>Deblokkeer ongebruikte</translation>
     </message>
@@ -1143,8 +1147,8 @@
         <translation>Mijn Masternodes</translation>
     </message>
     <message>
-        <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect.&lt;br /&gt;Always wait for wallet to sync additional data and then double check from another node&lt;br /&gt;if your masternode should be running but you still do not see "ENABLED" in "Status" field.</source>
-        <translation>Opmerking: Status van uw masternodes in de lokale portemonnee kan mogelijk licht afwijkend zijn.&lt;br /&gt;Wacht steeds tot de portemonnee extra gegevens synchroniseert en controleer daarna een ander knooppunt&lt;br /&gt;Als jouw masternode moet werken, maar je ziet nog steeds niet 'Ingeschakeld' in het 'Status' veld.</translation>
+        <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect. Always wait for wallet to sync additional data and then double check from &lt;a href=&quot;https://documentchain.org/explorer/?search=masternodelist&quot;&gt;another node&lt;/a&gt; if your masternode should be running but you still do not see &quot;ENABLED&quot; in &quot;Status&quot; field.&lt;br /&gt;Operating a Masternode requires 5,000 DMS as collateral, see also &lt;a href=&quot;https://documentchain.org/support/masternodes/&quot;&gt;instructions&lt;/a&gt; and &lt;a href=&quot;https://documentchain.org/news/shared-masternodes/&quot;&gt;shared masternodes&lt;/a&gt;.</source>
+        <translation>Opmerking: Status van uw masternodes in de lokale portemonnee kan mogelijk licht afwijkend zijn. Wacht steeds tot de portemonnee extra gegevens synchroniseert en controleer daarna een ander knooppunt. Als jouw masternode moet werken, maar je ziet nog steeds niet 'Ingeschakeld' in het 'Status' veld.&lt;br /&gt;Operating a Masternode requires 5,000 DMS as collateral, see also &lt;a href=&quot;https://documentchain.org/support/masternodes/&quot;&gt;instructions&lt;/a&gt; and &lt;a href=&quot;https://documentchain.org/news/shared-masternodes/&quot;&gt;shared masternodes&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>Alias</source>

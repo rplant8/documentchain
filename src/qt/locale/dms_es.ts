@@ -809,6 +809,10 @@
         <translation>Bloquear lo no gastado</translation>
     </message>
     <message>
+        <source>Lock permanently</source>
+        <translation>Bloquear permanentemente</translation>
+    </message>
+    <message>
         <source>Unlock unspent</source>
         <translation>Desbloquear lo no gastado</translation>
     </message>
@@ -1143,8 +1147,8 @@
         <translation>Mis Masternodes</translation>
     </message>
     <message>
-        <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect.&lt;br /&gt;Always wait for wallet to sync additional data and then double check from another node&lt;br /&gt;if your masternode should be running but you still do not see "ENABLED" in "Status" field.</source>
-        <translation>Nota: El estado de sus masternodes en el monedero local puede estar ligeramente incorrecto.&lt;br /&gt;Siempre espere a que el monedero sincronice los datos adicionales y luego vuelva a verificar desde otro nodo&lt;br /&gt;Si su masternode debería estar ejecutándose pero aún no ve "HABILITADO" en el campo "Estado".</translation>
+        <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect. Always wait for wallet to sync additional data and then double check from &lt;a href=&quot;https://documentchain.org/explorer/?search=masternodelist&quot;&gt;another node&lt;/a&gt; if your masternode should be running but you still do not see &quot;ENABLED&quot; in &quot;Status&quot; field.&lt;br /&gt;Operating a Masternode requires 5,000 DMS as collateral, see also &lt;a href=&quot;https://documentchain.org/support/masternodes/&quot;&gt;instructions&lt;/a&gt; and &lt;a href=&quot;https://documentchain.org/news/shared-masternodes/&quot;&gt;shared masternodes&lt;/a&gt;.</source>
+        <translation>Nota: El estado de sus masternodes en el monedero local puede estar ligeramente incorrecto. Siempre espere a que el monedero sincronice los datos adicionales y luego vuelva a verificar desde otro nodo. Si su masternode debería estar ejecutándose pero aún no ve "HABILITADO" en el campo "Estado".&lt;br /&gt;Operating a Masternode requires 5,000 DMS as collateral, see also &lt;a href=&quot;https://documentchain.org/support/masternodes/&quot;&gt;instructions&lt;/a&gt; and &lt;a href=&quot;https://documentchain.org/news/shared-masternodes/&quot;&gt;shared masternodes&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>Alias</source>
