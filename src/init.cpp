@@ -1857,6 +1857,35 @@ bool AppInitMain(boost::thread_group& threadGroup, CScheduler& scheduler)
         }
     }
 
+    LogPrintf("Using locked coins file %s\n", GetLockedCoinsConfFile().string());
+
+    if (pwalletMain && boost::filesystem::exists(GetLockedCoinsConfFile().string())) {
+        LOCK(pwalletMain->cs_wallet);
+        LogPrintf("Locking custom locked coins:\n");
+        int lclinenumber = 1;
+        uint256 lcTxHash;
+        boost::filesystem::path pathLockedCoinsConfFile = GetLockedCoinsConfFile();
+        boost::filesystem::ifstream streamConfig(pathLockedCoinsConfFile);
+
+        if (streamConfig.good()) {
+            for(std::string line; std::getline(streamConfig, line); lclinenumber++) {
+                if(line.empty()) continue;
+                std::istringstream iss(line);
+                std::string lcTxHashStr, lcOutputIndex;
+                if (!(iss >> lcTxHashStr >> lcOutputIndex)) continue;
+                lcTxHash.SetHex(lcTxHashStr);
+                COutPoint outpoint = COutPoint(lcTxHash, (uint32_t)atoi(lcOutputIndex));
+                if(pwalletMain->IsMine(CTxIn(outpoint)) != ISMINE_SPENDABLE) {
+                    LogPrintf("  %s %s - IS NOT SPENDABLE, was not locked\n", lcTxHashStr, lcOutputIndex);
+                    continue;
+                }
+                pwalletMain->LockCoin(outpoint);
+                LogPrintf("  %s %s - locked successfully\n", lcTxHashStr, lcOutputIndex);
+            }
+        }
+        streamConfig.close();
+    }
+
     privateSendClient.nLiquidityProvider = std::min(std::max((int)GetArg("-liquidityprovider", DEFAULT_PRIVATESEND_LIQUIDITY), MIN_PRIVATESEND_LIQUIDITY), MAX_PRIVATESEND_LIQUIDITY);
     int nMaxRounds = MAX_PRIVATESEND_ROUNDS;
     if(privateSendClient.nLiquidityProvider) {

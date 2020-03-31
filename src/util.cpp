@@ -650,6 +650,14 @@ boost::filesystem::path GetMasternodeConfigFile()
     return pathConfigFile;
 }
 
+boost::filesystem::path GetLockedCoinsConfFile()
+{
+    boost::filesystem::path pathConfigFile(GetArg("-lockedcoinsconf", "lockedcoins.conf"));
+    if (!pathConfigFile.is_complete())
+        pathConfigFile = GetDataDir() / pathConfigFile;
+    return pathConfigFile;
+}
+
 void ReadConfigFile(const std::string& confPath)
 {
     boost::filesystem::ifstream streamConfig(GetConfigFile(confPath));

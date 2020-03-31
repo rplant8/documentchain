@@ -1,4 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
+// Copyright (c) 2018-2020 The Documentchain developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -66,6 +67,7 @@ private:
     QTreeWidgetItem *contextMenuItem;
     QAction *copyTransactionHashAction;
     QAction *lockAction;
+    QAction *lockPermanentAction;
     QAction *unlockAction;
 
     const PlatformStyle *platformStyle;
