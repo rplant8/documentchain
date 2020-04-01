@@ -39,6 +39,7 @@ Client version
     - `_CLIENT_VERSION_MINOR`
     - `_CLIENT_VERSION_REVISION`
     - Set `_CLIENT_VERSION_IS_RELEASE` to `true`
+    - `_COPYRIGHT_YEAR`
 - `src/clientversion.h`: (this mirrors `configure.ac` - see issue #3539)
     - `CLIENT_VERSION_MAJOR`
     - `CLIENT_VERSION_MINOR`
