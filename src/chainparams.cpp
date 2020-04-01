@@ -1,7 +1,7 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2018-2019 The Documentchain developers
+// Copyright (c) 2018-2020 The Documentchain developers
 
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -300,10 +300,10 @@ public:
         consensus.nGovernanceFilterElements = 20000;
         consensus.nMasternodeMinimumConfirmations = 15;
         consensus.BIP34Height = 0;
-        consensus.BIP34Hash = uint256S("0x00000af4a21d6e8daa4026a5eafc7132089a7dbb9d3921b12c4fa39b78c9a010");
+        consensus.BIP34Hash = uint256S("0x00004399a114a034b2f8d742b8e7f018d3cfdec0b25150d0b7e271b63c9cd4ce");
         consensus.BIP65Height = 84100;
         consensus.BIP66Height = 84000;
-        consensus.DIP0001Height = 782208;
+        consensus.DIP0001Height = 139246;  // ~ 2020-Apr-10
         consensus.powLimit = uint256S("000fffffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 24 * 60 * 60;
         consensus.nPowTargetSpacing = 6 * 60;
@@ -318,28 +318,28 @@ public:
 
         // Deployment of BIP68, BIP112, and BIP113.
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 0;
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1486252800;
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1517788800;
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1586080800; // 2020-Apr-05
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1586253600;   // 2020-Apr-07
 
         // Deployment of DIP0001
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].bit = 1;
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nStartTime = 1508025600;
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nTimeout = 1539561600;
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nWindowSize = 4032;
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 3226;
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nStartTime = 1586340000; // 2020-Apr-08
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nTimeout = 1586599200;   // 2020-Apr-11
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nWindowSize = 10;
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 8; // 80% of 10 MN
 
         // Deployment of BIP147
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].bit = 2;
-        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nStartTime = 1524477600;
-        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nTimeout = 1556013600;
-        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nWindowSize = 4032;
-        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nThreshold = 3226;
+        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nStartTime = 1585821600; // 2020-Apr-02
+        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nTimeout = 1585994400;   // 2020-Apr-04
+        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nWindowSize = 10;
+        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nThreshold = 8; // 80% of 10 MN
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000023f5f791");
+        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000052604b37");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x00003f6631657d5cbad67f3da00c7c3ed5d43d969c419026b32ffd73412348c4"); // 104960
+        consensus.defaultAssumeValid = uint256S("0x000090f59b07ccd5285bd79dd9a4190cd23cd6efd3d0b7b1c4069e9ce9897c12"); // 137044
 
         pchMessageStart[0] = 0xce;  // same as Dash Testnet
         pchMessageStart[1] = 0x44;  // D
@@ -403,22 +403,23 @@ public:
             (     0, uint256S("0x00004399a114a034b2f8d742b8e7f018d3cfdec0b25150d0b7e271b63c9cd4ce"))
             (  4600, uint256S("0x00024d5b6d0aa1cfda1f78360cc85d246bab6c08b9a4684094adfbfc14afee8d"))
             ( 15000, uint256S("0x0006adc6713cbbdbcb4dfe4de2c6197a5ccfa061aab8abc93c6b12c161197245"))
-            ( 20013, uint256S("0x000db2f24a22ad664156f89734b09326a7b93e824d29d14d7ce9b41b4f4ac2d3"))
             ( 26990, uint256S("0x0001cb86d69f2fc9c519c5cf7f31b4d86fa55114efc7762b69f969c71f190141"))
             ( 35993, uint256S("0x000863c9516358586c31e98a9922d269dcb60a8399b9ed755bf563c9302d9489"))
             ( 46096, uint256S("0x0007ef30042db8f9dc736b2026681de15eccb8436358b47fee137a253c97ef03"))
-            ( 51834, uint256S("0x000973fbae114480c80fb9a0a72f4d6eb3704a69080fa8bfd9ca26f1b8f116a3"))
             ( 59098, uint256S("0x0007131704fbceda251f397072bd55ab8f36f534e66330dc2d30b9c3efb87951"))
             ( 68050, uint256S("0x00055754a80e12e666d0ace953812acbf703eb1adf5a741096dda8a3cd55161a"))
             ( 73989, uint256S("0x0003ecfd52a44d853c3e9967764482a10e6f16dacb0a634dd62d993ef2b22cf8"))
             ( 86998, uint256S("0x0007fc0bf4654559a160911cb8cabf494ffb1010867a6141ee48bd130812cea0"))
             ( 94707, uint256S("0x000b602b64a3d1ef2d001bbcb5466ab68a1536e1bcddb193311c64ef14ac628d"))
             (100000, uint256S("0x00001db74c7881d3294ed79f695085086e80c17c7d042555a569b4440f734e9d"))
-            (104960, uint256S("0x00003f6631657d5cbad67f3da00c7c3ed5d43d969c419026b32ffd73412348c4"))
+            (110000, uint256S("0x0001ceae3f2079f119b4e8486c6d456986963c1b36f3bfbc1a480a7e47d1cbe0"))
+            (120000, uint256S("0x0000a59203584f8fa8b9556595dc01c4df53d6c1e19810d7761129ebf8f2ec1c"))
+            (130004, uint256S("0x00004646f1ca07c4dc563368ac427c930fc22d2e1f7b689eddbbdf5c2026e97a"))
+            (137044, uint256S("0x000090f59b07ccd5285bd79dd9a4190cd23cd6efd3d0b7b1c4069e9ce9897c12"))
         };
         chainTxData = ChainTxData{        
-            1574600128, // * UNIX timestamp of last known number of transactions
-            105776,     // * total number of transactions between genesis and that timestamp
+            1585728042, // * UNIX timestamp of last known number of transactions
+            138640,     // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the UpdateTip debug.log lines)
             0.003       // * estimated number of transactions per second after that timestamp
         };
