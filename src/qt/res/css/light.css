@@ -110,6 +110,10 @@ border: 1px solid #cc0000;
 background-color:#f2f2f2;
 }
 
+QWidget { /* override text selection background color for all text widgets */
+selection-background-color:#999;
+}
+
 /*******************************************************/
 
 QPushButton { /* Global Button Style */
@@ -425,6 +429,10 @@ background-image: url(':/images/light/drkblue_rightArrow_small');
 
 /* DIALOG BOXES */
 
+.QProgressDialog {
+background-color:#F8F6F6;
+}
+
 QDialog .QTabWidget {
 /*border-bottom:1px solid #333;*/
 }
@@ -484,6 +492,12 @@ min-height:15px;
 
 QDialog QWidget { /* Remove Annoying Focus Rectangle */
 outline: 0;
+}
+
+/* SHUTDOWN WINDOW */
+
+QWidget#ShutdownWindow {
+background-color:#F8F6F6;
 }
 
 /*******************************************************/
