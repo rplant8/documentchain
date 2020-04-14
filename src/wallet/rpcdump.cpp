@@ -656,6 +656,7 @@ UniValue dumpprivkey(const JSONRPCRequest& request)
             "dumpprivkey \"address\"\n"
             "\nReveals the private key corresponding to 'address'.\n"
             "Then the importprivkey can be used with this output\n"
+            "Also see the dumpwallet call.\n"
             "\nArguments:\n"
             "1. \"address\"   (string, required) The dms address for the private key\n"
             "\nResult:\n"
@@ -734,7 +735,8 @@ UniValue dumpwallet(const JSONRPCRequest& request)
     if (request.fHelp || request.params.size() != 1)
         throw std::runtime_error(
             "dumpwallet \"filename\"\n"
-            "\nDumps all wallet keys in a human-readable format.\n"
+            "\nDumps all wallet keys in a human-readable format. Make sure that this file is not seen by anyone else!\n"
+            "Also see the dumpprivkey call.\n"
             "\nArguments:\n"
             "1. \"filename\"    (string, required) The filename\n"
             "\nExamples:\n"
