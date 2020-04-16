@@ -144,7 +144,7 @@ public:
         consensus.BIP34Hash = uint256S("0x00000af4a21d6e8daa4026a5eafc7132089a7dbb9d3921b12c4fa39b78c9a010");
         consensus.BIP65Height = 84100;
         consensus.BIP66Height = 84000;
-        consensus.DIP0001Height = 782208; // TODO    
+        consensus.DIP0001Height = 150446; // TODO    
         consensus.powLimit = uint256S("0000ffffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // PoW calculation 24 * 60 * 60;  1 day
         consensus.nPowTargetSpacing = 6 * 60; // DMS 6 minutes (initial 4 minutes); Bitcoin 10 minutes; Dash 2.5 minutes
@@ -164,10 +164,10 @@ public:
 
         // Deployment of DIP0001
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].bit = 1;
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nStartTime = 1508025600; // Dash: Oct 15th, 2017
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nTimeout = 1539561600; // Dash: Oct 15th, 2018
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nWindowSize = 4032;
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 3226; // 80% of 4032
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nStartTime = 1589536800; // May 15th, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nTimeout = 1592215200; // Jun 15th, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nWindowSize = 283;
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 254; // 80% of 283
 
         // Deployment of BIP147
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].bit = 2;
@@ -177,10 +177,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nThreshold = 3226; // 80% of 4032
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000000000000045eb877ed3"); // 103260
-                                                
+        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000000001c0fca849bf"); // = 1.928.384.235.967 total work, block 135808
+
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x0000000c15de23b822043f7fd7ff4ace4761ec455da710442ef6c1e5035a14d1"); // 103260
+        consensus.defaultAssumeValid = uint256S("0x00000025868ef0958009ba542ded2faf5242cd835445ca6c5556eff5a19161ab"); // 135808
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -264,14 +264,17 @@ public:
             ( 86998, uint256S("0x0000000d6ca0904b7ec849283a177b7a25b0ed3c23413c14d9e564bfa4d2514a")) // 2019-Sep-14
             ( 94707, uint256S("0x000000d52750d7b5cf3e682106b258de7f9c0f66e011e7cf0699b6526a05339d")) // 2019-Oct-18
             (100000, uint256S("0x00000095a23b6cc9ec9c0d7385bf4c3705220271d425a203af41163b4600e96d")) // 2019-Nov-10
-            (103260, uint256S("0x0000000c15de23b822043f7fd7ff4ace4761ec455da710442ef6c1e5035a14d1")) // 2019-Nov-24
+            (110034, uint256S("0x00000025fcd0421225ea0c8d5874b3040a81618c609f2419bce9d339a96faee7")) // 2019-Dec-24
+            (120004, uint256S("0x00000031fd82d41fa6fda29a405a55162304822be9b03beed79e47f25d3f3296")) // 2020-Feb-06
+            (127991, uint256S("0x00000042ec60e4badf5e3288b1dbb8da2a27af4b88b6ec299e7149586784ccfd")) // 2020-Mar-12
+            (135808, uint256S("0x00000025868ef0958009ba542ded2faf5242cd835445ca6c5556eff5a19161ab")) // 2020-Apr-15
         };
 
         chainTxData = ChainTxData{
-            1574599910, // * UNIX timestamp of last known number of transactions
-            141893,     // * total number of transactions between genesis and that timestamp
+            1586930538, // * UNIX timestamp of last known number of transactions
+            205946,     // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the UpdateTip debug.log lines)
-            0.01        // * estimated number of transactions per second after that timestamp
+            0.04        // * estimated number of transactions per second after that timestamp
         };
     }
 };
@@ -303,7 +306,7 @@ public:
         consensus.BIP34Hash = uint256S("0x00004399a114a034b2f8d742b8e7f018d3cfdec0b25150d0b7e271b63c9cd4ce");
         consensus.BIP65Height = 84100;
         consensus.BIP66Height = 84000;
-        consensus.DIP0001Height = 139246;  // ~ 2020-Apr-10
+        consensus.DIP0001Height = 138820;
         consensus.powLimit = uint256S("000fffffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 24 * 60 * 60;
         consensus.nPowTargetSpacing = 6 * 60;
@@ -318,8 +321,8 @@ public:
 
         // Deployment of BIP68, BIP112, and BIP113.
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 0;
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1586080800; // 2020-Apr-05
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1586253600;   // 2020-Apr-07
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1588327200; // May 1th, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1591005600; // Jun 1th, 2020
 
         // Deployment of DIP0001
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].bit = 1;
@@ -336,10 +339,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nThreshold = 8; // 80% of 10 MN
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000052604b37");
+        consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000000000000000566f4ad8"); // = 1450134232, block 140464
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x000090f59b07ccd5285bd79dd9a4190cd23cd6efd3d0b7b1c4069e9ce9897c12"); // 137044
+        consensus.defaultAssumeValid = uint256S("0x00000174ee13b777c20a7aa6aef53650f0e42777788ec2c00e36a76658dfc6f6"); // 140464
 
         pchMessageStart[0] = 0xce;  // same as Dash Testnet
         pchMessageStart[1] = 0x44;  // D
@@ -416,10 +419,11 @@ public:
             (120000, uint256S("0x0000a59203584f8fa8b9556595dc01c4df53d6c1e19810d7761129ebf8f2ec1c"))
             (130004, uint256S("0x00004646f1ca07c4dc563368ac427c930fc22d2e1f7b689eddbbdf5c2026e97a"))
             (137044, uint256S("0x000090f59b07ccd5285bd79dd9a4190cd23cd6efd3d0b7b1c4069e9ce9897c12"))
+            (140464, uint256S("0x00000174ee13b777c20a7aa6aef53650f0e42777788ec2c00e36a76658dfc6f6"))
         };
         chainTxData = ChainTxData{        
-            1585728042, // * UNIX timestamp of last known number of transactions
-            138640,     // * total number of transactions between genesis and that timestamp
+            1586930531, // * UNIX timestamp of last known number of transactions
+            142227,     // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the UpdateTip debug.log lines)
             0.003       // * estimated number of transactions per second after that timestamp
         };
