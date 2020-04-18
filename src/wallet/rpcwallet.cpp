@@ -27,6 +27,7 @@
 #include <stdint.h>
 
 #include <boost/assign/list_of.hpp>
+#include <boost/filesystem/fstream.hpp>
 
 #include <univalue.h>
 
